@@ -1,67 +1,56 @@
 // this controller for PK (Product Knowledge)
 const axios = require('axios')
-const PKmicroservice = 'http://192.168.8.128:8001/api'
-const {Bridge} = require('../../../models')
+const PKmicroservice = 'http://192.168.8.128:3000/product'
 
 let PKController = {
     index: async (req, res) => {
-        try {
-            let params = (!req.query.page) ? 1 : req.query.page
-
-            let data = await axios.get(PKmicroservice+'/product?page='+params);
-
-            res.status(200)
-                .json({
-                    status: "success",
-                    message: "success to get data",
-                    data: data.data.data
-                })
-        } catch (error) {
-            res.status(400)
-                .json({
-                    error: error.message
-                })
-        }
-    },
-    show: (req, res) => {
-        axios.get(PKmicroservice+`/product/${req.params.id}`)
+        let params = (!req.query.page) ? 1 : req.query.page
+        axios.get(PKmicroservice+'/index?page='+params)
             .then(result => {
                 res.status(200)
                     .json({
-                        status: 'success',
-                        message: 'success to get data',
+                        status: "berhasil",
+                        message: "berhasil mengambil data",
                         data: result.data.data
                     })
-            }).catch(err => {
+            })
+            .catch(err => {
                 res.status(400)
                     .json({
-                        statu: 'failed',
-                        message: 'failed to get data',
+                        status: "gagal",
+                        message: "gagal mengambil data",
                         error: err.message
                     })
             })
     },
-    bridge: (req, res) => {
-        Bridge.create({
-            atpo_id: req.body.atpo_id,
-            exapro_pt_id: req.body.exapro_pt_id
-        })
-        .then(result => {
+    show: async (req, res) => {
+        try {
+            let master_data = await axios.get(PKmicroservice+`/show/${req.params.id}`)
+            
+            if (master_data.data.data.pt_clothes_id == null) {
+                res.status(300)
+                    .json({
+                        status: 'gagal',
+                        message: 'deskripsi belum tersedia'
+                    })
+                return
+            }
+
             res.status(200)
                 .json({
                     status: 'success',
-                    message: 'success to upload bridge data',
-                    data: result
+                    message: 'success to get data',
+                    data: result.data.data
                 })
-        })
-        .catch(err => {
+        } catch (error) {
             res.status(400)
                 .json({
-                    status: 'failed',
-                    message: 'failed to upload bridge data',
-                    err: err.message
+                    status: "failed",
+                    message: "failed to get data",
+                    error: error.response.data.message
                 })
-        })
+        }
+
     }
 }
 
