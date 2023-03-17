@@ -1,31 +1,42 @@
 // this controller for PK (Product Knowledge)
 const axios = require('axios')
-const PKmicroservice = 'http://192.168.8.128:3000/product'
+const orderMicroservice = 'http://192.168.8.128:3000/product'
+const ProductKnowledgeMicroservice = 'http://192.168.8.128:8001/api'
+
 
 let PKController = {
     index: async (req, res) => {
-        let params = (!req.query.page) ? 1 : req.query.page
-        axios.get(PKmicroservice+'/index?page='+params)
-            .then(result => {
-                res.status(200)
-                    .json({
-                        status: "berhasil",
-                        message: "berhasil mengambil data",
-                        data: result.data.data
-                    })
-            })
-            .catch(err => {
-                res.status(400)
-                    .json({
-                        status: "gagal",
-                        message: "gagal mengambil data",
-                        error: err.message
-                    })
-            })
+        try {
+            let params = (!req.query.page) ? 1 : req.query.page
+            let dataExapro = await axios.get(orderMicroservice+'/index?page='+params)
+            
+            for (const dataFromExapro of dataExapro.data.data.data) {
+                if (dataFromExapro.pt_clothes_id == null) {
+                    dataFromExapro.image = 'https://th.bing.com/th/id/OIP.r9Zvt3xyXchx4hdU8-9zrQAAAA?w=202&h=202&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+                } else if (dataFromExapro.pt_clothes_id != null) {
+                    dataFromExapro.image = await axios.get(`${ProductKnowledgeMicroservice}/product/firstPhoto/${dataFromExapro.pt_clothes_id}`)
+                }
+            }
+
+            res.status(200)
+                .json({
+                    status: "berhasil",
+                    message: "berhasil mengambil data",
+                    data: dataExapro.data.data
+                })
+        } catch (error) {
+                
+            res.status(400)
+                .json({
+                    status: "gagal",
+                    message: "gagal mengambil data",
+                    error: error.message
+                })
+        }
     },
     show: async (req, res) => {
         try {
-            let master_data = await axios.get(PKmicroservice+`/show/${req.params.id}`)
+            let master_data = await axios.get(orderMicroservice+`/show/${req.params.id}`)
             
             if (master_data.data.data.pt_clothes_id == null) {
                 res.status(300)
