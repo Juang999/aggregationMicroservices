@@ -22,10 +22,10 @@ let PKController = {
                 .json({
                     status: "berhasil",
                     message: "berhasil mengambil data",
-                    data: dataExapro.data.data
+                    result: dataExapro.data.data
                 })
         } catch (error) {
-                
+                console.log(error)
             res.status(400)
                 .json({
                     status: "gagal",
