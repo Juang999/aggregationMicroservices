@@ -36,16 +36,20 @@ let PKController = {
     },
     show: async (req, res) => {
         try {
+            let return_data = {}
+
             let master_data = await axios.get(orderMicroservice+`/show/${req.params.id}`)
             
-            if (master_data.data.data.pt_clothes_id == null) {
-                res.status(300)
-                    .json({
-                        status: 'gagal',
-                        message: 'deskripsi belum tersedia'
-                    })
-                return
-            }
+            // if (master_data.data.data.pt_clothes_id == null) {
+            //     res.status(300)
+            //         .json({
+            //             status: 'gagal',
+            //             message: 'deskripsi belum tersedia'
+            //         })
+            //     return
+            // }
+
+            // let detail_product = await axios.get(ProductKnowledgeMicroservice+`/product/${master_data.data.data.pt_clothes_id}`)
 
             res.status(200)
                 .json({

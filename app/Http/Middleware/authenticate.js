@@ -18,6 +18,7 @@ const authenticate = (req, res, next) => {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) => {
         if (err) {
             res.sendStatus(403)
+            return
         }
 
         let data = await axios.post(orderMicroservice+'/users/authenticate', {
