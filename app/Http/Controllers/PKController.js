@@ -36,26 +36,35 @@ let PKController = {
     },
     show: async (req, res) => {
         try {
-            let return_data = {}
-
             let master_data = await axios.get(orderMicroservice+`/show/${req.params.id}`)
-            
-            // if (master_data.data.data.pt_clothes_id == null) {
-            //     res.status(300)
-            //         .json({
-            //             status: 'gagal',
-            //             message: 'deskripsi belum tersedia'
-            //         })
-            //     return
-            // }
 
-            // let detail_product = await axios.get(ProductKnowledgeMicroservice+`/product/${master_data.data.data.pt_clothes_id}`)
+            console.log(master_data.data.data.data.pt_desc2)
+
+            if (master_data.data.data.data.pt_clothes_id == null) {
+                res.status(300)
+                    .json({
+                        status: 'gagal',
+                        message: 'deskripsi belum tersedia'
+                    })
+                return
+            }
+
+            let detail_product = await axios.get(ProductKnowledgeMicroservice+`/product/${master_data.data.data.data.pt_clothes_id}`)
+
+            let data_ready = {
+                product_name: master_data.data.data.data.pt_desc2,
+                detail_data: detail_product.data.data,
+                en_mstr: master_data.data.data.data.EnMstr,
+                color: master_data.data.data.color
+            }
+
+            console.log(data_ready)
 
             res.status(200)
                 .json({
                     status: 'success',
                     message: 'success to get data',
-                    data: master_data.data.data
+                    data: data_ready
                 })
         } catch (error) {
             console.log(error)
@@ -66,7 +75,25 @@ let PKController = {
                     error: error.response.data.message
                 })
         }
+    },
+    showSize: async (req, res) => {
+        try {
+            let data = await axios.get(`${orderMicroservice}/product/${req.params.product}/color/${req.params.color}`)
 
+            res.status(200)
+                .json({
+                    status: "success",
+                    message: "success to get size",
+                    data: data.data.data
+                })
+        } catch (error) {
+            res.status(400)
+                .json({
+                    status: "failed",
+                    message: "failed to get data",
+                    error: error.message
+                })
+        }
     }
 }
 

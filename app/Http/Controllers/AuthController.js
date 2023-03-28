@@ -3,6 +3,8 @@ const axios = require('axios')
 const { validationResult } = require('express-validator')
 const orderMicroservice = 'http://192.168.8.128:3000'
 const jwt = require('jsonwebtoken')
+const CryptoJS = require('crypto-js')
+const key = "Aggregation Microservice"
 
 let AuthController = {
     login: async (req, res) => {
@@ -23,7 +25,14 @@ let AuthController = {
                 password: req.body.password
             })
 
-            const accessToken = jwt.sign(data.data.data, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"})
+            // data.data.data["secret_key"] = CryptoJS.AES.encrypt(key, "key").toString()
+
+            let realData = {
+                token: data.data.data,
+                secret_key: CryptoJS.AES.encrypt(key, "key").toString()
+            }
+
+            const accessToken = jwt.sign(realData, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"})
 
             res.status(200)
                 .json({
@@ -37,7 +46,7 @@ let AuthController = {
                 .json({
                     status: "failed",
                     message: "failed to login",
-                    error: error.response.data
+                    error: error.message
                 })
         }
     }

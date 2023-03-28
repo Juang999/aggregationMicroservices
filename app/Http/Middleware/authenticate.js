@@ -2,6 +2,8 @@ require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
 const orderMicroservice = 'http://192.168.8.128:3000'
+const key = "Aggregation Microservice1"
+const CryptoJS = require('crypto-js')
 
 const authenticate = (req, res, next) => {
     let authHeader = req.headers['authorization']
@@ -15,27 +17,26 @@ const authenticate = (req, res, next) => {
         return
     }
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, user) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
             res.sendStatus(403)
             return
         }
-
-        let data = await axios.post(orderMicroservice+'/users/authenticate', {
-            username: user.name,
-            password: user.security_word
-        })
-
-        if (data.data.result != true) {
-            res.status(403)
+        
+        axios.post(`${orderMicroservice}/users/authenticate`, {
+            accessToken: user.token,
+            secret_key: user.secret_key
+        }).then(result => {
+            if (result.data.result == true) {
+                next()
+            }
+        }).catch(err => {
+            res.status(400)
                 .json({
-                    message: "unautohorize"
+                    status: err.response.data.result,
+                    message: err.response.data.message
                 })
-
-        return
-        }
-
-        next()
+        })
     })
 }
 
