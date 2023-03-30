@@ -1,6 +1,6 @@
 // this controller for PK (Product Knowledge)
 const axios = require('axios')
-const orderMicroservice = 'http://192.168.8.128:3000/product'
+const orderMicroservice = 'http://192.168.8.128:3000'
 const ProductKnowledgeMicroservice = 'http://192.168.8.128:8001/api'
 
 
@@ -8,7 +8,7 @@ let PKController = {
     index: async (req, res) => {
         try {
             let params = (!req.query.page) ? 1 : req.query.page
-            let dataExapro = await axios.get(orderMicroservice+'/index?page='+params)
+            let dataExapro = await axios.get(orderMicroservice+'/product/index?page='+params)
             
             for (const dataFromExapro of dataExapro.data.data.data) {
                 if (dataFromExapro.pt_clothes_id == null) {
@@ -36,7 +36,7 @@ let PKController = {
     },
     show: async (req, res) => {
         try {
-            let master_data = await axios.get(orderMicroservice+`/show/${req.params.id}`)
+            let master_data = await axios.get(orderMicroservice+`/product/show/${req.params.id}`)
 
             console.log(master_data.data.data.data.pt_desc2)
 
@@ -78,7 +78,7 @@ let PKController = {
     },
     showSize: async (req, res) => {
         try {
-            let data = await axios.get(`${orderMicroservice}/product/${req.params.product}/color/${req.params.color}`)
+            let data = await axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}`)
 
             res.status(200)
                 .json({
@@ -94,6 +94,65 @@ let PKController = {
                     error: error.message
                 })
         }
+    },
+    getAgent: (req, res) => {
+        axios.get(`${orderMicroservice}/master/group`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: "success",
+                        message: "success to get data",
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(400)
+                    .json({
+                        status: "failed",
+                        message: "failed to get data",
+                        error: err.message
+                    })
+            })
+    },
+    getTypeOfPrice: (req, res) => {
+        axios.get(`${orderMicroservice}/price/price/${req.params.group_id}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: "success",
+                        message: "success to get data",
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: "failed",
+                        message: "failed to get data",
+                        error: err.message
+                    })
+            })
+    },
+    getPaymentType: (req, res) => {
+        axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}/size/${req.params.size}/price/${req.params.price_type}/entity/${req.params.en_id}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: "success",
+                        message: "success to get data",
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(400)
+                    .json({
+                        status: "failed",
+                        message: "failed to get data",
+                        error: err.message
+                    })
+            })
     }
 }
 
