@@ -2,14 +2,19 @@
 const axios = require('axios')
 const orderMicroservice = 'http://192.168.8.128:3000'
 const ProductKnowledgeMicroservice = 'http://192.168.8.128:8001/api'
-
+const security = 'RequestFromMicroservice'
+const cryptojs = require('crypto-js')
 
 let PKController = {
     index: async (req, res) => {
         try {
             let params = (!req.query.page) ? 1 : req.query.page
-            let dataExapro = await axios.get(orderMicroservice+'/product/index?page='+params)
-            
+            let dataExapro = await axios.get(orderMicroservice+'/product/index?page='+params, {
+                headers: {
+                    "authorization": req.headers["authorization"]
+                }
+            })
+
             for (const dataFromExapro of dataExapro.data.data.data) {
                 if (dataFromExapro.pt_clothes_id == null) {
                     dataFromExapro.image = 'https://th.bing.com/th/id/OIP.r9Zvt3xyXchx4hdU8-9zrQAAAA?w=202&h=202&c=7&r=0&o=5&dpr=1.3&pid=1.7'
@@ -21,14 +26,14 @@ let PKController = {
 
             res.status(200)
                 .json({
-                    status: "berhasil",
+                    status: "success",
                     message: "berhasil mengambil data",
                     result: dataExapro.data.data
                 })
         } catch (error) {
             res.status(400)
                 .json({
-                    status: "gagal",
+                    status: "failed",
                     message: "gagal mengambil data",
                     error: error.message
                 })
@@ -36,14 +41,16 @@ let PKController = {
     },
     show: async (req, res) => {
         try {
-            let master_data = await axios.get(orderMicroservice+`/product/show/${req.params.id}`)
-
-            console.log(master_data.data.data.data.pt_desc2)
+            let master_data = await axios.get(orderMicroservice+`/product/show/${req.params.id}`, {
+                headers: {
+                    "authorization": req.headers["authorization"]
+                }
+            })
 
             if (master_data.data.data.data.pt_clothes_id == null) {
                 res.status(300)
                     .json({
-                        status: 'gagal',
+                        status: 'success',
                         message: 'deskripsi belum tersedia'
                     })
                 return
@@ -58,12 +65,10 @@ let PKController = {
                 color: master_data.data.data.color
             }
 
-            console.log(data_ready)
-
             res.status(200)
                 .json({
                     status: 'success',
-                    message: 'success to get data',
+                    message: 'berhasil mengambil data',
                     data: data_ready
                 })
         } catch (error) {
@@ -71,37 +76,45 @@ let PKController = {
             res.status(400)
                 .json({
                     status: "failed",
-                    message: "failed to get data",
+                    message: "gagal megnambil data",
                     error: error.response.data.message
                 })
         }
     },
     showSize: async (req, res) => {
         try {
-            let data = await axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}`)
+            let data = await axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}`, {
+                headers: {
+                    "authorization": req.headers["authorization"]
+                }
+            })
 
             res.status(200)
                 .json({
                     status: "success",
-                    message: "success to get size",
+                    message: "berhasil mengambil size",
                     data: data.data.data
                 })
         } catch (error) {
             res.status(400)
                 .json({
                     status: "failed",
-                    message: "failed to get data",
+                    message: "gagal mengambil size",
                     error: error.message
                 })
         }
     },
     getAgent: (req, res) => {
-        axios.get(`${orderMicroservice}/master/group`)
+        axios.get(`${orderMicroservice}/master/group`, {
+            headers: {
+                "authorization": req.headers["authorization"]
+            }
+        })
             .then(result => {
                 res.status(200)
                     .json({
                         status: "success",
-                        message: "success to get data",
+                        message: "berhasil mengambil data",
                         data: result.data.data
                     })
             })
@@ -110,18 +123,22 @@ let PKController = {
                 res.status(400)
                     .json({
                         status: "failed",
-                        message: "failed to get data",
+                        message: "gagal mengambil data",
                         error: err.message
                     })
             })
     },
     getTypeOfPrice: (req, res) => {
-        axios.get(`${orderMicroservice}/price/price/${req.params.group_id}`)
+        axios.get(`${orderMicroservice}/price/price/${req.params.group_id}`, {
+            headers: {
+                "authorization": req.get("authorization")
+            }
+        })
             .then(result => {
                 res.status(200)
                     .json({
                         status: "success",
-                        message: "success to get data",
+                        message: "berhasil mengambil data",
                         data: result.data.data
                     })
             })
@@ -129,18 +146,22 @@ let PKController = {
                 res.status(400)
                     .json({
                         status: "failed",
-                        message: "failed to get data",
+                        message: "gagal mengambil data",
                         error: err.message
                     })
             })
     },
     getPaymentType: (req, res) => {
-        axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}/size/${req.params.size}/price/${req.params.price_type}/entity/${req.params.en_id}`)
+        axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}/size/${req.params.size}/price/${req.params.price_type}/entity/${req.params.en_id}`, {
+            headers: {
+                "authorization": req.get("authorization")
+            }
+        })
             .then(result => {
                 res.status(200)
                     .json({
                         status: "success",
-                        message: "success to get data",
+                        message: "berhasil mengambil data",
                         data: result.data.data
                     })
             })
@@ -149,7 +170,7 @@ let PKController = {
                 res.status(400)
                     .json({
                         status: "failed",
-                        message: "failed to get data",
+                        message: "gagal mengambil data",
                         error: err.message
                     })
             })

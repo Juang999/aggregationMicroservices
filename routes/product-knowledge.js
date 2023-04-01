@@ -1,6 +1,5 @@
 var express = require('express');
-var router = express.Router();
-const middleware = require('../app/Http/kernel')
+var router = express.Router()
 const controller = require('../app/Http/Controllers/Controller')
 
 const route = [
@@ -9,14 +8,14 @@ const route = [
     '/detail/:id', //2
     '/price/:group_id', //3
     '/product/:product/color/:color', //4
-    '/product/:product/color/:color/size/:size/price/:price_type/entity/:en_id' //5
+    '/product/:product/color/:color/size/:size/price/:price_type/entity/:en_id', //5
 ]
 
-router.get(route[0], [middleware.authenticate], controller.PKController.index)
-router.get(route[1], [middleware.authenticate], controller.PKController.getAgent)
-router.get(route[2], [middleware.authenticate], controller.PKController.show)
-router.get(route[3], [middleware.authenticate], controller.PKController.getTypeOfPrice)
-router.get(route[4], [middleware.authenticate], controller.PKController.showSize)
-router.get(route[5], [middleware.authenticate], controller.PKController.getPaymentType)
+router.get(route[0], controller.PKController.index)
+router.get(route[1], controller.PKController.getAgent)
+router.get(route[2], controller.PKController.show)
+router.get(route[3], controller.PKController.getTypeOfPrice)
+router.get(route[4], controller.PKController.showSize)
+router.get(route[5], controller.PKController.getPaymentType)
 
 module.exports = router
