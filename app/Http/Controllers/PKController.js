@@ -47,6 +47,8 @@ let PKController = {
                 }
             })
 
+            console.log('hello world')
+
             if (master_data.data.data.data.pt_clothes_id == null) {
                 res.status(300)
                     .json({
@@ -152,7 +154,7 @@ let PKController = {
             })
     },
     getPaymentType: (req, res) => {
-        axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}/size/${req.params.size}/price/${req.params.price_type}/entity/${req.params.en_id}`, {
+        axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}/size/${req.params.size}/price/${req.params.price_type}/entity/${req.params.en_id}/grade/${req.params.grade}`, {
             headers: {
                 "authorization": req.get("authorization")
             }
@@ -174,6 +176,29 @@ let PKController = {
                         error: err.message
                     })
             })
+    },
+    getGrade: (req, res) => {
+        axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color_id}/size/${req.params.size_id}`, {
+            headers: {
+                "authorization": req.get("authorization")
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: "success",
+                    message: "berhasil mengambil data grade",
+                    data: result.data.data
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: "failed",
+                    message: "gagal mengambil data grade",
+                    error: err.message
+                })
+        })
     }
 }
 
