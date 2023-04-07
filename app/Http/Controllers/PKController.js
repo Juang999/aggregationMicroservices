@@ -2,14 +2,13 @@
 const axios = require('axios')
 const orderMicroservice = 'http://192.168.8.128:3000'
 const ProductKnowledgeMicroservice = 'http://192.168.8.128:8001/api'
-const security = 'RequestFromMicroservice'
-const cryptojs = require('crypto-js')
 
 let PKController = {
     index: async (req, res) => {
         try {
             let params = (!req.query.page) ? 1 : req.query.page
-            let dataExapro = await axios.get(orderMicroservice+'/product/index?page='+params, {
+            let searchQuery = (req.query.query) ? req.query.query : ''
+            let dataExapro = await axios.get(`${orderMicroservice}/product/index?page=${params}&query=${searchQuery}`, {
                 headers: {
                     "authorization": req.headers["authorization"]
                 }
@@ -196,7 +195,7 @@ let PKController = {
                 .json({
                     status: "failed",
                     message: "gagal mengambil data grade",
-                    error: err.message
+                    error: err.resposne.data
                 })
         })
     }
