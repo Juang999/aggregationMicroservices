@@ -198,6 +198,61 @@ let PKController = {
                     error: err.resposne.data
                 })
         })
+    },
+    getCategory: (req, res) => {
+        axios.get(`${orderMicroservice}/product/category`, {
+            headers: {
+                "authorization": req.get("authorization")
+            }
+        }).then(result => {
+            res.status(200)
+                .json({
+                    status: "success",
+                    message: "berhasil mengambil data",
+                    data: result.data.data
+                })
+        }).catch(err => {
+            res.status(400)
+                .json({
+                    status: "failed",
+                    message: "gagal mengambil data",
+                    error: err.message
+                })
+        })
+    },
+    getProductFilteredWithCategory: async (req, res) => {
+        try {
+            let page = (req.query.page) ? req.query.page : 1
+
+            let dataExapro = await axios.get(`${orderMicroservice}/product/product/category/${req.params.category_id}?page=${page}`, {
+                headers: {
+                    "authorization": req.get("authorization")
+                }
+            })
+
+            for (const dataFromExapro of dataExapro.data.data.theData) {
+                if (dataFromExapro.pt_clothes_id == null) {
+                    dataFromExapro.image = 'https://th.bing.com/th/id/OIP.r9Zvt3xyXchx4hdU8-9zrQAAAA?w=202&h=202&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+                } else if (dataFromExapro.pt_clothes_id != null) {
+                    let image = await axios.get(`${ProductKnowledgeMicroservice}/product/firstPhoto/${dataFromExapro.pt_clothes_id}`)
+                    dataFromExapro.image = image.data.data
+                }
+            }
+
+            res.status(200)
+                .json({
+                    status: "success",
+                    message: "berhasil mengambil data",
+                    data: dataExapro.data.data
+                })
+        } catch (error) {
+            res.status(400)
+                .json({
+                    status: "failed",
+                    message: "gagal mengambiil data",
+                    error: err.message
+                })
+        }
     }
 }
 

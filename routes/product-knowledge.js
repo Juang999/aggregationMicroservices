@@ -9,7 +9,9 @@ const route = [
     '/price/:group_id', //3
     '/product/:product/color/:color', //4
     '/product/:product/color/:color/size/:size/price/:price_type/entity/:en_id/grade/:grade', //5
-    '/product/:product/color/:color_id/size/:size_id' //6
+    '/product/:product/color/:color_id/size/:size_id', //6
+    '/category', //7
+    '/product/category/:category_id'
 ]
 
 router.get(route[0], controller.PKController.index)
@@ -19,5 +21,7 @@ router.get(route[3], controller.PKController.getTypeOfPrice)
 router.get(route[4], controller.PKController.showSize)
 router.get(route[5], controller.PKController.getPaymentType)
 router.get(route[6], controller.PKController.getGrade)
+router.get(route[7], controller.PKController.getCategory)
+router.get(route[8], controller.PKController.getProductFilteredWithCategory)
 
 module.exports = router
