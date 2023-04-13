@@ -82,28 +82,26 @@ let PKController = {
                 })
         }
     },
-    showSize: async (req, res) => {
-        try {
-            let data = await axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}`, {
-                headers: {
-                    "authorization": req.headers["authorization"]
-                }
-            })
-
+    showSize: (req, res) => {
+        axios.get(`${orderMicroservice}/product/product/${req.params.product}/color/${req.params.color}`, {
+            headers: {
+                "authorization": req.headers["authorization"]
+            }
+        }).then(result => {
             res.status(200)
                 .json({
                     status: "success",
                     message: "berhasil mengambil size",
-                    data: data.data.data
+                    data: result.data.data
                 })
-        } catch (error) {
+        }).catch(err => {
             res.status(400)
                 .json({
                     status: "failed",
                     message: "gagal mengambil size",
-                    error: error.message
+                    error: err.message
                 })
-        }
+        })
     },
     getAgent: (req, res) => {
         axios.get(`${orderMicroservice}/master/group`, {
@@ -220,6 +218,50 @@ let PKController = {
                 })
         })
     },
+    getSubCategory: (req, res) => {
+        axios.get(`${orderMicroservice}/product/category/sub_category/${req.params.cat_id}`, {
+            headers: {
+                "authorization": req.get("authorization")
+            }
+        })
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        message: "berhasil mengambil data",
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: "failed",
+                        message: "gagal mengambil data",
+                        error: err.message
+                    })
+            })
+    },
+    getSize: (req, res) => {
+        axios.get(`${orderMicroservice}/product/size`, {
+            headers: {
+                "authorization": req.get("authorization")
+            }
+        }).then(result => {
+            res.status(200)
+                .json({
+                    status: "success",
+                    message: "berhasil mengambil data",
+                    data: result.data.data
+                })
+        }).catch(err => {
+            res.status(400)
+                .json({
+                    status: "failed",
+                    message: "gagal mengambil data",
+                    error: err.message
+                })
+        })
+    },
     getProductFilteredWithCategory: async (req, res) => {
         try {
             let page = (req.query.page) ? req.query.page : 1
@@ -250,7 +292,7 @@ let PKController = {
                 .json({
                     status: "failed",
                     message: "gagal mengambiil data",
-                    error: err.message
+                    error: error.message
                 })
         }
     }
