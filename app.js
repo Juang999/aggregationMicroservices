@@ -9,7 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var PkRouter = require('./routes/product-knowledge');
 var partnerRouter = require('./routes/partner');
-var planRouter = require('./routes/plans')
+var planRouter = require('./routes/plans');
+var masterRouter = require('./routes/master');
 
 var app = express();
 
@@ -28,6 +29,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/PK', PkRouter);
 app.use('/api/partner', partnerRouter);
 app.use('/api/plans', planRouter);
+app.use('/api/master', masterRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
