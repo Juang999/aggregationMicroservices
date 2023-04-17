@@ -193,7 +193,7 @@ let PKController = {
                 .json({
                     status: "failed",
                     message: "gagal mengambil data grade",
-                    error: err.resposne.data
+                    error: err.response.data
                 })
         })
     },
