@@ -1,7 +1,7 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const axios = require('axios')
-const orderMicroservice = 'http://192.168.8.128:3000'
+const orderMicroservice = 'http://192.168.56.1:3000'
 const key = "Aggregation Microservice1"
 const CryptoJS = require('crypto-js')
 
