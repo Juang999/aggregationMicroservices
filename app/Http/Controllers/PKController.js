@@ -1,7 +1,7 @@
 // this controller for PK (Product Knowledge)
 const axios = require('axios')
-const orderMicroservice = 'http://192.168.8.128:3000'
-const ProductKnowledgeMicroservice = 'http://192.168.8.128:8001/api'
+const orderMicroservice = 'http://192.168.56.1:3000'
+const ProductKnowledgeMicroservice = 'http://192.168.56.1:3002/api'
 
 let PKController = {
     index: async (req, res) => {
