@@ -1,6 +1,6 @@
 require('dotenv').config()
 const axios = require('axios')
-const orderMicroservice = 'http://192.168.8.128:3000'
+const orderMicroservice = 'http://192.168.56.1:3000'
 const jwt = require('jsonwebtoken')
 const CryptoJS = require('crypto-js')
 const key = "Aggregation Microservice"
@@ -20,6 +20,7 @@ let AuthController = {
                 })
         })
         .catch(err => {
+            console.log(err)
             res.status(400)
                 .json({
                     status: "failed",
