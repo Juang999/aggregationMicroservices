@@ -1,7 +1,7 @@
 // this controller for PK (Product Knowledge)
 const axios = require('axios')
 const orderMicroservice = 'http://192.168.56.1:3000'
-const ProductKnowledgeMicroservice = 'http://192.168.56.1:3002/api'
+const ProductKnowledgeMicroservice = 'http://192.168.56.1:3002'
 
 let PKController = {
     index: async (req, res) => {
@@ -18,7 +18,7 @@ let PKController = {
                 if (dataFromExapro.pt_clothes_id == null) {
                     dataFromExapro.image = 'https://th.bing.com/th/id/OIP.r9Zvt3xyXchx4hdU8-9zrQAAAA?w=202&h=202&c=7&r=0&o=5&dpr=1.3&pid=1.7'
                 } else if (dataFromExapro.pt_clothes_id != null) {
-                    let image = await axios.get(`${ProductKnowledgeMicroservice}/product/firstPhoto/${dataFromExapro.pt_clothes_id}`)
+                    let image = await axios.get(`${ProductKnowledgeMicroservice}/image/${dataFromExapro.pt_clothes_id}`)
                     dataFromExapro.image = image.data.data
                 }
             }
