@@ -57,7 +57,7 @@ let PKController = {
                 return
             }
 
-            let detail_product = await axios.get(ProductKnowledgeMicroservice+`/product/${master_data.data.data.data.pt_clothes_id}`)
+            let detail_product = await axios.get(ProductKnowledgeMicroservice+`/clothes/${master_data.data.data.data.pt_clothes_id}`)
 
             let data_ready = {
                 product_name: master_data.data.data.data.pt_desc2,
