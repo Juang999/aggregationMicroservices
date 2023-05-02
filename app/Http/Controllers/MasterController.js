@@ -212,6 +212,27 @@ const MasterController = {
                     error: err.message
                 })
         })
+    },
+    getEntity: (req, res) => {
+        axios.get(`${orderMicroservice}/master/entity`, {
+            headers: {
+                "authorization": req.get('authorization')
+            }
+        }).then(result => {
+            res.status(200)
+                .json({
+                    status: "success",
+                    message: "berhasil mengambil data",
+                    data: result.data.data
+                })
+        }).catch(err => {
+            res.status(400)
+                .json({
+                    status: 'failed',
+                    messsage: "gagal mengambil data",
+                    error: err.message
+                })
+        })
     }
 }
 
