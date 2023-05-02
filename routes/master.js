@@ -12,7 +12,8 @@ route = [
     '/citizen', //6
     '/blood_group', //7
     '/gender', //8
-    '/currency' //9
+    '/currency', //9
+    '/get-entity' //10
 ]
 
 router.get(route[0], controller.MasterController.getPeriode)
@@ -25,5 +26,6 @@ router.get(route[6], controller.MasterController.getCitizen)
 router.get(route[7], controller.MasterController.getBloodGroup)
 router.get(route[8], controller.MasterController.getGender)
 router.get(route[9], controller.MasterController.getCurrency)
+router.get(route[10], controller.MasterController.getEntity)
 
 module.exports = router
