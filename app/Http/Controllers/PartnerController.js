@@ -3,7 +3,10 @@ const orderMicroservice = 'http://192.168.56.1:3000'
 
 const PartnerController = {
     getPartner: (req, res) => {
-        axios.get(`${orderMicroservice}/partner/partner`, {
+        let page = (req.query.page == null) ? 1 : req.query.page
+        let search = (req.query.name != null) ? `&name=${req.query.name}` : ''
+
+        axios.get(`${orderMicroservice}/partner/partner?page=${page + search}`, {
             headers: {
                 "authorization": req.get('authorization')
             }
