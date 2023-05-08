@@ -3,7 +3,9 @@ const controller = {
     PKController: require('./PKController'),
     PartnerController: require('./PartnerController'),
     PlanController: require('./PlansController'),
-    MasterController: require('./MasterController')
+    MasterController: require('./MasterController'),
+    PartnerAddressController: require('./PartnerAddressController'),
+    PartnerContactController: require('./PartnerContactController')
 }
 
 module.exports = controller
