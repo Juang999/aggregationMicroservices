@@ -3,7 +3,7 @@ const orderMicroservice = 'http://192.168.56.1:3000'
 
 const PartnerAddressController = {
     create: (req, res) => {
-        axios.post(`${orderMicroservice}/partner-address/`, {
+        axios.post(`${orderMicroservice}/partner-address/create-address-customer`, {
             partnerDomainId: req.body.partnerDomain,
             partnerEntityId: req.body.partnerEntity,
             partnerLine1: req.body.partnerLine1,
@@ -39,7 +39,7 @@ const PartnerAddressController = {
         })
     },
     show: (req, res) => {
-        axios.get(`${orderMicroservice}/partner-address/${req.params.ptnra_oid}`, {
+        axios.get(`${orderMicroservice}/partner-address/detail-address-customer/${req.params.ptnra_oid}`, {
             headers: {
                 "authorization": req.get('authorization')
             }

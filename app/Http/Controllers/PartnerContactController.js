@@ -3,7 +3,7 @@ const orderMicroservice = 'http://192.168.8.128:3000'
 
 const PartnerContactController = {
     create: (req, res) => {
-        axios.post(`${orderMicroservice}/partner-contact-address/`, {
+        axios.post(`${orderMicroservice}/partner-contact-address/create-contact-address`, {
             pertnerAccountAddressOid: req.body.pertnerAccountAddressOid,
             partnerAccountFunction: req.body.partnerAccountFunction,
             partnerContactName: req.body.partnerContactName,
@@ -31,7 +31,7 @@ const PartnerContactController = {
         })
     },
     show: (req, res) => {
-        axios.get(`${orderMicroservice}/partner-contact-address/${req.params.ptnrac_oid}`, {
+        axios.get(`${orderMicroservice}/partner-contact-address/detail-contact-address/${req.params.ptnrac_oid}`, {
             headers: {
                 "authorization": req.get('authorization')
             }
