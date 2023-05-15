@@ -1,5 +1,6 @@
 const axios = require('axios')
 const orderMicroservice = 'http://192.168.56.1:3000'
+const moment = require('moment')
 
 const PlansController = {
     getPlan: (req, res) => {
@@ -44,6 +45,29 @@ const PlansController = {
                 .json({
                     status: 'failed',
                     message: "gagal membaut data",
+                    error: err.message
+                })
+        })
+    },
+    getCustomerPerPeriode: (req, res) => {
+        let periode = (req.query.periode) ? req.query.periode : moment().format('YYYYMM')
+
+        axios.get(`${orderMicroservice}/plans/customer-per-periode?periode=${periode}`, {
+            headers: {
+                "authorization": req.get('authorization')
+            }
+        }).then(result => {
+            res.status(200)
+                .json({
+                    status: "success",
+                    message: "berhasil mengambil data kostumer per-periode",
+                    data: result.data.data
+                })
+        }).catch(err => {
+            res.status(400)
+                .json({
+                    status: "failed",
+                    message: "gagal mengambil data kostumer per-periode",
                     error: err.message
                 })
         })
