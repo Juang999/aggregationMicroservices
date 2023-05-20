@@ -13,7 +13,8 @@ const route = [
     '/category', //7
     '/product/category/:category_id', //8
     '/category/sub_category/:cat_id', //9
-    '/size' //10
+    '/size', //10
+    '/get-all-product' //11
 ]
 
 router.get(route[0], controller.PKController.index)
@@ -27,5 +28,6 @@ router.get(route[7], controller.PKController.getCategory)
 router.get(route[8], controller.PKController.getProductFilteredWithCategory)
 router.get(route[9], controller.PKController.getSubCategory)
 router.get(route[10], controller.PKController.getSize)
+router.get(route[11], controller.PKController.getAllProduct)
 
 module.exports = router

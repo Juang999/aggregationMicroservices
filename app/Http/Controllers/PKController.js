@@ -295,6 +295,30 @@ let PKController = {
                     error: error.message
                 })
         }
+    },
+    getAllProduct: (req, res) => {
+        let entity = (req.query.entity) ? req.query.entity : 0
+        let page = (req.query.page) ? req.query.page : 1
+        let query = (req.query.query) ? req.query.query : ''
+        let category = (req.query.category) ? req.query.category : ''
+
+        axios.get(`${orderMicroservice}/product/get-all-product?page=${page}&entity=${entity}&query=${query}&category=${category}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'berhasil',
+                        message: result.data.message,
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'gagal',
+                        message: 'gagal mengambil data',
+                        error: err.message
+                    })
+            })
     }
 }
 
