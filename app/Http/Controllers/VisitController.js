@@ -182,6 +182,49 @@ const VisitController = {
                     error: err.message
                 })
         })
+    },
+    deleteFromListSchedule: (req, res) => {
+        axios.delete(`${ordermicroservice}/visit/delete-list-schedule/${req.params.visited_oid}`, {
+            headers: {
+                "authorization": req.get('authorization')
+            }
+        }).then(result => {
+            res.status(200)
+                .json({
+                    status: "berhasil",
+                    message: "berhasil menghapus data",
+                    data: result.data.data
+                })
+        }).catch(err => {
+            res.status(400)
+                .json({
+                    status: "gagal",
+                    message: "gagal menghapus data",
+                    error: err.message
+                })
+        })
+    },
+    deleteSchedule: (req, res) => {
+        axios.delete(`${ordermicroservice}/visit/delete-schedule/${req.params.visit_code}`, {
+            headers: {
+                "authorization": req.get('authorization')
+            }
+        }).then(result => {
+            console.log(result)
+            res.status(200)
+                .json({
+                    status: "berhasil",
+                    message: "berhasil menghapus data",
+                    data: result.data.data
+                })
+        }).catch(err => {
+            res.status(400)
+                .json({
+                    status: "gagal",
+                    message: "gagal menghapus data",
+                    error: err.message
+                })
+        })
     }
 }
 
