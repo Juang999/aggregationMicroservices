@@ -10,7 +10,9 @@ let route = [
     '/create-schedule-visiting', //3
     '/people-to-visit', //4
     '/checkin/:visited_oid', //5
-    '/checkout/:visited_oid' //6
+    '/checkout/:visited_oid', //6
+    '/delete-from-list-schedule/:visited_oid', //7
+    '/delete-schedule/:visit_code' //8
 ]
 
 router.get(route[0], controller.VisitController.getVisitSchedule)
@@ -20,5 +22,7 @@ router.post(route[3], controller.VisitController.createScheduleVisit)
 router.post(route[4], controller.VisitController.createPeopleToVisit)
 router.patch(route[5], [middleware.CheckinRequest], controller.VisitController.checkIn)
 router.patch(route[6], [middleware.CheckoutRequest], controller.VisitController.checkOut)
+router.delete(route[7], controller.VisitController.deleteFromListSchedule)
+router.delete(route[8], controller.VisitController.deleteSchedule)
 
 module.exports = router
