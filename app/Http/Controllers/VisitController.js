@@ -1,4 +1,4 @@
-const ordermicroservice = 'http://192.168.8.128:3000'
+const ordermicroservice = 'http://192.168.56.1:3000'
 const axios = require('axios')
 const FormData = require('form-data')
 const fs = require('fs')
@@ -95,7 +95,7 @@ const VisitController = {
                 })
         })
     },
-    createPeopleToVisit: (req, res) => {
+    createPeopleToVisit: (req, res) => {        
         axios.post(`${ordermicroservice}/visit/create-list-customer-to-visit`, {
             visit_code: req.body.visit_code,
             type: req.body.type,
@@ -223,6 +223,28 @@ const VisitController = {
                     status: "gagal",
                     message: "gagal menghapus data",
                     error: err.message
+                })
+        })
+    },
+    getCustomerPerPeriode: (req, res) => {
+        axios.get(`${ordermicroservice}/visit/get-customer-per-periode`, {
+            headers: {
+                'authorization': req.get('authorization')
+            }
+        }).then(result => {
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: "berhasil mengambil data",
+                    data: result.data.data
+                })
+        }).catch(err => {
+            console.log(err.response)
+            res.status(400)
+                .json({
+                    status: "gagal",
+                    message: "gagal mengambil data",
+                    error: err.response.data.message
                 })
         })
     }
