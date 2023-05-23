@@ -1,4 +1,5 @@
 const axios = require('axios')
+const { response } = require('express')
 const { or } = require('sequelize')
 const orderMicroservice = 'http://192.168.56.1:3000'
 
@@ -233,6 +234,26 @@ const MasterController = {
                     error: err.message
                 })
         })
+    },
+    getDefaultPeriode: (req, res) => {
+        axios.get(`${orderMicroservice}/master/default-periode`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'berhasil',
+                        message: "berhasil mengambil data",
+                        date: result.data.data
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(400)
+                    .json({
+                        status: "gagal",
+                        message: "gagal mengambil data default periode",
+                        error: err.message
+                    })
+            })
     }
 }
 
