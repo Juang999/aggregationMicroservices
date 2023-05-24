@@ -3,7 +3,7 @@ var router = express.Router()
 const controller = require('../app/Http/Controllers/Controller')
 
 const route = [
-    '/index', //0
+    '/product-by-price-list', //0
     '/group', //1
     '/detail/:id', //2
     '/price/:group_id', //3
@@ -14,10 +14,11 @@ const route = [
     '/product/category/:category_id', //8
     '/category/sub_category/:cat_id', //9
     '/size', //10
-    '/get-all-product' //11
+    '/get-all-product', //11
+    '/product-by-location'
 ]
 
-router.get(route[0], controller.PKController.index)
+router.get(route[0], controller.PKController.getProductByPriceList)
 router.get(route[1], controller.PKController.getAgent)
 router.get(route[2], controller.PKController.show)
 router.get(route[3], controller.PKController.getTypeOfPrice)
@@ -29,5 +30,6 @@ router.get(route[8], controller.PKController.getProductFilteredWithCategory)
 router.get(route[9], controller.PKController.getSubCategory)
 router.get(route[10], controller.PKController.getSize)
 router.get(route[11], controller.PKController.getAllProduct)
+router.get(route[12], controller.PKController.getProductByLocation)
 
 module.exports = router

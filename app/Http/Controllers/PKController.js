@@ -4,11 +4,16 @@ const orderMicroservice = 'http://192.168.56.1:3000'
 const ProductKnowledgeMicroservice = 'http://192.168.56.1:3002'
 
 let PKController = {
-    index: async (req, res) => {
+    getProductByPriceList: async (req, res) => {
         try {
-            let params = (!req.query.page) ? 1 : req.query.page
+            let page = (!req.query.page) ? 1 : req.query.page
             let searchQuery = (req.query.query) ? req.query.query : ''
-            let dataExapro = await axios.get(`${orderMicroservice}/product/index?page=${params}&query=${searchQuery}`, {
+            let priceListOid = (req.query.pricelist_oid) ? req.query.pricelist_oid : ''
+            let entity = (req.query.entity) ? req.query.entity : ''
+            let category = (req.query.category) ? req.query.category : ''
+            let subcategory = (req.query.subquery) ? req.query.subcategory : ''
+
+            let dataExapro = await axios.get(`${orderMicroservice}/product/get-product-by-price-category?pi_oid=${priceListOid}&page=${page}&query=${searchQuery}&entity=${entity}&category=${category}&subcategory=${subcategory}`, {
                 headers: {
                     "authorization": req.headers["authorization"]
                 }
@@ -319,6 +324,46 @@ let PKController = {
                         error: err.message
                     })
             })
+    },
+    getProductByLocation: async (req, res) => {
+        try {
+            let page = (!req.query.page) ? 1 : req.query.page
+            let searchQuery = (req.query.query) ? req.query.query : ''
+            let locationId = (req.query.location_id) ? req.query.location_id : ''
+            let entity = (req.query.entity) ? req.query.entity : ''
+            let category = (req.query.category) ? req.query.category : ''
+            let subcategory = (req.query.subquery) ? req.query.subcategory : ''
+
+            let dataExapro = await axios.get(`${orderMicroservice}/product/get-product-by-location?loc_id=${locationId}&page=${page}&query=${searchQuery}&entity=${entity}&category=${category}&subcategory=${subcategory}`, {
+                headers: {
+                    "authorization": req.headers["authorization"]
+                }
+            })
+
+            for (const dataFromExapro of dataExapro.data.data.data) {
+                if (dataFromExapro.pt_clothes_id == null) {
+                    dataFromExapro.image = 'https://th.bing.com/th/id/OIP.r9Zvt3xyXchx4hdU8-9zrQAAAA?w=202&h=202&c=7&r=0&o=5&dpr=1.3&pid=1.7'
+                } else if (dataFromExapro.pt_clothes_id != null) {
+                    let image = await axios.get(`${ProductKnowledgeMicroservice}/image/${dataFromExapro.pt_clothes_id}`)
+                    dataFromExapro.image = image.data.data
+                }
+            }
+
+            res.status(200)
+                .json({
+                    status: "success",
+                    message: "berhasil mengambil data",
+                    result: dataExapro.data.data
+                })
+        } catch (error) {
+            console.log(error.response.data)
+            res.status(400)
+                .json({
+                    status: "failed",
+                    message: "gagal mengambil data",
+                    error: error.response.data.message
+                })
+        }
     }
 }
 
