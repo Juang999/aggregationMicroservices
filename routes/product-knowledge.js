@@ -6,7 +6,7 @@ const route = [
     '/product-by-price-list', //0
     '/group', //1
     '/detail-product-by-price-category/:pt_id/pi_oid/:pi_oid/entity/:entity', //2
-    '/price/:group_id', //3
+    '/price', //3
     '/product/:product/color/:color', //4
     '/product/:product/color/:color/size/:size/price/:price_type/entity/:en_id/grade/:grade', //5
     '/product/:product/color/:color_id/size/:size_id', //6

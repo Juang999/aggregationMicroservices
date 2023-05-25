@@ -131,8 +131,8 @@ let PKController = {
                     })
             })
     },
-    getTypeOfPrice: (req, res) => {
-        axios.get(`${orderMicroservice}/price/price/${req.params.group_id}`, {
+    getPrice: (req, res) => {
+        axios.get(`${orderMicroservice}/price/price`, {
             headers: {
                 "authorization": req.get("authorization")
             }
