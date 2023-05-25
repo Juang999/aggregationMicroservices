@@ -16,7 +16,7 @@ const route = [
     '/size', //10
     '/get-all-product', //11
     '/product-by-location/', //12
-    '/detail-product-by-location/:pt_id/loc_id/:loc_id' //13
+    '/detail-product-by-location/:pt_id/entity/:entity' //13
 ]
 
 router.get(route[0], controller.PKController.getProductByPriceList)

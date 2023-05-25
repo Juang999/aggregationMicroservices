@@ -14,7 +14,8 @@ route = [
     '/gender', //8
     '/currency', //9
     '/get-entity', //10
-    '/default-periode' //11
+    '/default-periode', //11
+    '/location' //12
 ]
 
 router.get(route[0], controller.MasterController.getPeriode)
@@ -29,5 +30,6 @@ router.get(route[8], controller.MasterController.getGender)
 router.get(route[9], controller.MasterController.getCurrency)
 router.get(route[10], controller.MasterController.getEntity)
 router.get(route[11], controller.MasterController.getDefaultPeriode)
+router.get(route[12], controller.MasterController.getLocation)
 
 module.exports = router
