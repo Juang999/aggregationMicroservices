@@ -333,7 +333,7 @@ let PKController = {
             let category = (req.query.category) ? req.query.category : ''
             let subcategory = (req.query.subquery) ? req.query.subcategory : ''
 
-            if (locationId == null) {
+            if (locationId == '') {
                 res.status(400)
                     .json({
                         status: "gagal",
