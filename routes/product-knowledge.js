@@ -22,7 +22,7 @@ const route = [
 router.get(route[0], controller.PKController.getProductByPriceList)
 router.get(route[1], controller.PKController.getAgent)
 router.get(route[2], controller.PKController.showProductByPriceCategory)
-router.get(route[3], controller.PKController.getTypeOfPrice)
+router.get(route[3], controller.PKController.getPrice)
 router.get(route[4], controller.PKController.showSize)
 router.get(route[5], controller.PKController.getPaymentType)
 router.get(route[6], controller.PKController.getGrade)
