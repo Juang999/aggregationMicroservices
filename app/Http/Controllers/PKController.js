@@ -333,16 +333,6 @@ let PKController = {
             let category = (req.query.category) ? req.query.category : ''
             let subcategory = (req.query.subquery) ? req.query.subcategory : ''
 
-            if (locationId == '') {
-                res.status(400)
-                    .json({
-                        status: "gagal",
-                        message: 'pilih lokasi terlebih dahulu'
-                    })
-
-                return
-            }
-
             let dataExapro = await axios.get(`${orderMicroservice}/product/get-product-by-location?loc_id=${locationId}&page=${page}&query=${searchQuery}&entity=${entity}&category=${category}&subcategory=${subcategory}`, {
                 headers: {
                     "authorization": req.headers["authorization"]
@@ -376,7 +366,7 @@ let PKController = {
     },
     showProductByLocation: async (req, res) => {
         try {
-            let master_data = await axios.get(orderMicroservice+`/product/show-product-by-location/${req.params.pt_id}/loc_id/${req.params.loc_id}`, {
+            let master_data = await axios.get(orderMicroservice+`/product/show-product-by-location/${req.params.pt_id}/entity/${req.params.entity}`, {
                 headers: {
                     "authorization": req.headers["authorization"]
                 }
