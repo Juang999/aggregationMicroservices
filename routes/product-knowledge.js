@@ -5,7 +5,7 @@ const controller = require('../app/Http/Controllers/Controller')
 const route = [
     '/product-by-price-list', //0
     '/group', //1
-    '/detail/:id', //2
+    '/detail-product-by-price-category/:pt_id/pi_oid/:pi_oid/entity/:entity', //2
     '/price/:group_id', //3
     '/product/:product/color/:color', //4
     '/product/:product/color/:color/size/:size/price/:price_type/entity/:en_id/grade/:grade', //5
@@ -15,12 +15,13 @@ const route = [
     '/category/sub_category/:cat_id', //9
     '/size', //10
     '/get-all-product', //11
-    '/product-by-location'
+    '/product-by-location/', //12
+    '/detail-product-by-location/:pt_id/loc_id/:loc_id' //13
 ]
 
 router.get(route[0], controller.PKController.getProductByPriceList)
 router.get(route[1], controller.PKController.getAgent)
-router.get(route[2], controller.PKController.show)
+router.get(route[2], controller.PKController.showProductByPriceCategory)
 router.get(route[3], controller.PKController.getTypeOfPrice)
 router.get(route[4], controller.PKController.showSize)
 router.get(route[5], controller.PKController.getPaymentType)
@@ -31,5 +32,6 @@ router.get(route[9], controller.PKController.getSubCategory)
 router.get(route[10], controller.PKController.getSize)
 router.get(route[11], controller.PKController.getAllProduct)
 router.get(route[12], controller.PKController.getProductByLocation)
+router.get(route[13], controller.PKController.showProductByLocation)
 
 module.exports = router
