@@ -43,17 +43,17 @@ let PKController = {
                 })
         }
     },
-    show: async (req, res) => {
+    showProductByPriceCategory: async (req, res) => {
         try {
-            let master_data = await axios.get(orderMicroservice+`/product/show/${req.params.id}`, {
+            let master_data = await axios.get(orderMicroservice+`/product/show-product-by-price-category/${req.params.pt_id}/pi_oid/${req.params.pi_oid}/entity/${req.params.entity}`, {
                 headers: {
                     "authorization": req.headers["authorization"]
                 }
             })
 
-            console.log('hello world')
+            console.log(master_data.data.data)
 
-            if (master_data.data.data.data.pt_clothes_id == null) {
+            if (master_data.data.data.pt_clothes_id == null) {
                 res.status(300)
                     .json({
                         status: 'success',
@@ -62,13 +62,12 @@ let PKController = {
                 return
             }
 
-            let detail_product = await axios.get(ProductKnowledgeMicroservice+`/clothes/${master_data.data.data.data.pt_clothes_id}`)
+            let detail_product = await axios.get(ProductKnowledgeMicroservice+`/clothes/${master_data.data.data.pt_clothes_id}`)
 
             let data_ready = {
-                product_name: master_data.data.data.data.pt_desc2,
-                detail_data: detail_product.data.data,
-                en_mstr: master_data.data.data.data.EnMstr,
-                color: master_data.data.data.color
+                name_data: master_data.data.data.pt_desc2,
+                desc_data: detail_product.data.data,
+                detail_data: master_data.data
             }
 
             res.status(200)
@@ -334,6 +333,16 @@ let PKController = {
             let category = (req.query.category) ? req.query.category : ''
             let subcategory = (req.query.subquery) ? req.query.subcategory : ''
 
+            if (locationId == null) {
+                res.status(400)
+                    .json({
+                        status: "gagal",
+                        message: 'pilih lokasi terlebih dahulu'
+                    })
+
+                return
+            }
+
             let dataExapro = await axios.get(`${orderMicroservice}/product/get-product-by-location?loc_id=${locationId}&page=${page}&query=${searchQuery}&entity=${entity}&category=${category}&subcategory=${subcategory}`, {
                 headers: {
                     "authorization": req.headers["authorization"]
@@ -356,15 +365,56 @@ let PKController = {
                     result: dataExapro.data.data
                 })
         } catch (error) {
-            console.log(error.response.data)
+            console.log(error.response)
             res.status(400)
                 .json({
                     status: "failed",
                     message: "gagal mengambil data",
-                    error: error.response.data.message
+                    error: error.response
                 })
         }
-    }
+    },
+    showProductByLocation: async (req, res) => {
+        try {
+            let master_data = await axios.get(orderMicroservice+`/product/show-product-by-location/${req.params.pt_id}/loc_id/${req.params.loc_id}`, {
+                headers: {
+                    "authorization": req.headers["authorization"]
+                }
+            })
+
+            if (master_data.data.data.pt_clothes_id == null) {
+                res.status(300)
+                    .json({
+                        status: 'success',
+                        message: 'deskripsi belum tersedia'
+                    })
+                return
+            }
+
+            let detail_product = await axios.get(ProductKnowledgeMicroservice+`/clothes/${master_data.data.data.pt_clothes_id}`)
+
+            let data_ready = {
+                name_data: master_data.data.data.pt_desc2,
+                desc_data: detail_product.data.data,
+                detail_data: master_data.data.data
+            }
+
+            res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'berhasil mengambil data',
+                    data: data_ready
+                })
+        } catch (error) {
+            console.log(error)
+            res.status(400)
+                .json({
+                    status: "failed",
+                    message: "gagal megnambil data",
+                    error: error.message
+                })
+        }
+    },
 }
 
 module.exports = PKController
