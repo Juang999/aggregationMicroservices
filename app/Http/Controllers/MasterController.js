@@ -254,6 +254,25 @@ const MasterController = {
                         error: err.message
                     })
             })
+    },
+    getLocation: (req, res) => {
+        axios.get(`${orderMicroservice}/master/get-location`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'berhasil',
+                        message: 'berhasil mengambil data barang',
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'gagal',
+                        message: 'gagal mengambil data barang',
+                        error: err.message
+                    })
+            })
     }
 }
 
