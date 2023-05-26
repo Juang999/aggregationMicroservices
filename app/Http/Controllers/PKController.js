@@ -56,7 +56,7 @@ let PKController = {
             if (master_data.data.data.pt_clothes_id == null) {
                 res.status(300)
                     .json({
-                        status: 'success',
+                        status: 'failed',
                         message: 'deskripsi belum tersedia'
                     })
                 return
