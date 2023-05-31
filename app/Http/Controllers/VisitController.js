@@ -247,6 +247,49 @@ const VisitController = {
                     error: err.response.data.message
                 })
         })
+    },
+    getVisitType: (req, res) => {
+        axios.get(`${ordermicroservice}/visit/get-visiting-type`, {
+            headers: {
+                "authorization": req.get('authorization')
+            }
+        }).then(result => {
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: 'berhasil mengambil data',
+                    data: result.data.data
+                })
+        }).catch(err => {
+            console.log(err.response.data)
+            res.status(400)
+                .json({
+                    status: 'gagal',
+                    message: 'gagal mmengambil data',
+                    error: err.response.data
+                })
+        })
+    },
+    getOutputVisitType: (req, res) => {
+        axios.get(`${ordermicroservice}/visit/get-output-visiting-type`, {
+            headers: {
+                "authorization": req.get('authorization')
+            }
+        }).then(result => {
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: 'berhasil mengambil data',
+                    data: result.data.data
+                })
+        }).catch(err => {
+            res.status(400)
+                .json({
+                    status: 'gagal',
+                    message: 'gagal mengambil data',
+                    error: err.response.data
+                })
+        })
     }
 }
 
