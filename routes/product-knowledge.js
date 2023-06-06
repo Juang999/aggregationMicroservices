@@ -5,7 +5,7 @@ const controller = require('../app/Http/Controllers/Controller')
 const route = [
     '/product-by-price-list', //0
     '/group', //1
-    '/detail-product-by-price-category/:pt_id/pi_oid/:pi_oid/entity/:entity', //2
+    '/detail-product-by-price-category/:pt_id/pi_oid/:pi_oid', //2
     '/price', //3
     '/product/:product/color/:color', //4
     '/product/:product/color/:color/size/:size/price/:price_type/entity/:en_id/grade/:grade', //5

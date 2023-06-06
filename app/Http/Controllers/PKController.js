@@ -45,7 +45,7 @@ let PKController = {
     },
     showProductByPriceCategory: async (req, res) => {
         try {
-            let master_data = await axios.get(orderMicroservice+`/product/show-product-by-price-category/${req.params.pt_id}/pi_oid/${req.params.pi_oid}/entity/${req.params.entity}`, {
+            let master_data = await axios.get(orderMicroservice+`/product/show-product-by-price-category/${req.params.pt_id}/pi_oid/${req.params.pi_oid}`, {
                 headers: {
                     "authorization": req.headers["authorization"]
                 }
@@ -65,7 +65,7 @@ let PKController = {
             let data_ready = {
                 name_data: master_data.data.data.pt_desc2,
                 desc_data: detail_product.data.data,
-                detail_data: master_data.data
+            detail_data: master_data.data
             }
 
             res.status(200)
@@ -80,7 +80,7 @@ let PKController = {
                 .json({
                     status: "failed",
                     message: "gagal megnambil data",
-                    error: error.response.data.message
+                    error: error.message
                 })
         }
     },
