@@ -9,7 +9,7 @@ let route = [
     '/profile' //1
 ]
 
-router.post(route[0], [middleware.Auth], AuthController.login)
+router.post(route[0], [middleware.AuthRequest], AuthController.login)
 router.get(route[1], AuthController.profile)
 
 module.exports = router;
