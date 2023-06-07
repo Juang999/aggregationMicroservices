@@ -5,7 +5,7 @@ const rules = [
     check('lat_checkin').notEmpty().isNumeric(),
     check('long_checkin').notEmpty().isNumeric(),
     check('address_checkin').notEmpty().isString(),
-    check('checkin_checkin').notEmpty().isString()
+    check('objective_checkin').notEmpty().isString()
 ]
 
 const CheckinRequest = [
@@ -15,7 +15,7 @@ const CheckinRequest = [
     (req, res, next) => {
         const errors = validationResult(req)
 
-        if (!errors) {
+        if (!errors.isEmpty()) {
             res.status(300)
                 .json(errors.array())
 

@@ -131,8 +131,8 @@ const VisitController = {
             checkin_lat: req.body.lat_checkin,
             checkin_long: req.body.long_checkin,
             checkin_address: req.body.address_checkin,
-            checkin_checkin: req.body.checkin_checkin,
-            file: JSON.stringify(req.files.file)
+            file: JSON.stringify(req.files.file),
+            objective: req.body.objective_checkin
         }, {
             headers: {
                 'authorization': req.get('authorization')
@@ -145,23 +145,23 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err)
+            console.log(err.response.data)
             res.status(400)
                 .json({
                     status: "gagal",
                     message: "gagal checkin",
-                    error: err.message
+                    error: err.response.data.data,
+                    visited_oid: err.response.data.visited_oid
                 })
         })
     },
     checkOut: (req, res) => {
-        console.log(req.body)
         axios.patch(`${ordermicroservice}/visit/checkout/${req.params.visited_oid}`, {
-            visit_code: req.body.visit_code,
             checkout_lat: req.body.lat_checkout,
             checkout_long: req.body.long_checkout,
             checkout_address: req.body.address_checkout,
-            checkout_checkout: req.body.checkout_checkout
+            result: req.body.result_checkout,
+            output: req.body.output_checkout
         }, {
             headers: {
                 "authorization": req.get('authorization')
