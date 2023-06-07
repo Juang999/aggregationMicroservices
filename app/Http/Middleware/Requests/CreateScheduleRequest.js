@@ -1,17 +1,13 @@
 const {check, validationResult} = require('express-validator')
 
 const rules = [
-    check('lat_checkout').notEmpty().isNumeric(),
-    check('long_checkout').notEmpty().isNumeric(),
-    check('address_checkout').notEmpty().isString(),
-    check('result_checkout').notEmpty().isString(),
-    check('output_checkout').notEmpty().isNumeric(),
+    check('start_date').notEmpty().isString(),
+    check('end_date').notEmpty().isString(),
 ]
 
-const CheckoutRequest = [
+const CreateScheduleToVisit = [
     // rules
     rules,
-
     // validator
     (req, res, next) => {
         const errors = validationResult(req)
@@ -27,4 +23,4 @@ const CheckoutRequest = [
     }
 ]
 
-module.exports = CheckoutRequest
+module.exports = CreateScheduleToVisit
