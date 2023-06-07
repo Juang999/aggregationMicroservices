@@ -1,14 +1,11 @@
 const {check, validationResult} = require('express-validator')
 
 const rules = [
-    check('lat_checkout').notEmpty().isNumeric(),
-    check('long_checkout').notEmpty().isNumeric(),
-    check('address_checkout').notEmpty().isString(),
-    check('result_checkout').notEmpty().isString(),
-    check('output_checkout').notEmpty().isNumeric(),
+    check('username').notEmpty().isString(),
+    check('password').notEmpty().isString(),
 ]
 
-const CheckoutRequest = [
+const AuthRequest = [
     // rules
     rules,
 
@@ -27,4 +24,4 @@ const CheckoutRequest = [
     }
 ]
 
-module.exports = CheckoutRequest
+module.exports = AuthRequest

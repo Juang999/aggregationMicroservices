@@ -1,14 +1,15 @@
 const {check, validationResult} = require('express-validator')
 
 const rules = [
-    check('lat_checkout').notEmpty().isNumeric(),
-    check('long_checkout').notEmpty().isNumeric(),
-    check('address_checkout').notEmpty().isString(),
-    check('result_checkout').notEmpty().isString(),
-    check('output_checkout').notEmpty().isNumeric(),
+    check('visit_code').notEmpty().isString(),
+    check('type').notEmpty().isString(),
+    check('ptnr_id').notEmpty().isString(),
+    check('cus_name').notEmpty().isString(),
+    check('cus_address').notEmpty().isString(),
+    check('cus_phone').notEmpty().isString(),
 ]
 
-const CheckoutRequest = [
+const CreatePeopleToVisit = [
     // rules
     rules,
 
@@ -27,4 +28,4 @@ const CheckoutRequest = [
     }
 ]
 
-module.exports = CheckoutRequest
+module.exports = CreatePeopleToVisit
