@@ -4,7 +4,11 @@ const kernel = {
     CheckoutRequest: require('./Middleware/Requests/CheckoutRequest'),
     CreateScheduleToVisit: require('./Middleware/Requests/CreateScheduleRequest'),
     CreatePeopleToVisit: require('./Middleware/Requests/CreatePeopleToVisitRequest'),
-    AuthRequest: require('./Middleware/Requests/AuthRequest')
+    AuthRequest: require('./Middleware/Requests/AuthRequest'),
+    UnplanRequest: require('./Middleware/Requests/UnplanRequest'),
+    CreatePartnerRequest: require('./Middleware/Requests/CreatePartnerRequest'),
+    CreatePartnerAddressRequest: require('./Middleware/Requests/CreatePartnerAddressRequest'),
+    CreatePartnerContactRequest: require('./Middleware/Requests/CreatePartnerContactRequest')
 }
 
 module.exports = kernel
