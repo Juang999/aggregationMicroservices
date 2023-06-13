@@ -6,7 +6,8 @@ const controller = {
     MasterController: require('./MasterController'),
     PartnerAddressController: require('./PartnerAddressController'),
     PartnerContactController: require('./PartnerContactController'),
-    VisitController: require('./VisitController')
+    VisitController: require('./VisitController'),
+    SalesQuotationController: require('./SalesQuotationController')
 }
 
 module.exports = controller

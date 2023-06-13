@@ -15,7 +15,10 @@ route = [
     '/currency', //9
     '/get-entity', //10
     '/default-periode', //11
-    '/location' //12
+    '/location', //12
+    '/payment-type', //13
+    '/payment-method', //14
+    '/creditterms-mstr' //15
 ]
 
 router.get(route[0], controller.MasterController.getPeriode)
@@ -31,5 +34,8 @@ router.get(route[9], controller.MasterController.getCurrency)
 router.get(route[10], controller.MasterController.getEntity)
 router.get(route[11], controller.MasterController.getDefaultPeriode)
 router.get(route[12], controller.MasterController.getLocation)
+router.get(route[13], controller.MasterController.getPaymentType)
+router.get(route[14], controller.MasterController.getPaymentMethod)
+router.get(route[15], controller.MasterController.getCreditTermsMstr)
 
 module.exports = router

@@ -1,4 +1,5 @@
 const axios = require('axios')
+const microservice = require('../../../config/microservice')
 const orderMicroservice = 'http://192.168.8.128:3000'
 
 const PartnerContactController = {

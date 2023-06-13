@@ -1,4 +1,5 @@
-const ordermicroservice = 'http://192.168.56.1:3000'
+const microservice = require('../../../config/microservice')
+const ordermicroservice = microservice.ordermicroservice
 const axios = require('axios')
 const FormData = require('form-data')
 const fs = require('fs')
@@ -41,6 +42,7 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
+            console.log(err)
             res.status(400)
                 .json({
                     status: "gagal",
