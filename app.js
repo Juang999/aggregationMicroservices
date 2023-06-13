@@ -15,6 +15,7 @@ var masterRouter = require('./routes/master');
 var partnerAddressRouter = require('./routes/partner-address');
 var partnerContactRouter = require('./routes/partner-contact-address');
 var visitRouter = require('./routes/visit');
+var salesQuotationRoutes = require('./routes/sales-quotation')
 
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/api/master', masterRouter);
 app.use('/api/address-partner', partnerAddressRouter);
 app.use('/api/contact-address-partner', partnerContactRouter);
 app.use('/api/visit', visitRouter);
+app.use('/api/sales-quotation', salesQuotationRoutes)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

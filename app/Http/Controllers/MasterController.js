@@ -1,7 +1,8 @@
 const axios = require('axios')
 const { response } = require('express')
 const { or } = require('sequelize')
-const orderMicroservice = 'http://192.168.56.1:3000'
+const microservice = require('../../../config/microservice')
+const orderMicroservice = microservice.ordermicroservice
 
 const MasterController = {
     getPeriode: (req, res) => {
@@ -270,6 +271,63 @@ const MasterController = {
                     .json({
                         status: 'gagal',
                         message: 'gagal mengambil data barang',
+                        error: err.message
+                    })
+            })
+    },
+    getPaymentType: (req, res) => {
+        axios.get(`${orderMicroservice}/master/get-payment-type`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'berhasil',
+                        message: 'berhasil mengambil data',
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'gagal',
+                        message: 'gagal mengambil data',
+                        err: err.message
+                    })
+            })
+    },
+    getPaymentMethod: (req, res) => {
+        axios.get(`${orderMicroservice}/master/get-payment-method`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'berhasil',
+                        message: 'berhasil mengambil data',
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'gagal',
+                        message: 'gagal mengambil data',
+                        error: err.message
+                    })
+            })
+    },
+    getCreditTermsMstr: (req, res) => {
+        axios.get(`${orderMicroservice}/master/get-creditterms-mstr`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'berhasil',
+                        message: 'berhasil mengambil data',
+                        data: result.data.data
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'gagal',
+                        message: 'gagal mengambil data',
                         error: err.message
                     })
             })

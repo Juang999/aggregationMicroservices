@@ -1,5 +1,6 @@
 const axios = require('axios')
-const orderMicroservice = 'http://192.168.56.1:3000'
+const microservice = require('../../../config/microservice')
+const orderMicroservice = microservice.ordermicroservice
 
 const PartnerAddressController = {
     create: (req, res) => {
