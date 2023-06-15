@@ -97,7 +97,9 @@ const SalesQuotationController = {
         })
     },
     getSalesQuotation: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-sales-quotation`, {
+        let pageGetSalesQuotation = (req.query.page) ? req.query.page : 1
+
+        axios.get(`${ordermicroservice}/sales-quotation/get-sales-quotation?page=${pageGetSalesQuotation}`, {
             headers: {
                 'authorization': req.get('authorization')
             }
