@@ -143,7 +143,7 @@ const SalesQuotationController = {
         })
     },
     createSalesQuotation: (req, res) => {
-        axios.post(`${ordermicroservice}/sales-quotation/create-header-sales-quotation`, {
+        axios.post(`${ordermicroservice}/sales-quotation/create-sales-quotation`, {
             sq_ptnr_id_sold: req.body.ptnr_id_sold,
             sq_pay_type: req.body.pay_type,
             sq_pay_method: req.body.pay_method,
@@ -158,7 +158,8 @@ const SalesQuotationController = {
             sq_loc_to_id: req.body.loc_to_id,
             sq_loc_git: req.body.loc_gt_id,
             sq_is_dropshipper: req.body.is_dropshipper,
-            sq_ship_to: req.body.ship_to
+            sq_ship_to: req.body.ship_to,
+            sq_body_sales_quotation: req.body.body_sales_quotation
         }, {
             headers: {
                 'authorization': req.get('authorization')
@@ -171,11 +172,58 @@ const SalesQuotationController = {
                     data: result.data.data
                 })
         }).catch(err => {
+            console.log(err)
             res.status(400)
                 .json({
                     status: 'gagal',
                     message: 'gagal membuat sales quotation',
-                    error: err.message
+                    error: err.response.data.error
+                })
+        })
+    },
+    sumDebtCustomer: (req, res) => {
+        axios.get(`${ordermicroservice}/sales-quotation/sum-debt-from-customer/ptnrid/${req.params.partnerId}`, {
+            headers: {
+                'authorization': req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: 'berhasil mengambil data hutang pengguna',
+                    data: result.data.data
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'gagal',
+                    message: 'gagal mengambil data hutang pengguna',
+                    error: err.response.data.error
+                })
+        })
+    },
+    getLimitCreditCustomer: (req, res) => {
+        axios.get(`${ordermicroservice}/sales-quotation/get-credit-limit-customer/ptnrid/${req.params.partnerId}`, {
+            headers: {
+                'authorization': req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: 'berhasil mengambil data batas kredit pengguna',
+                    data: result.data.data
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'gagal',
+                    message: 'gagal mengambil data batas kredit pengguna',
+                    error: err.response.data.error
                 })
         })
     }
