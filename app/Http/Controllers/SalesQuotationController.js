@@ -1,5 +1,6 @@
 const microservice = require('../../../config/microservice')
 const ordermicroservice = microservice.ordermicroservice
+const productknowledgemicroservice = microservice.productknowledgemicroservice
 const axios = require('axios')
 
 const SalesQuotationController = {
@@ -226,6 +227,63 @@ const SalesQuotationController = {
                     error: err.response.data.error
                 })
         })
+    },
+    getAccountName: (req, res) => {
+        axios.get(`${ordermicroservice}/sales-quotation/get-account`, {
+            headers: {
+                "authorization": req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: 'berhasil mengambil data nama akun',
+                    data: result.data.data
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'gagal',
+                    message: 'gagal mengambil data nama akun',
+                    error: err.response.data.error
+                })
+        })
+    },
+    getProductForSQ: async (req, res) => {
+        try {
+            let pageProduct = (req.query.page) ? req.query.page : 1
+    
+            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/sales-quotation/get-product/ptnrid/${req.params.partnerId}?page=${pageProduct}`, {
+                headers: {
+                    'authorization': req.get('authorization')
+                }
+            })
+
+            for (const dataProduct of dataProductFromOrderMicroservice.data.data) {
+                if (dataProduct.pt_clothes_id == null) {
+                    dataProduct.image = '-'
+                } else {
+                    let photoProduct = await axios.get(`${productknowledgemicroservice}/image/${dataProduct.pt_clothes_id}}`)
+                    dataProduct.image = photoProduct.data.data
+                }
+            }
+            
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: 'berhasil mengambil data',
+                    data: dataProductFromOrderMicroservice.data.data
+                })
+        } catch (error) {
+            res.status(400)
+                .json({
+                    status: 'gagal',
+                    message: 'gagal mengambil data',
+                        error: error.message
+                    })
+            }
     }
 }
 
