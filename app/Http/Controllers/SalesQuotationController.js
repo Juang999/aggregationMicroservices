@@ -254,8 +254,10 @@ const SalesQuotationController = {
     getProductForSQ: async (req, res) => {
         try {
             let pageProduct = (req.query.page) ? req.query.page : 1
+
+            let searchQuery = req.query.query
     
-            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/sales-quotation/get-product/ptnrid/${req.params.partnerId}?page=${pageProduct}`, {
+            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/sales-quotation/get-product/ptnrid/${req.params.partnerId}?page=${pageProduct}&query=${searchQuery}`, {
                 headers: {
                     'authorization': req.get('authorization')
                 }
