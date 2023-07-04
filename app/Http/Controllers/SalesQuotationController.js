@@ -148,7 +148,6 @@ const SalesQuotationController = {
             sq_ptnr_id_sold: req.body.ptnr_id_sold,
             sq_pay_type: req.body.pay_type,
             sq_pay_method: req.body.pay_method,
-            sq_close_date: req.body.close_date,
             sq_cu_id: req.body.cu_id,
             sq_trans_rmks: req.body.trans_mrks,
             sq_cons: req.body.cons,
@@ -160,6 +159,8 @@ const SalesQuotationController = {
             sq_loc_git: req.body.loc_gt_id,
             sq_is_dropshipper: req.body.is_dropshipper,
             sq_ship_to: req.body.ship_to,
+            sq_start_date: req.body.start_date,
+            sq_end_date: req.body.end_date,
             sq_body_sales_quotation: req.body.body_sales_quotation
         }, {
             headers: {
@@ -257,7 +258,7 @@ const SalesQuotationController = {
 
             let searchQuery = req.query.query
     
-            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/sales-quotation/get-product/ptnrid/${req.params.partnerId}?page=${pageProduct}&query=${searchQuery}`, {
+            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/sales-quotation/get-product/ptnrid/${req.params.partnerId}/pricelist/${req.params.priceListId}/area/${req.params.areaId}/location/${req.params.locId}?page=${pageProduct}&query=${searchQuery}`, {
                 headers: {
                     'authorization': req.get('authorization')
                 }
@@ -286,6 +287,29 @@ const SalesQuotationController = {
                         error: error.message
                     })
             }
+    },
+    getArea: (req, res) => {
+        axios.get(`${ordermicroservice}/sales-quotation/get-area`, {
+            headers: {
+                'authorization': req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: 'berhasil mengambil data area',
+                    data: result.data.data
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'gagal',
+                    message: 'gagal mengambil data area',
+                    error: err.response.data.error
+                })
+        })
     }
 }
 

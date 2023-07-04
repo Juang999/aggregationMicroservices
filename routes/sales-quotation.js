@@ -13,7 +13,8 @@ const route = [
     '/sum-debt-customer/partnerid/:partnerId', //7
     '/get-limit-credit-customer/partnerid/:partnerId', //8
     '/get-account-name', //9
-    '/get-product/partnerid/:partnerId' //10
+    '/get-product/partnerid/:partnerId/pricelist/:priceListId/area/:areaId/location/:locId', //10
+    '/get-area' //11
 ]
 
 router.get(route[0], controller.SalesQuotationController.getSite)
@@ -27,5 +28,6 @@ router.get(route[7], controller.SalesQuotationController.sumDebtCustomer)
 router.get(route[8], controller.SalesQuotationController.getLimitCreditCustomer)
 router.get(route[9], controller.SalesQuotationController.getAccountName)
 router.get(route[10], controller.SalesQuotationController.getProductForSQ)
+router.get(route[11], controller.SalesQuotationController.getArea)
 
 module.exports = router
