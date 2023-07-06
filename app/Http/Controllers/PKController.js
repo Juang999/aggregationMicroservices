@@ -40,7 +40,7 @@ let PKController = {
                 .json({
                     status: "failed",
                     message: "gagal mengambil data",
-                    error: error.message
+                    error: error.response.data.error
                 })
         }
     },

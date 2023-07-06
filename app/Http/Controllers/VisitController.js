@@ -25,7 +25,7 @@ const VisitController = {
                 .json({
                     status: "gagal",
                     message: "gagal mengambil data jadwal kunjungan",
-                    error: err.message
+                    error: err.response.data.error
                 })
         })
     },
