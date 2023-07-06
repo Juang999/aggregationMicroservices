@@ -258,7 +258,7 @@ const SalesQuotationController = {
 
             let searchQuery = req.query.query
     
-            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/sales-quotation/get-product/ptnrid/${req.params.partnerId}/pricelist/${req.params.priceListId}/area/${req.params.areaId}/location/${req.params.locId}?page=${pageProduct}&query=${searchQuery}`, {
+            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/sales-quotation/get-product/pricelist/${req.params.priceListOid}/area/${req.params.areaId}/locationid/${req.params.locId}?page=${pageProduct}&query=${searchQuery}`, {
                 headers: {
                     'authorization': req.get('authorization')
                 }
@@ -280,11 +280,12 @@ const SalesQuotationController = {
                     data: dataProductFromOrderMicroservice.data.data
                 })
         } catch (error) {
+            console.log(error)
             res.status(400)
                 .json({
                     status: 'gagal',
                     message: 'gagal mengambil data',
-                        error: error.message
+                        error: error.response.data.error
                     })
             }
     },

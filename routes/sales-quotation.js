@@ -13,7 +13,7 @@ const route = [
     '/sum-debt-customer/partnerid/:partnerId', //7
     '/get-limit-credit-customer/partnerid/:partnerId', //8
     '/get-account-name', //9
-    '/get-product/partnerid/:partnerId/pricelist/:priceListId/area/:areaId/location/:locId', //10
+    '/get-product/pricelist/:priceListOid/area/:areaId/location/:locId', //10
     '/get-area' //11
 ]
 
