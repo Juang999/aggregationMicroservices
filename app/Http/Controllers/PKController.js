@@ -53,20 +53,32 @@ let PKController = {
             })
 
             if (master_data.data.data.pt_clothes_id == null) {
-                res.status(300)
-                    .json({
-                        status: 'failed',
-                        message: 'deskripsi belum tersedia'
-                    })
-                return
+                default_detail_product = {
+                                    id: "-",
+                                    entity_name: "-",
+                                    article_name: "-",
+                                    color: "-",
+                                    material: "-",
+                                    combo: "-",
+                                    special_feature: "-",
+                                    keyword: "-",
+                                    description: "Deskripsi belum tersedia",
+                                    slug: "-",
+                                    group_article: "-",
+                                    type_id: "-",
+                                    is_active: "-",
+                                    image: {
+                                        "photo": "-"
+                                    }
+                                }
+            } else {
+                var detail_product = await axios.get(ProductKnowledgeMicroservice+`/clothes/${master_data.data.data.pt_clothes_id}`)
             }
 
-            let detail_product = await axios.get(ProductKnowledgeMicroservice+`/clothes/${master_data.data.data.pt_clothes_id}`)
-
             let data_ready = {
-                name_data: master_data.data.data.pt_desc2,
-                desc_data: detail_product.data.data,
-            detail_data: master_data.data
+                name_data: (master_data.data.data.pt_desc2) ? master_data.data.data.pt_desc2 : '-',
+                desc_data: (master_data.data.data.pt_clothes_id == null) ? default_detail_product : detail_product.data.data,
+                detail_data: master_data.data
             }
 
             res.status(200)
