@@ -1,11 +1,11 @@
 const axios = require('axios')
-const microservice = require('../../../config/microservice')
+const microservice = require('../../../../config/microservice')
 const orderMicroservice = microservice.ordermicroservice
 const moment = require('moment')
 
 const PlansController = {
     getPlan: (req, res) => {
-        axios.get(`${orderMicroservice}/plans/get-plan`, {
+        axios.get(`${orderMicroservice}/plans/planning`, {
             headers: {
                 "authorization": req.get("authorization")
             }
@@ -26,7 +26,7 @@ const PlansController = {
         })
     },
     createUnplan: (req, res) => {
-        axios.post(`${orderMicroservice}/plans/create-unplan`, {
+        axios.post(`${orderMicroservice}/plans/planning`, {
             ptnr_id: req.body.ptnr_id,
             amount: req.body.amount,
             periode_code: req.body.periode_code
@@ -53,7 +53,7 @@ const PlansController = {
     getCustomerPerPeriode: (req, res) => {
         let periode = (req.query.periode) ? req.query.periode : moment().format('YYYYMM')
 
-        axios.get(`${orderMicroservice}/plans/customer-per-periode?periode=${periode}`, {
+        axios.get(`${orderMicroservice}/plans/planning/${req.params.plans_oid}/detail`, {
             headers: {
                 "authorization": req.get('authorization')
             }

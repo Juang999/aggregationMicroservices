@@ -1,6 +1,6 @@
 // this controller for PK (Product Knowledge)
 const axios = require('axios')
-const microservice = require('../../../config/microservice')
+const microservice = require('../../../../config/microservice')
 const orderMicroservice = microservice.ordermicroservice
 const ProductKnowledgeMicroservice = microservice.productknowledgemicroservice
 

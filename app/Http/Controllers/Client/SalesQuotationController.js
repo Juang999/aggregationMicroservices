@@ -1,4 +1,4 @@
-const microservice = require('../../../config/microservice')
+const microservice = require('../../../../config/microservice')
 const ordermicroservice = microservice.ordermicroservice
 const productknowledgemicroservice = microservice.productknowledgemicroservice
 const axios = require('axios')
@@ -285,7 +285,7 @@ const SalesQuotationController = {
                 .json({
                     status: 'gagal',
                     message: 'gagal mengambil data',
-                        error: error.response.data.error
+                    error: error.response.data.error
                     })
             }
     },

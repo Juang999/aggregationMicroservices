@@ -1,10 +1,10 @@
 const axios = require('axios')
-const microservice = require('../../../config/microservice')
+const microservice = require('../../../../config/microservice')
 const orderMicroservice = microservice.ordermicroservice
 
 const PartnerAddressController = {
     create: (req, res) => {
-        axios.post(`${orderMicroservice}/partner-address/create-address-customer`, {
+        axios.post(`${orderMicroservice}/partner-address/partner-address`, {
             partnerDomainId: req.body.partnerDomain,
             partnerEntityId: req.body.partnerEntity,
             partnerLine1: req.body.partnerLine1,
@@ -40,7 +40,7 @@ const PartnerAddressController = {
         })
     },
     show: (req, res) => {
-        axios.get(`${orderMicroservice}/partner-address/detail-address-customer/${req.params.ptnra_oid}`, {
+        axios.get(`${orderMicroservice}/partner-address/partner-address/${req.params.ptnra_oid}/detail`, {
             headers: {
                 "authorization": req.get('authorization')
             }
