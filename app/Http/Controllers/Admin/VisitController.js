@@ -1,22 +1,32 @@
+require('dotenv').config({
+    path: '../../../../.env'
+})
+
 const axios = require('axios')
 const microservice = require('../../../../config/microservice')
 const orderservice = microservice.ordermicroservice
 const route = require('../../../../routes/route')
 const {links} = require('../../../../helper/helper')
+const CryptoJS = require('crypto-js')
+const employeeservice = microservice.employeeservice
 
 const VisitController = {}
 
 VisitController.index = async (req, res) => {
     try {
         let page = (req.query.page) ? req.query.page : 1
+        let totalDay = (req.query.total_day) ? req.query.total_day : ''
 
-        let salesPerson = await axios.get(`${orderservice}/order-service/admin/visitation?page=${page}`, {
+        let salesPerson = await axios.get(`${orderservice}/order-service/admin/visitation?page=${page}&total_day=${totalDay}`, {
             headers: {
                 'authorization': req.get('authorization')
             }
         })
 
         for (const sales of salesPerson.data.data) {
+
+            sales.photo = await getPhoto(sales.ptnr_nik_id)
+
             sales._links = {
                 visitation: '/api/admin'+links(route.Admin.feature.visit.visitation, [':ptnr_id', sales.ptnr_id])
             }
@@ -31,9 +41,9 @@ VisitController.index = async (req, res) => {
     } catch (error) {
         res.status(400)
             .json({
-                status: 'failed!',
+                status: error.response.data.status,
                 data: null,
-                error: error.message
+                error: error.response.data.errors
             })
     }
 }
@@ -123,6 +133,47 @@ VisitController.detailVisitation = async (req, res) => {
                 error: error.message
             })
     }
+}
+
+VisitController.createPeriode = (req, res) => {
+    axios.post(`${orderservice}/order-service/admin/visitation/periode`, {
+        periode_oid: req.body.periode_oid,
+        periode_start_date: req.body.periode_start_date,
+        periode_end_date: req.body.periode_end_date,
+    }, {
+        headers: {
+            'authorization': req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                status: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    }).catch(err => {
+        res.status(400)
+            .json({
+                status: (err.response.data.status) ? err.response.data.status : error.message,
+                data: null,
+                error: err.response.data.error
+            })
+    })
+}
+
+let getPhoto = async (nik_id) => {
+    let result
+
+    if (nik_id) {
+        let photo = await axios.get(`${employeeservice}/photo/${btoa(nik_id)}`)
+
+        result = photo.data.data.img_karyawan
+    } else {
+        result = null
+    }
+
+    return result
 }
 
 module.exports = VisitController

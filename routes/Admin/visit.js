@@ -7,5 +7,6 @@ router.get(route.Admin.feature.visit.index, Admin.VisitController.index)
 router.get(route.Admin.feature.visit.visitation, Admin.VisitController.sales)
 router.get(route.Admin.feature.visit.visitation_schedule, Admin.VisitController.visitationSchedule)
 router.get(route.Admin.feature.visit.visitation_detail, Admin.VisitController.detailVisitation)
+router.post(route.Admin.feature.visit.visitation_create_periode, Admin.VisitController.createPeriode)
 
 module.exports = router
