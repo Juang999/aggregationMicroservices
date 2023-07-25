@@ -56,24 +56,29 @@ VisitController.sales = async (req, res) => {
             }
         })
 
-        for (const visitation of visitations.data.data) {
-            visitation._links = {
-                visitation_schedule: `${route.route_default}${route.Admin.route_admin}${links(route.Admin.feature.visit.visitation_schedule, [':visit_code', visitation.visit_code])}`
-            }
-        }
+        let encryptedNikId = btoa(visitations.data.data.nik_id)
+
+        let dataSales = await axios.get(`${employeeservice}/${encryptedNikId}/employee`)
+
+        dataSales.data.data.entity = visitations.data.data.entity.en_desc
+
+        dataSales.data.data.current_status = 'ACTIVE'
+
+        let data = dataSales.data.data
 
         res.status(200)
             .json({
                 status: 'success!',
-                data: visitations.data.data,
+                data: data,
                 error: null
             })
     } catch (error) {
+        console.log(error)
         res.status(400)
             .json({
                 status: 'failed!',
                 data: null,
-                error: error.message
+                error: error.response.data.error
             })
     }
 }
