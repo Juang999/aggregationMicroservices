@@ -52,6 +52,28 @@ let AuthController = {
                     err: err.message
                 })
         })
+    },
+    adminLogin: (req, res) => {
+        axios.post(`${orderMicroservice}/users/admin-login`, {
+            username: req.body.username,
+            password: req.body.password
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'success!',
+                    token: result.data.token,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: err.response.data.status,
+                    token:null,
+                    error: err.response.data.error
+                })
+        })
     }
 }
 

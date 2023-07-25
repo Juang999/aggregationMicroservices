@@ -6,10 +6,12 @@ const middleware = require('../app/Http/kernel')
 
 let route = [
     '/login', //0
-    '/profile' //1
+    '/profile', //1
+    '/admin-login' //2
 ]
 
 router.post(route[0], [middleware.AuthRequest], AuthController.login)
 router.get(route[1], AuthController.profile)
+router.post(route[2], AuthController.adminLogin)
 
 module.exports = router;
