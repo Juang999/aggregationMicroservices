@@ -167,6 +167,33 @@ VisitController.createPeriode = (req, res) => {
     })
 }
 
+VisitController.getSales = (req, res) => {
+    let page = (req.query.page) ? req.query.page : 1
+    let search = (req.query.search) ? req.query.search : ''
+
+    axios.get(`${orderservice}/order-service/admin/visitation/sales?page=${page}&search=${search}`, {
+        headers: {
+            'authorization': req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                status: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({
+                status: err.response.data.status,
+                data: null,
+                error: err.response.data.error
+            })
+    })
+}
+
 let getPhoto = async (nik_id) => {
     let result
 
