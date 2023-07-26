@@ -63,7 +63,8 @@ let AuthController = {
                 .json({
                     status: 'success!',
                     token: result.data.token,
-                    error: null
+                    error: null,
+                    expired: 60 * 24
                 })
         })
         .catch(err => {
