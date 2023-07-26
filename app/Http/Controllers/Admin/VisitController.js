@@ -9,6 +9,7 @@ const route = require('../../../../routes/route')
 const {links} = require('../../../../helper/helper')
 const CryptoJS = require('crypto-js')
 const employeeservice = microservice.employeeservice
+const moment = require('moment')
 
 const VisitController = {}
 
@@ -56,20 +57,29 @@ VisitController.sales = async (req, res) => {
             }
         })
 
-        let encryptedNikId = btoa(visitations.data.data.nik_id)
+        let dataVisitation = visitations.data.data
 
+        let encryptedNikId = btoa(dataVisitation.nik_id)
         let dataSales = await axios.get(`${employeeservice}/${encryptedNikId}/employee`)
 
-        dataSales.data.data.entity = visitations.data.data.entity.en_desc
+        let salesData = dataSales.data.data
 
-        dataSales.data.data.current_status = 'ACTIVE'
+        dataVisitation.totalCheckIn.link = links(route.Admin.feature.visit.visitation_checkin, [':user_ptnr_id', dataVisitation.user_ptnr_id])
 
-        let data = dataSales.data.data
+        salesData.entity = dataVisitation.entity.en_desc
+        salesData.current_status = 'ACTIVE'
+        salesData.check_in = dataVisitation.totalCheckIn
+
+        for (const output of dataVisitation.outputVisitation) {
+            output.link = links(route.Admin.feature.visit.visitation_output, [':code_id', output.code_id])
+        }
+
+        salesData.total_output = dataVisitation.outputVisitation
 
         res.status(200)
             .json({
                 status: 'success!',
-                data: data,
+                data: salesData,
                 error: null
             })
     } catch (error) {
@@ -167,11 +177,44 @@ VisitController.createPeriode = (req, res) => {
     })
 }
 
-VisitController.getSales = (req, res) => {
-    let page = (req.query.page) ? req.query.page : 1
-    let search = (req.query.search) ? req.query.search : ''
+VisitController.getSales = async (req, res) => {
+    try {
+        let page = (req.query.page) ? req.query.page : 1
+        let search = (req.query.search) ? req.query.search : ''
+    
+        let salesPerson = await axios.get(`${orderservice}/order-service/admin/visitation/sales?page=${page}&search=${search}`, {
+            headers: {
+                'authorization': req.get('authorization')
+            }
+        })
+        
+        for (const sales of salesPerson.data.data) {
+            sales._links = {
+                sales: '/api/admin'+links(route.Admin.feature.visit.visitation, [':ptnr_id', sales.user_ptnr_id])
+            }
+        }
 
-    axios.get(`${orderservice}/order-service/admin/visitation/sales?page=${page}&search=${search}`, {
+        res.status(200)
+            .json({
+                status: 'success!',
+                data: salesPerson.data.data,
+                error: null
+            })
+    } catch (error) {
+        res.status(400)
+            .json({
+                status: error.response.data.status,
+                data: null,
+                error: error.response.data.error
+            })
+    }
+}
+
+VisitController.getDataCheckin = async (req, res) => {
+    let startdate = (req.query.startdate) ? moment(req.query.startdate).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD')
+    let enddate = (req.query.enddate) ? moment(req.query.enddate).format('YYYY-MM=DD') : moment().subtract(3, 'months').format('YYYY')
+
+    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/checkin?startdate=${startdate}&enddate=${enddate}`, {
         headers: {
             'authorization': req.get('authorization')
         }
@@ -190,6 +233,63 @@ VisitController.getSales = (req, res) => {
                 status: err.response.data.status,
                 data: null,
                 error: err.response.data.error
+            })
+    })
+}
+
+VisitController.getSOForSQ = (req, res) => {
+    let startdate = (req.query.startdate) ? moment(req.query.startdate).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD')
+    let enddate = (req.query.enddate) ? moment(req.query.enddate).format('YYYY-MM=DD') : moment().subtract(3, 'months').format('YYYY')
+
+    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/sales-quotation?startdate=${startdate}&enddate=${enddate}`, {
+        headers: {
+            authorization: req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                status: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({
+                status: err.response.data.status,
+                data: null,
+                error: err.response.data.error
+            })
+    })
+}
+
+VisitController.getDataOutput = (req, res) => {
+    let startdate = (req.query.startdate) ? moment(req.query.startdate).format('YYYY-MM-DD') : moment().format('YYYY-MM-DD')
+    let enddate = (req.query.enddate) ? moment(req.query.enddate).format('YYYY-MM=DD') : moment().subtract(3, 'months').format('YYYY')
+    let code_id = req.query.code
+
+    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/output?code_id=${code_id}&startdate=${startdate}&enddate=${enddate}`, {
+        headers: {
+            'authorization': req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                status: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        console.log(err)
+
+        res.status(400)
+            .json({
+                status: err.response.data.status,
+                data: null,
+                error: err.response.data.response
             })
     })
 }
