@@ -128,7 +128,7 @@ const VisitController = {
     checkIn: (req, res) => {
         let formData = new FormData()
 
-        axios.patch(`${ordermicroservice}/visit/visitation/checkin/${req.params.visited_oid}`, {
+        axios.patch(`${ordermicroservice}/visit/visitation/${req.params.visited_oid}/checkin`, {
             visit_code: req.body.visit_code,
             checkin_lat: req.body.lat_checkin,
             checkin_long: req.body.long_checkin,
@@ -143,11 +143,9 @@ const VisitController = {
             res.status(200)
                 .json({
                     status: result.data.status,
-                    message: result.data.message,
-                    data: result.data.data
+                    message: result.data.message
                 })
         }).catch(err => {
-            console.log(err.response.data)
             res.status(400)
                 .json({
                     status: "gagal",
@@ -158,7 +156,7 @@ const VisitController = {
         })
     },
     checkOut: (req, res) => {
-        axios.patch(`${ordermicroservice}/visit/visitation/checkout/${req.params.visited_oid}`, {
+        axios.patch(`${ordermicroservice}/visit/visitation/${req.params.visited_oid}/checkout`, {
             checkout_lat: req.body.lat_checkout,
             checkout_long: req.body.long_checkout,
             checkout_address: req.body.address_checkout,
