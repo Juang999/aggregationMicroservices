@@ -7,8 +7,9 @@ const fs = require('fs')
 const VisitController = {
     getVisitSchedule: (req, res) => {
         let paramPeriode = (req.query.periode) ? req.query.periode : ''
+        let status = (req.query.status) ? 'Y' : 'N'
 
-        axios.get(`${ordermicroservice}/visit/visitation`, {
+        axios.get(`${ordermicroservice}/visit/visitation?periode=${paramPeriode}&status=${status}`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -20,11 +21,11 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err)
+            console.log(err.response)
+            return
             res.status(400)
                 .json({
                     status: "gagal",
-                    message: "gagal mengambil data jadwal kunjungan",
                     error: err.response.data.error
                 })
         })
@@ -290,6 +291,32 @@ const VisitController = {
                     error: err.response.data
                 })
         })
+    },
+    getSalesPerPeriode: (req, res) => {
+        let search = (req.query.search) ? req.query.search : ''
+
+        axios.get(`${ordermicroservice}/visit/visitation/${req.params.periode}/sales?search=${search}`, {
+            headers: {
+                'authorization': req.get('authorization')
+            }
+        })
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success!',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(400)
+                    .json({
+                        status: err.response.data.status,
+                        data: null,
+                        error: err.response.data.error
+                    })
+            })
     }
 }
 

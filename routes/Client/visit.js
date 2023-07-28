@@ -15,7 +15,8 @@ let route = [
     '/delete-schedule/:visit_code', //8
     '/get-all-costomer-per-periode', //9
     '/get-visit-type', //10
-    '/get-output-visit-type' //11
+    '/get-output-visit-type', //11
+    '/visitation/:periode/sales-periode'
 ]
 
 router.get(route[0], controller.Client.VisitController.getVisitSchedule)
@@ -30,5 +31,6 @@ router.delete(route[8], controller.Client.VisitController.deleteSchedule)
 router.get(route[9], controller.Client.VisitController.getCustomerPerPeriode)
 router.get(route[10], controller.Client.VisitController.getVisitType)
 router.get(route[11], controller.Client.VisitController.getOutputVisitType)
+router.get(route[12], controller.Client.VisitController.getSalesPerPeriode)
 
 module.exports = router

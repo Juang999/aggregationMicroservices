@@ -59,31 +59,44 @@ VisitController.sales = async (req, res) => {
 
         let dataVisitation = visitations.data.data
 
-        let encryptedNikId = btoa(dataVisitation.nik_id)
-        let dataSales = await axios.get(`${employeeservice}/${encryptedNikId}/employee`)
+        let dataSales
 
-        let salesData = dataSales.data.data
+        if (dataVisitation.nik_id == null) {
+            dataSales = {"id": null,
+                        "name": dataVisitation.usernama,
+                        "nip": null,
+                        "phone_number": null,
+                        "email": null,
+                        "address": null,
+                        "photo": null,
+                        "division": null,
+                        "super_visor": null,
+                        "status": null,
+                        "role_names": [
+                            null
+                        ]}
+        } else {
+            let encryptedNikId = btoa(dataVisitation.nik_id)
+            let data = await axios.get(`${employeeservice}/${encryptedNikId}/employee`)
 
-        dataVisitation.totalCheckIn.link = links(route.Admin.feature.visit.visitation_checkin, [':user_ptnr_id', dataVisitation.user_ptnr_id])
-
-        salesData.entity = dataVisitation.entity.en_desc
-        salesData.current_status = 'ACTIVE'
-        salesData.check_in = dataVisitation.totalCheckIn
-
-        for (const output of dataVisitation.outputVisitation) {
-            output.link = links(route.Admin.feature.visit.visitation_output, [':code_id', output.code_id])
+            dataSales = data.data.data
         }
 
-        salesData.total_output = dataVisitation.outputVisitation
+        dataSales.entity = dataVisitation.entity.en_desc
+        dataSales.current_status = 'ACTIVE'
+        dataSales.check_in = dataVisitation.totalCheckIn
+
+        dataSales.total_output = dataVisitation.outputVisitation
 
         res.status(200)
             .json({
                 status: 'success!',
-                data: salesData,
+                data: dataSales,
                 error: null
             })
     } catch (error) {
-        console.log(error)
+        console.log(error.message)
+        return
         res.status(400)
             .json({
                 status: 'failed!',
