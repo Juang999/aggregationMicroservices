@@ -120,9 +120,9 @@ const VisitController = {
         }).catch(err => {
             res.status(400)
                 .json({
-                    status: "gagal",
+                    status: err.response.data.status,
                     message: "gagal menambahkan orang yang akan dikunjungi",
-                    error: err.message
+                    error: err.response.data.error
                 })
         })
     },
