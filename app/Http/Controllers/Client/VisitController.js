@@ -150,8 +150,8 @@ const VisitController = {
             res.status(400)
                 .json({
                     status: "gagal",
-                    message: "gagal checkin",
-                    error: err.response.data.data,
+                    message: err.response.data.message,
+                    error: err.response.data.error,
                     visited_oid: err.response.data.visited_oid
                 })
         })
@@ -180,7 +180,7 @@ const VisitController = {
                 .json({
                     status: "gagal",
                     message: "gagal checkout",
-                    error: err.message
+                    error: err.response.data.error
                 })
         })
     },
