@@ -253,8 +253,8 @@ VisitController.getDataCheckin = async (req, res) => {
 }
 
 VisitController.getSOForSQ = (req, res) => {
-    let startdate = (req.query.startdate) ? moment(req.query.startdate).format('YYYY-MM-DD') : moment().subtract(3, 'months').format('YYYY-MM-DD')
-    let enddate = (req.query.enddate) ? moment(req.query.enddate).format('YYYY-MM=DD') : moment().format('YYYY')
+    let startdate = (req.query.start_date) ? moment(req.query.start_date).format('YYYY-MM-DD') : moment().subtract(3, 'months').format('YYYY-MM-26')
+    let enddate = (req.query.end_date) ? moment(req.query.end_date).format('YYYY-MM=DD') : moment().format('YYYY-MM-25')
 
     axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/sales-quotation?startdate=${startdate}&enddate=${enddate}`, {
         headers: {
@@ -280,8 +280,9 @@ VisitController.getSOForSQ = (req, res) => {
 }
 
 VisitController.getDataOutput = (req, res) => {
-    let startdate = (req.query.startdate) ? moment(req.query.startdate).format('YYYY-MM-DD') : moment().subtract(3, 'months').format('YYYY-MM-DD')
-    let enddate = (req.query.enddate) ? moment(req.query.enddate).format('YYYY-MM=DD') : moment().format('YYYY')
+    let startdate = (req.query.start_date) ? moment(req.query.start_date).format('YYYY-MM-DD') : moment().subtract(3, 'months').format('YYYY-MM-26')
+    let enddate = (req.query.end_date) ? moment(req.query.end_date).format('YYYY-MM=DD') : moment().format('YYYY-MM-25')
+
     let code_id = req.query.code
 
     axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/output?code_id=${code_id}&startdate=${startdate}&enddate=${enddate}`, {
