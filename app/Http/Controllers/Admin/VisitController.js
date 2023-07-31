@@ -211,6 +211,8 @@ VisitController.getSales = async (req, res) => {
             .json({
                 status: 'success!',
                 data: salesPerson.data.data,
+                current_page: salesPerson.data.current_page,
+                total_page: salesPerson.data.total_page,
                 error: null
             })
     } catch (error) {
