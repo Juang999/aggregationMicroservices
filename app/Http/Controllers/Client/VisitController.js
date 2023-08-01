@@ -7,7 +7,7 @@ const fs = require('fs')
 const VisitController = {
     getVisitSchedule: (req, res) => {
         let paramPeriode = (req.query.periode) ? req.query.periode : ''
-        let status = (req.query.status) ? 'Y' : 'N'
+        let status = (req.query.status == 1) ? 'Y' : 'N'
 
         axios.get(`${ordermicroservice}/visit/visitation?periode=${paramPeriode}&status=${status}`, {
             headers: {
