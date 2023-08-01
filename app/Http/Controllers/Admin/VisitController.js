@@ -95,8 +95,6 @@ VisitController.sales = async (req, res) => {
                 error: null
             })
     } catch (error) {
-        console.log(error.message)
-        return
         res.status(400)
             .json({
                 status: 'failed!',
@@ -299,8 +297,6 @@ VisitController.getDataOutput = (req, res) => {
             })
     })
     .catch(err => {
-        console.log(err)
-
         res.status(400)
             .json({
                 status: err.response.data.status,

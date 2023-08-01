@@ -19,12 +19,11 @@ const SalesQuotationController = {
                     })
             })
             .catch(err => {
-                console.log(err)
                 res.status(400)
                     .json({
                         status: 'gagal',
                         message: 'gagal mengambil data',
-                        error: err.message
+                        error: err.response.data.err
                     })
             })
     },
@@ -174,7 +173,6 @@ const SalesQuotationController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err)
             res.status(400)
                 .json({
                     status: 'gagal',
@@ -280,7 +278,6 @@ const SalesQuotationController = {
                     data: dataProductFromOrderMicroservice.data.data
                 })
         } catch (error) {
-            console.log(error)
             res.status(400)
                 .json({
                     status: 'gagal',

@@ -88,12 +88,11 @@ let PKController = {
                     data: data_ready
                 })
         } catch (error) {
-            console.log(error)
             res.status(400)
                 .json({
                     status: "failed",
                     message: "gagal megnambil data",
-                    error: error.message
+                    error: error.response.data.error
                 })
         }
     },
@@ -133,12 +132,11 @@ let PKController = {
                     })
             })
             .catch(err => {
-                console.log(err)
                 res.status(400)
                     .json({
                         status: "failed",
                         message: "gagal mengambil data",
-                        error: err.message
+                        error: err.response.data.error
                     })
             })
     },
@@ -180,12 +178,11 @@ let PKController = {
                     })
             })
             .catch(err => {
-                console.log(err)
                 res.status(400)
                     .json({
                         status: "failed",
                         message: "gagal mengambil data",
-                        error: err.message
+                        error: err.response.data.error
                     })
             })
     },
@@ -366,12 +363,11 @@ let PKController = {
                     result: dataExapro.data.data
                 })
         } catch (error) {
-            console.log(error.response)
             res.status(400)
                 .json({
                     status: "failed",
                     message: "gagal mengambil data",
-                    error: error.response
+                    error: error.response.data.error
                 })
         }
     },
@@ -407,12 +403,11 @@ let PKController = {
                     data: data_ready
                 })
         } catch (error) {
-            console.log(error)
             res.status(400)
                 .json({
                     status: "failed",
                     message: "gagal megnambil data",
-                    error: error.message
+                    error: error.response.data.error
                 })
         }
     },

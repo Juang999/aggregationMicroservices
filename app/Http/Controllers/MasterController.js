@@ -247,12 +247,11 @@ const MasterController = {
                     })
             })
             .catch(err => {
-                console.log(err)
                 res.status(400)
                     .json({
                         status: "gagal",
                         message: "gagal mengambil data default periode",
-                        error: err.message
+                        error: err.response.data.error
                     })
             })
     },

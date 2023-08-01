@@ -21,12 +21,11 @@ let AuthController = {
                 })
         })
         .catch(err => {
-            console.log(err)
             res.status(400)
                 .json({
                     status: "failed",
                     message: "gagal login",
-                    error: err.message
+                    error: err.response.data.error
                 })
         })
     },

@@ -21,7 +21,6 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err.response)
             return
             res.status(400)
                 .json({
@@ -43,12 +42,11 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err)
             res.status(400)
                 .json({
                     status: "gagal",
                     message: "gagal mengambil detail data",
-                    data: err.message
+                    data: err.response.data.error
                 })
         })
     },
@@ -65,12 +63,11 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err)
             res.status(400)
                 .json({
                     status: "gagal",
                     message: "gagal mengambil data etail kunjungan",
-                    error: err.message
+                    error: err.response.data.error
                 })
         })
     },
@@ -175,7 +172,6 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err)
             res.status(400)
                 .json({
                     status: "gagal",
@@ -211,7 +207,6 @@ const VisitController = {
                 "authorization": req.get('authorization')
             }
         }).then(result => {
-            console.log(result)
             res.status(200)
                 .json({
                     status: "berhasil",
@@ -240,7 +235,6 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err.response)
             res.status(400)
                 .json({
                     status: "gagal",
@@ -262,12 +256,11 @@ const VisitController = {
                     data: result.data.data
                 })
         }).catch(err => {
-            console.log(err.response.data)
             res.status(400)
                 .json({
                     status: 'gagal',
                     message: 'gagal mmengambil data',
-                    error: err.response.data
+                    error: err.response.data.error
                 })
         })
     },
@@ -309,7 +302,6 @@ const VisitController = {
                     })
             })
             .catch(err => {
-                console.log(err)
                 res.status(400)
                     .json({
                         status: err.response.data.status,
