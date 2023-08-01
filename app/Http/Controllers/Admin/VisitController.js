@@ -35,16 +35,18 @@ VisitController.index = async (req, res) => {
 
         res.status(200)
             .json({
-                status: 'succeed!',
+                code: salesPerson.data.code,
+                status: salesPerson.data.status,
                 data: salesPerson.data.data,
                 error: null
             })
     } catch (error) {
         res.status(400)
             .json({
-                status: error.response.data.status,
+                code: error.response.data.code,
+                status:  error.response.data.status,
                 data: null,
-                error: error.response.data.errors
+                error: error.response.data.error
             })
     }
 }
@@ -90,6 +92,7 @@ VisitController.sales = async (req, res) => {
 
         res.status(200)
             .json({
+                code: 200,
                 status: 'success!',
                 data: dataSales,
                 error: null
@@ -97,6 +100,7 @@ VisitController.sales = async (req, res) => {
     } catch (error) {
         res.status(400)
             .json({
+                code: 400,
                 status: 'failed!',
                 data: null,
                 error: error.response.data.error
@@ -123,16 +127,18 @@ VisitController.visitationSchedule = async (req, res) => {
 
         res.status(200)
             .json({
-                status: 'success!',
+                code: visitationSchedule.data.code,
+                status: visitationSchedule.data.status,
                 data: visitationSchedule.data.data,
                 error: null
             })
     } catch (error) {
         res.status(400)
             .json({
-                status: error.message,
+                code: error.response.data.code,
+                status: error.response.data.status,
                 data: null,
-                error: error.message
+                error: error.response.data.error
             })
     }
 }
@@ -147,7 +153,8 @@ VisitController.detailVisitation = async (req, res) => {
 
         res.status(200)
             .json({
-                status: 'success!',
+                code: detailVisitation.data.code,
+                status: dataVisitation.data.status,
                 data: detailVisitation.data.data,
                 error: null
             })
@@ -174,14 +181,16 @@ VisitController.createPeriode = (req, res) => {
     .then(result => {
         res.status(200)
             .json({
-                status: 'success!',
+                code: result.data.code,
+                status: result.data.status,
                 data: result.data.data,
                 error: null
             })
     }).catch(err => {
         res.status(400)
             .json({
-                status: (err.response.data.status) ? err.response.data.status : error.message,
+                code: 400,
+                status: (err.response.data.status) ? err.response.data.status : err.message,
                 data: null,
                 error: err.response.data.error
             })
@@ -207,6 +216,7 @@ VisitController.getSales = async (req, res) => {
 
         res.status(200)
             .json({
+                code: salesPerson.data.code,
                 status: 'success!',
                 data: salesPerson.data.data,
                 current_page: salesPerson.data.current_page,
@@ -216,6 +226,7 @@ VisitController.getSales = async (req, res) => {
     } catch (error) {
         res.status(400)
             .json({
+                code: error.response.data.code,
                 status: error.response.data.status,
                 data: null,
                 error: error.response.data.error
@@ -235,6 +246,7 @@ VisitController.getDataCheckin = async (req, res) => {
     .then(result => {
         res.status(200)
             .json({
+                code: result.data.code,
                 status: 'success!',
                 data: result.data.data,
                 error: null
@@ -243,6 +255,7 @@ VisitController.getDataCheckin = async (req, res) => {
     .catch(err => {
         res.status(400)
             .json({
+                code: err.response.data.code,
                 status: err.response.data.status,
                 data: null,
                 error: err.response.data.error
@@ -262,6 +275,7 @@ VisitController.getSOForSQ = (req, res) => {
     .then(result => {
         res.status(200)
             .json({
+                code: result.data.code,
                 status: 'success!',
                 data: result.data.data,
                 error: null
@@ -270,6 +284,7 @@ VisitController.getSOForSQ = (req, res) => {
     .catch(err => {
         res.status(400)
             .json({
+                code: err.resposne.data.code,
                 status: err.response.data.status,
                 data: null,
                 error: err.response.data.error
@@ -291,6 +306,7 @@ VisitController.getDataOutput = (req, res) => {
     .then(result => {
         res.status(200)
             .json({
+                code: result.data.code,
                 status: 'success!',
                 data: result.data.data,
                 error: null
@@ -299,6 +315,7 @@ VisitController.getDataOutput = (req, res) => {
     .catch(err => {
         res.status(400)
             .json({
+                code: err.response.data.code,
                 status: err.response.data.status,
                 data: null,
                 error: err.response.data.response
