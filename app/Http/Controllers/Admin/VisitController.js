@@ -284,7 +284,7 @@ VisitController.getSOForSQ = (req, res) => {
     .catch(err => {
         res.status(400)
             .json({
-                code: err.resposne.data.code,
+                code: err.response.data.code,
                 status: err.response.data.status,
                 data: null,
                 error: err.response.data.error
@@ -318,7 +318,33 @@ VisitController.getDataOutput = (req, res) => {
                 code: err.response.data.code,
                 status: err.response.data.status,
                 data: null,
-                error: err.response.data.response
+                error: err.response.data.error
+            })
+    })
+}
+
+VisitController.getPeriode = (req, res) => {
+    axios.get(`${orderservice}/order-service/admin/visitation/periode`, {
+        headers: {
+            "authorization": req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                code: 200,
+                status: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({
+                code: 400,
+                status: err.response.data.status,
+                data: null,
+                error: err.resposne.data.error
             })
     })
 }
