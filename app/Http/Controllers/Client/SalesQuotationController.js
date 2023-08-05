@@ -160,6 +160,7 @@ const SalesQuotationController = {
             sq_ship_to: req.body.ship_to,
             sq_start_date: req.body.start_date,
             sq_end_date: req.body.end_date,
+            sq_credit_term: req.body.credit_term,
             sq_body_sales_quotation: req.body.body_sales_quotation
         }, {
             headers: {
