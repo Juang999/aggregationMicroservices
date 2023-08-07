@@ -13,13 +13,18 @@ let route = {
                 visitation_sales: '/visitation/sales',
                 visitation_checkin: '/visitation/:user_ptnr_id/checkin',
                 visitation_sales_quotation: '/visitation/:user_ptnr_id/sales-quotation',
-                visitation_output: '/visitation/:user_ptnr_id/output'
+                visitation_output: '/visitation/:user_ptnr_id/output',
+                visitation_periode: '/visitation/periode',
+                visitation_goal: '/visitation/:userid/goal'
             },
             SalesQuotation: {
                 index: '/sales-quotation',
                 invitation: '/sales-quotation/:ptnr_id/invitation',
                 invitation_schedule: '/sales-quotation/:visit_code/invitation-schedule'
             },
+            Auth: {
+                admin_profile: '/admin-profile'
+            }
         }
     }
 }

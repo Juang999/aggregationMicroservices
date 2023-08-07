@@ -12,5 +12,7 @@ router.get(route.Admin.feature.visit.visitation_sales, Admin.VisitController.get
 router.get(route.Admin.feature.visit.visitation_checkin, Admin.VisitController.getDataCheckin)
 router.get(route.Admin.feature.visit.visitation_sales_quotation, Admin.VisitController.getSOForSQ)
 router.get(route.Admin.feature.visit.visitation_output, Admin.VisitController.getDataOutput)
+router.get(route.Admin.feature.visit.visitation_periode, Admin.VisitController.getPeriode)
+router.get(route.Admin.feature.visit.visitation_goal, Admin.VisitController.getGoal)
 
 module.exports = router

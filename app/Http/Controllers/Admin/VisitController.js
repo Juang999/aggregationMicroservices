@@ -64,7 +64,8 @@ VisitController.sales = async (req, res) => {
         let dataSales
 
         if (dataVisitation.nik_id == null) {
-            dataSales = {"id": null,
+            dataSales = {
+                        "id": null,
                         "name": dataVisitation.usernama,
                         "nip": null,
                         "phone_number": null,
@@ -74,9 +75,7 @@ VisitController.sales = async (req, res) => {
                         "division": null,
                         "super_visor": null,
                         "status": null,
-                        "role_names": [
-                            null
-                        ]}
+                        }
         } else {
             let encryptedNikId = btoa(dataVisitation.nik_id)
             let data = await axios.get(`${employeeservice}/${encryptedNikId}/employee`)
@@ -85,7 +84,6 @@ VisitController.sales = async (req, res) => {
         }
 
         dataSales.entity = dataVisitation.entity.en_desc
-        dataSales.current_status = 'ACTIVE'
         dataSales.check_in = dataVisitation.totalCheckIn
 
         dataSales.total_output = dataVisitation.outputVisitation
@@ -345,6 +343,34 @@ VisitController.getPeriode = (req, res) => {
                 status: err.response.data.status,
                 data: null,
                 error: err.resposne.data.error
+            })
+    })
+}
+
+VisitController.getGoal = (req, res) => {
+    let periode = (req.query.periode_code) ? req.query.periode_code : ''
+
+    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.userid}/goal?periode_code=${periode}`, {
+        headers: {
+            "authorization": req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                code: 200,
+                status: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({
+                code: 400,
+                status: err.response.data.status,
+                data: null,
+                error: err.response.data.error
             })
     })
 }
