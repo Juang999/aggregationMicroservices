@@ -74,6 +74,31 @@ let AuthController = {
                     error: err.response.data.error
                 })
         })
+    },
+    AdminProfile: (req, res) => {
+        axios.get(`${orderMicroservice}/users/admin-profile`, {
+            headers: {
+                "authorization": req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    code: 200,
+                    status: 'success!',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    code: 400,
+                    status: err.response.data.status,
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
     }
 }
 
