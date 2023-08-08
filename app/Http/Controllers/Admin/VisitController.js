@@ -59,14 +59,12 @@ VisitController.sales = async (req, res) => {
             }
         })
 
-        let dataVisitation = visitations.data.data
-
         let dataSales
 
-        if (dataVisitation.nik_id == null) {
+        if (visitations.data.data.nik_id == null) {
             dataSales = {
                         "id": null,
-                        "name": dataVisitation.usernama,
+                        "name": visitations.data.data.usernama,
                         "nip": null,
                         "phone_number": null,
                         "email": null,
@@ -77,16 +75,24 @@ VisitController.sales = async (req, res) => {
                         "status": null,
                         }
         } else {
-            let encryptedNikId = btoa(dataVisitation.nik_id)
+            let encryptedNikId = btoa(visitations.data.data.nik_id)
             let data = await axios.get(`${employeeservice}/${encryptedNikId}/employee`)
 
             dataSales = data.data.data
         }
 
-        dataSales.entity = dataVisitation.entity.en_desc
-        dataSales.check_in = dataVisitation.totalCheckIn
+        let periode_code = (req.query.periode_code) ? req.query.periode_code : ''
 
-        dataSales.total_output = dataVisitation.outputVisitation
+        let dataGoal = await axios.get(`${orderservice}/order-service/admin/visitation/${visitations.data.data.user_ptnr_id}/goal?periode_code=${periode_code}`, {
+            headers: {
+                'authorization': req.get('authorization')
+            }
+        })
+
+        dataSales.entity = visitations.data.data.entity.en_desc
+        dataSales.target_sales = dataGoal.data.data
+        dataSales.check_in = visitations.data.data.totalCheckIn
+        dataSales.total_output = visitations.data.data.outputVisitation
 
         res.status(200)
             .json({
