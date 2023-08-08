@@ -268,10 +268,9 @@ VisitController.getDataCheckin = async (req, res) => {
 }
 
 VisitController.getSOForSQ = (req, res) => {
-    let startdate = (req.query.start_date) ? moment(req.query.start_date).format('YYYY-MM-DD') : moment().subtract(3, 'months').format('YYYY-MM-26')
-    let enddate = (req.query.end_date) ? moment(req.query.end_date).format('YYYY-MM=DD') : moment().format('YYYY-MM-25')
+    let periode_code = (req.query.periode_code) ? req.query.periode_code : ''
 
-    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/sales-quotation?startdate=${startdate}&enddate=${enddate}`, {
+    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/sales-quotation?periode_code=${periode_code}`, {
         headers: {
             authorization: req.get('authorization')
         }
@@ -297,12 +296,11 @@ VisitController.getSOForSQ = (req, res) => {
 }
 
 VisitController.getDataOutput = (req, res) => {
-    let startdate = (req.query.start_date) ? moment(req.query.start_date).format('YYYY-MM-DD') : moment().subtract(3, 'months').format('YYYY-MM-26')
-    let enddate = (req.query.end_date) ? moment(req.query.end_date).format('YYYY-MM=DD') : moment().format('YYYY-MM-25')
+    let periode_code = (req.query.periode_code) ? req.query.periode_code : ''
 
     let code_id = req.query.code
 
-    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/output?code_id=${code_id}&startdate=${startdate}&enddate=${enddate}`, {
+    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.user_ptnr_id}/output?code_id=${code_id}&periode_code=${periode_code}`, {
         headers: {
             'authorization': req.get('authorization')
         }
