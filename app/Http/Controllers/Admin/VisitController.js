@@ -407,7 +407,7 @@ VisitController.getVisitationCode = (req, res) => {
 }
 
 VisitController.getCustomer = (req, res) => {
-    axios.get(`${orderservice}/order-serivce/admin/visitation/customer`, {
+    axios.get(`${orderservice}/order-service/admin/visitation/customer`, {
         headers: {
             "authorization": req.get('authorization')
         }
