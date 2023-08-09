@@ -93,6 +93,7 @@ VisitController.sales = async (req, res) => {
         dataSales.target_sales = dataGoal.data.data
         dataSales.check_in = visitations.data.data.totalCheckIn
         dataSales.total_output = visitations.data.data.outputVisitation
+        dataSales.userid = visitations.data.data.user_ptnr_id
 
         res.status(200)
             .json({
