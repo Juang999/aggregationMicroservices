@@ -15,7 +15,11 @@ let route = {
                 visitation_sales_quotation: '/visitation/:user_ptnr_id/sales-quotation',
                 visitation_output: '/visitation/:user_ptnr_id/output',
                 visitation_periode: '/visitation/periode',
-                visitation_goal: '/visitation/:userid/goal'
+                visitation_goal: '/visitation/:userid/goal',
+                visitation_code: '/visitation/:userid/code',
+                visitation_customer: '/visitation/customer',
+                visitation_type: '/visitation/type',
+                visitation_visit: '/visitation/visit'
             },
             SalesQuotation: {
                 index: '/sales-quotation',

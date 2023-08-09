@@ -13,6 +13,9 @@ router.get(route.Admin.feature.visit.visitation_checkin, Admin.VisitController.g
 router.get(route.Admin.feature.visit.visitation_sales_quotation, Admin.VisitController.getSOForSQ)
 router.get(route.Admin.feature.visit.visitation_output, Admin.VisitController.getDataOutput)
 router.get(route.Admin.feature.visit.visitation_periode, Admin.VisitController.getPeriode)
-// router.get(route.Admin.feature.visit.visitation_goal, Admin.VisitController.getGoal)
+router.get(route.Admin.feature.visit.visitation_code, Admin.VisitController.getVisitationCode)
+router.get(route.Admin.feature.visit.visitation_customer, Admin.VisitController.getCustomer)
+router.get(route.Admin.feature.visit.visitation_type, Admin.VisitController.getType)
+router.post(route.Admin.feature.visit.visitation_visit, Admin.VisitController.inputNewCustomerToVisit)
 
 module.exports = router

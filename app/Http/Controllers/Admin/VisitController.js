@@ -379,6 +379,117 @@ VisitController.getGoal = (req, res) => {
     })
 }
 
+VisitController.getVisitationCode = (req, res) => {
+    axios.get(`${orderservice}/order-service/admin/visitation/${req.params.userid}/code`, {
+        headers: {
+            'authorization': req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                code: 200,
+                status: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({
+                code: 400,
+                status: err.response.data.status,
+                data: null,
+                error: err.response.data.error
+            })
+    })
+}
+
+VisitController.getCustomer = (req, res) => {
+    axios.get(`${orderservice}/order-serivce/admin/visitation/customer`, {
+        headers: {
+            "authorization": req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                code: 200,
+                status: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({
+                code: 400,
+                status: err.response.data.status,
+                data: null,
+                error: err.response.data.error
+            })
+    })
+}
+
+VisitController.getType = (req, res) => {
+    axios.get(`${orderservice}/order-service/admin/visitation/type`, {
+        headers: {
+            authorization: req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                code: 200,
+                result: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({
+                code: 400,
+                status: err.response.data.status,
+                data: null,
+                error: err.response.data.error
+            })
+    })
+}
+
+VisitController.inputNewCustomerToVisit = (req, res) => {
+    axios.post(`${orderservice}/order-service/admin/visitation/visit`, {
+        visit_code: req.body.visit_code,
+        type: req.body.type,
+        ptnr_id: req.body.ptnr_id,
+        cus_name: req.body.cus_name,
+        cus_address: req.body.cus_address,
+        cus_phone: req.body.cus_phone
+    }, {
+        headers: {
+            authorization: req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                code: 200,
+                statsus: 'success!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({ 
+                code: 400,
+                status: err.response.data.status,
+                data: null,
+                error: err.response.data.error
+            })
+    })
+}
+
 let getPhoto = async (nik_id) => {
     let result
 
