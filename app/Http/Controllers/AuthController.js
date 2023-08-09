@@ -5,6 +5,7 @@ const orderMicroservice = microservice.ordermicroservice
 const jwt = require('jsonwebtoken')
 const CryptoJS = require('crypto-js')
 const key = "Aggregation Microservice"
+const empservice = microservice.employeeservice
 
 let AuthController = {
     login: (req, res) => {
@@ -36,6 +37,8 @@ let AuthController = {
             }
         })
         .then(result => {
+            result.data.data.image = (result.data.data.nik_id) ? `${empservice}/photo/${btoa(result.data.data.nik_id)}` : '-'
+
             res.status(200)
                 .json({
                     status: "success",
