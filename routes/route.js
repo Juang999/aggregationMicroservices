@@ -1,6 +1,7 @@
 let route = {
     route_service: null,
     route_default: '/api',
+    logout: '/logout',
     Admin: {
         route_admin: '/admin',
         feature: {

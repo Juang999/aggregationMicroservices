@@ -102,6 +102,31 @@ let AuthController = {
                     error: err.response.data.error
                 })
         })
+    },
+    Logout: (req, res) => {
+        axios.delete(`${orderMicroservice}/users/logout`, {
+            headers: {
+                authorization: req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    code: 200,
+                    status: 'success!',
+                    logout: true,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    code: 400,
+                    status: err.response.data.status,
+                    logout: false,
+                    error: err.response.data.error
+                })
+        })
     }
 }
 
