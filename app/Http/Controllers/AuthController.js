@@ -104,9 +104,9 @@ let AuthController = {
         })
     },
     Logout: (req, res) => {
-        axios.delete(`${orderMicroservice}/users/logout`, {
+        axios.post(`${orderMicroservice}/users/logout`, {}, {
             headers: {
-                authorization: req.get('authorization')
+                "authorization": req.get('authorization')
             }
         })
         .then(result => {

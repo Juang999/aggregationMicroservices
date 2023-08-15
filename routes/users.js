@@ -15,6 +15,6 @@ router.post(route[0], [middleware.AuthRequest], AuthController.login)
 router.get(route[1], AuthController.profile)
 router.post(route[2], AuthController.adminLogin)
 router.get(Admin.feature.Auth.admin_profile, AuthController.AdminProfile)
-router.delete(logout, AuthController.Logout)
+router.post(logout, AuthController.Logout)
 
 module.exports = router;

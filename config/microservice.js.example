@@ -1,0 +1,7 @@
+const microservices = {
+    ordermicroservice: '',
+    productknowledgemicroservice: '',
+    employeeservice: ''
+}
+
+module.exports = microservices

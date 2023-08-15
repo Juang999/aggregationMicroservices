@@ -1,13 +1,8 @@
-require('dotenv').config({
-  path: './'
-})
-
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var port = 3001
 var upload = require('express-fileupload')
 var route = require('./routes/route')
 
@@ -70,9 +65,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.listen(port, () => {
-  console.log(`System started on ${process.env.HOST}:${process.env.PORT}`)
-})
 
 module.exports = app;
