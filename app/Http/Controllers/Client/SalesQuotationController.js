@@ -28,7 +28,7 @@ const SalesQuotationController = {
             })
     },
     getLocation: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-location`, {
+        axios.get(`${ordermicroservice}/sales-quotation/location/${req.params.en_id}`, {
             headers: {
                 "authorization": req.get('authorization')
             }

@@ -4,7 +4,7 @@ const controller = require('../../app/Http/Controllers/Controller')
 
 const route = [
     '/site', //0
-    '/location', //1
+    '/location/:en_id', //1
     '/location-to', //2
     '/location-git', //3
     '/get-sales-quotation', //4
@@ -14,13 +14,13 @@ const route = [
     '/get-limit-credit-customer/partnerid/:partnerId', //8
     '/get-account-name', //9
     '/get-product/pricelist/:priceListOid/area/:areaId/location/:locId', //10
-    '/get-area' //11
+    '/get-area', //11
 ]
 
 router.get(route[0], controller.Client.SalesQuotationController.getSite)
-router.get(route[1], controller.Client.SalesQuotationController.getLocation)
-router.get(route[2], controller.Client.SalesQuotationController.getLocationTo)
-router.get(route[3], controller.Client.SalesQuotationController.getLocationGit)
+// router.get(route[1], controller.Client.SalesQuotationController.getLocation)
+// router.get(route[2], controller.Client.SalesQuotationController.getLocationTo)
+// router.get(route[3], controller.Client.SalesQuotationController.getLocationGit)
 router.get(route[4], controller.Client.SalesQuotationController.getSalesQuotation)
 router.get(route[5], controller.Client.SalesQuotationController.getPriceList)
 router.post(route[6], controller.Client.SalesQuotationController.createSalesQuotation)
@@ -29,5 +29,6 @@ router.get(route[8], controller.Client.SalesQuotationController.getLimitCreditCu
 router.get(route[9], controller.Client.SalesQuotationController.getAccountName)
 router.get(route[10], controller.Client.SalesQuotationController.getProductForSQ)
 router.get(route[11], controller.Client.SalesQuotationController.getArea)
+router.get(route[1], controller.Client.SalesQuotationController.getLocation)
 
 module.exports = router
