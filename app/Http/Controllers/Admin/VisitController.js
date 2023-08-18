@@ -511,11 +511,13 @@ VisitController.createPlanningSchedule = (req, res) => {
             })
     })
     .catch(err => {
+        console.log(err.response.data)
+        
         res.status(400)
             .json({
                 code: 400,
                 status: 'failed',
-                data: null,
+                data: (err.response.data.data != null) ? err.response.data.data : null,
                 error: err.response.data.error
             })
     })
