@@ -491,6 +491,36 @@ VisitController.inputNewCustomerToVisit = (req, res) => {
     })
 }
 
+VisitController.createPlanningSchedule = (req, res) => {
+    axios.post(`${orderservice}/order-service/admin/visitation/`, {
+        visit_sales_id: req.body.visit_sales_id,
+        visit_startdate: req.body.visit_startdate,
+        visit_enddate: req.body.visit_enddate
+    }, {
+        headers: {
+            authorization: req.get('authorization')
+        }
+    })
+    .then(result => {
+        res.status(200)
+            .json({
+                code: 200,
+                status: 'sucess!',
+                data: result.data.data,
+                error: null
+            })
+    })
+    .catch(err => {
+        res.status(400)
+            .json({
+                code: 400,
+                status: 'failed',
+                data: null,
+                error: err.response.data.error
+            })
+    })
+}
+
 let getPhoto = async (nik_id) => {
     let result
 

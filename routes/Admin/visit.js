@@ -3,7 +3,7 @@ const router = express.Router()
 const route = require('../route')
 const {Admin} = require('../../app/Http/Controllers/Controller')
 
-router.get(route.Admin.feature.visit.index, Admin.VisitController.index)
+router.get(route.Admin.feature.visit.index_and_create, Admin.VisitController.index)
 router.get(route.Admin.feature.visit.visitation, Admin.VisitController.sales)
 router.get(route.Admin.feature.visit.visitation_schedule, Admin.VisitController.visitationSchedule)
 router.get(route.Admin.feature.visit.visitation_detail, Admin.VisitController.detailVisitation)
@@ -17,5 +17,6 @@ router.get(route.Admin.feature.visit.visitation_code, Admin.VisitController.getV
 router.get(route.Admin.feature.visit.visitation_customer, Admin.VisitController.getCustomer)
 router.get(route.Admin.feature.visit.visitation_type, Admin.VisitController.getType)
 router.post(route.Admin.feature.visit.visitation_visit, Admin.VisitController.inputNewCustomerToVisit)
+router.post(route.Admin.feature.visit.index_and_create, Admin.VisitController.createPlanningSchedule)
 
 module.exports = router
