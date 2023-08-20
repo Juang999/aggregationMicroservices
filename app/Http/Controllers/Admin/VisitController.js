@@ -511,8 +511,6 @@ VisitController.createPlanningSchedule = (req, res) => {
             })
     })
     .catch(err => {
-        console.log(err.response.data)
-        
         res.status(400)
             .json({
                 code: 400,
