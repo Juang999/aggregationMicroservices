@@ -24,8 +24,7 @@ VisitController.index = async (req, res) => {
             }
         })
 
-        for (const sales of salesPerson.data.data) {
-
+        for (const sales of salesPerson.data.data.sales) {
             sales.photo = await getPhoto(sales.ptnr_nik_id)
 
             sales._links = {
@@ -37,7 +36,9 @@ VisitController.index = async (req, res) => {
             .json({
                 code: salesPerson.data.code,
                 status: salesPerson.data.status,
-                data: salesPerson.data.data,
+                data: salesPerson.data.data.sales,
+                current_page: salesPerson.data.data.current_page,
+                total_page: salesPerson.data.data.total_page,
                 error: null
             })
     } catch (error) {
