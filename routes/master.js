@@ -1,41 +1,23 @@
 const express = require('express')
 const router = express.Router()
 const controller = require('../app/Http/Controllers/Controller')
+const {Default} = require('./route')
 
-route = [
-    '/periode', //0
-    '/periode-customer', //1
-    '/tax_invoice', //2
-    '/addr_type', //3
-    '/contact_person', //4
-    '/bp_type', //5
-    '/citizen', //6
-    '/blood_group', //7
-    '/gender', //8
-    '/currency', //9
-    '/get-entity', //10
-    '/default-periode', //11
-    '/location', //12
-    '/payment-type', //13
-    '/payment-method', //14
-    '/creditterms-mstr' //15
-]
-
-router.get(route[0], controller.MasterController.getPeriode)
-router.get(route[1], controller.MasterController.getPeriodeSales)
-router.get(route[2], controller.MasterController.getTaxInvoice)
-router.get(route[3], controller.MasterController.getAddrType)
-router.get(route[4], controller.MasterController.getContactPerson)
-router.get(route[5], controller.MasterController.getBpType)
-router.get(route[6], controller.MasterController.getCitizen)
-router.get(route[7], controller.MasterController.getBloodGroup)
-router.get(route[8], controller.MasterController.getGender)
-router.get(route[9], controller.MasterController.getCurrency)
-router.get(route[10], controller.MasterController.getEntity)
-router.get(route[11], controller.MasterController.getDefaultPeriode)
-router.get(route[12], controller.MasterController.getLocation)
-router.get(route[13], controller.MasterController.getPaymentType)
-router.get(route[14], controller.MasterController.getPaymentMethod)
-router.get(route[15], controller.MasterController.getCreditTermsMstr)
+router.get(Default.feature.Master.master_group, controller.MasterController.getGroup)
+router.get(Default.feature.Master.master_gender, controller.MasterController.getGender)
+router.get(Default.feature.Master.master_entity, controller.MasterController.getEntity)
+router.get(Default.feature.Master.master_bp_type, controller.MasterController.getBpType)
+router.get(Default.feature.Master.master_citizen, controller.MasterController.getCitizen)
+router.get(Default.feature.Master.master_periode, controller.MasterController.getPeriode)
+router.get(Default.feature.Master.master_currency, controller.MasterController.getCurrency)
+router.get(Default.feature.Master.master_location, controller.MasterController.getLocation)
+router.get(Default.feature.Master.master_addr_type, controller.MasterController.getAddrType)
+router.get(Default.feature.Master.master_blood_group, controller.MasterController.getBloodGroup)
+router.get(Default.feature.Master.master_tax_invoice, controller.MasterController.getTaxInvoice)
+router.get(Default.feature.Master.master_payment_type, controller.MasterController.getPaymentType)
+router.get(Default.feature.Master.master_payment_method, controller.MasterController.getPaymentMethod)
+router.get(Default.feature.Master.master_contact_person, controller.MasterController.getContactPerson)
+router.get(Default.feature.Master.master_credit_terms, controller.MasterController.getCreditTermsMstr)
+router.get(Default.feature.Master.master_default_periode, controller.MasterController.getDefaultPeriode)
 
 module.exports = router

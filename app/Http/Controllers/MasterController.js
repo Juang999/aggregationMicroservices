@@ -6,7 +6,7 @@ const orderMicroservice = microservice.ordermicroservice
 
 const MasterController = {
     getPeriode: (req, res) => {
-        axios.get(`${orderMicroservice}/master/periode`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/periode`, {
             headers: {
                 "authorization": req.get("authorization")
             }
@@ -27,7 +27,7 @@ const MasterController = {
         })
     },
     getPeriodeSales: (req, res) => {
-        axios.get(`${orderMicroservice}/master/periode-customer`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/periode-customer`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -48,7 +48,7 @@ const MasterController = {
         })
     },
     getTaxInvoice: (req, res) => {
-        axios.get(`${orderMicroservice}/master/tax_invoice`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/tax_invoice`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -69,7 +69,7 @@ const MasterController = {
         })
     },
     getAddrType: (req, res) => {
-        axios.get(`${orderMicroservice}/master/addr_type`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/addr_type`, {
             headers: {
                 "authorization": req.get("authorization")
             }
@@ -90,7 +90,7 @@ const MasterController = {
         })
     },
     getContactPerson: (req, res) => {
-        axios.get(`${orderMicroservice}/master/contact_person`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/contact_person`, {
             headers: {
                 "authorization": req.get("authorization")
             }
@@ -111,7 +111,7 @@ const MasterController = {
         })
     },
     getBpType: (req, res) => {
-        axios.get(`${orderMicroservice}/master/bp_type`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/bp_type`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -132,7 +132,7 @@ const MasterController = {
         })
     },
     getCitizen: (req, res) => {
-        axios.get(`${orderMicroservice}/master/citizen`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/citizen`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -153,7 +153,7 @@ const MasterController = {
         })
     },
     getBloodGroup: (req, res) => {
-        axios.get(`${orderMicroservice}/master/blood_group`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/blood_group`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -174,7 +174,7 @@ const MasterController = {
         })
     },
     getGender: (req, res) => {
-        axios.get(`${orderMicroservice}/master/gender`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/gender`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -195,7 +195,7 @@ const MasterController = {
         })
     },
     getCurrency: (req, res) => {
-        axios.get(`${orderMicroservice}/master/currency`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/currency`, {
             headers: {
                 'authorization': req.get('authorization')
             }
@@ -216,7 +216,7 @@ const MasterController = {
         })
     },
     getEntity: (req, res) => {
-        axios.get(`${orderMicroservice}/master/entity`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/entity`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -237,7 +237,11 @@ const MasterController = {
         })
     },
     getDefaultPeriode: (req, res) => {
-        axios.get(`${orderMicroservice}/master/default-periode`)
+        axios.get(`${orderMicroservice}/order-service/default/master/periode/default`, {
+            headers: {
+                authorization: req.get('authorization')
+            }
+        })
             .then(result => {
                 res.status(200)
                     .json({
@@ -251,12 +255,12 @@ const MasterController = {
                     .json({
                         status: "gagal",
                         message: "gagal mengambil data default periode",
-                        error: err.response.data.error
+                        error: err.message
                     })
             })
     },
     getLocation: (req, res) => {
-        axios.get(`${orderMicroservice}/master/get-location`)
+        axios.get(`${orderMicroservice}/order-service/default/master/location`)
             .then(result => {
                 res.status(200)
                     .json({
@@ -275,7 +279,7 @@ const MasterController = {
             })
     },
     getPaymentType: (req, res) => {
-        axios.get(`${orderMicroservice}/master/get-payment-type`)
+        axios.get(`${orderMicroservice}/order-service/default/master/payment-type`)
             .then(result => {
                 res.status(200)
                     .json({
@@ -294,7 +298,7 @@ const MasterController = {
             })
     },
     getPaymentMethod: (req, res) => {
-        axios.get(`${orderMicroservice}/master/get-payment-method`)
+        axios.get(`${orderMicroservice}/order-service/default/master/payment-method`)
             .then(result => {
                 res.status(200)
                     .json({
@@ -313,7 +317,7 @@ const MasterController = {
             })
     },
     getCreditTermsMstr: (req, res) => {
-        axios.get(`${orderMicroservice}/master/get-creditterms-mstr`)
+        axios.get(`${orderMicroservice}/order-service/default/master/creditterms-mstr`)
             .then(result => {
                 res.status(200)
                     .json({
@@ -330,6 +334,29 @@ const MasterController = {
                         error: err.message
                     })
             })
+    },
+    getGroup: (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/default/master/group`, {
+            headers: {
+                authorization: req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'berhasil',
+                    message: 'berhasil mengambil data',
+                    data: result.data.data
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'gagal',
+                    message: 'gagal mengambil data',
+                    error: err.response.data.error
+                })
+        })
     }
 }
 
