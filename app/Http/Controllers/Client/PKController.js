@@ -118,7 +118,7 @@ let PKController = {
         })
     },
     getAgent: (req, res) => {
-        axios.get(`${orderMicroservice}/master/group`, {
+        axios.get(`${orderMicroservice}/order-service/default/master/group`, {
             headers: {
                 "authorization": req.headers["authorization"]
             }
