@@ -3,7 +3,7 @@ const microservice = require('../../../../config/microservice')
 const orderMicroservice = microservice.ordermicroservice
 const ProductKnowledgeMicroservice = microservice.productknowledgemicroservice
 
-class Product {
+class ProductController {
     getProductByPriceList = async (req, res) => {
         try {
             let page = (!req.query.page) ? 1 : req.query.page
@@ -295,4 +295,4 @@ class Product {
     }
 }
 
-module.exports = new Product()
+module.exports = new ProductController()
