@@ -52,6 +52,8 @@ class ProductController {
                 }
             })
 
+            let default_detail_product
+
             if (master_data.data.data.pt_clothes_id == null) {
                 default_detail_product = {
                                     id: "-",
@@ -88,6 +90,8 @@ class ProductController {
                     data: data_ready
                 })
         } catch (error) {
+            console.log(error.message)
+            return
             res.status(400)
                 .json({
                     status: "failed",
