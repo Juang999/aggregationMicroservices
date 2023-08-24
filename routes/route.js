@@ -34,11 +34,32 @@ class Route {
                     }
                 }
             },
+            Client: {
+                route_client: '/client',
+                feature: {
+                    product: {
+                        product_size: '/size', //10
+                        product_grade: '/grade', //
+                        product_price_list: '/price', //3
+                        product_category: '/category', //7
+                        product_get_all: '/get-all-product', //11
+                        product_by_location: '/product-by-location/', //done
+                        product_by_price_list: '/product-by-price-list', //done
+                        product_sub_category: '/category/sub_category/:cat_id', //9
+                        product_detail_by_location: '/detail-product-by-location/:pt_id/entity/:entity', //done
+                        product_detail_by_price_list: '/detail-product-by-price-category/:pt_id/pi_oid/:pi_oid', //done
+                        // '/product/:product/color/:color', //4
+                        // '/product/:product/color/:color/size/:size/price/:price_type/entity/:en_id/grade/:grade', //5
+                        // '/product/:product/color/:color_id/size/:size_id', //6
+                        // '/product/category/:category_id', //8
+                    }
+                }
+            },
             Default: {
                 route_default: '/default',
                 feature: {
                     Master: {
-                        master_group: '/group', ///done
+                        master_group: '/group', //done
                         master_gender: '/gender', //done 
                         master_periode: '/periode', //done
                         master_bp_type: '/bp_type', //done

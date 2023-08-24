@@ -1,19 +1,23 @@
-const controller = {
-    Admin: {
-        SalesQuotationController: require('./Admin/SalesQuotationController'),
-        VisitController: require('./Admin/VisitController')
-    },
-    Client: {
-        PKController: require('./Client/PKController'),
-        PartnerController: require('./Client/PartnerController'),
-        PlanController: require('./Client/PlansController'),
-        PartnerAddressController: require('./Client/PartnerAddressController'),
-        PartnerContactController: require('./Client/PartnerContactController'),
-        VisitController: require('./Client/VisitController'),
-        SalesQuotationController: require('./Client/SalesQuotationController')
-    },
-    AuthController: require('./AuthController'),
-    MasterController: require('./MasterController'),
+class Controller {
+    constructor () {
+        return {
+            Admin: {
+                VisitController: require('./Admin/VisitController'),
+                SalesQuotationController: require('./Admin/SalesQuotationController'),
+            },
+            Client: {
+                PlanController: require('./Client/PlansController'),
+                VisitController: require('./Client/VisitController'),
+                ProductController: require('./Client/ProductController'),
+                PartnerController: require('./Client/PartnerController'),
+                PartnerAddressController: require('./Client/PartnerAddressController'),
+                PartnerContactController: require('./Client/PartnerContactController'),
+                SalesQuotationController: require('./Client/SalesQuotationController')
+            },
+            AuthController: require('./AuthController'),
+            MasterController: require('./MasterController'),
+        }
+    }
 }
 
-module.exports = controller
+module.exports = new Controller()
