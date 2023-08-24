@@ -13,14 +13,14 @@ var adminRoute = {
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var PkRouter = require('./routes/Client/product-knowledge');
-var partnerRouter = require('./routes/Client/partner');
-var planRouter = require('./routes/Client/plans');
 var masterRouter = require('./routes/master');
+var planRouter = require('./routes/Client/plans');
+var visitRouter = require('./routes/Client/visit');
+var partnerRouter = require('./routes/Client/partner');
+var PkRouter = require('./routes/Client/product-knowledge');
+var salesQuotationRoutes = require('./routes/Client/sales-quotation');
 var partnerAddressRouter = require('./routes/Client/partner-address');
 var partnerContactRouter = require('./routes/Client/partner-contact-address');
-var visitRouter = require('./routes/Client/visit');
-var salesQuotationRoutes = require('./routes/Client/sales-quotation')
 
 var app = express();
 
