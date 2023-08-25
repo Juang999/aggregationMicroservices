@@ -2,15 +2,10 @@ const express = require('express')
 const router = express.Router()
 const controller = require('../../app/Http/Controllers/Controller')
 const middleware = require('../../app/Http/kernel')
+const {Client} = require('../route')
 
-let route = [
-    '/get-plan', //0
-    '/create-unplan', //1
-    '/planning/:plans_oid/detail' //2
-]
-
-router.get(route[0], controller.Client.PlanController.getPlan)
-router.post(route[1], [middleware.UnplanRequest], controller.Client.PlanController.createUnplan)
-router.get(route[2], controller.Client.PlanController.getCustomerPerPeriode)
+router.get(Client.feature.planning.plans_index, controller.Client.PlanController.getPlan)
+router.get(Client.feature.planning.plans_detail, controller.Client.PlanController.getCustomerPerPeriode)
+router.post(Client.feature.planning.plans_create, [middleware.UnplanRequest], controller.Client.PlanController.createUnplan)
 
 module.exports = router

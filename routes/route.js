@@ -61,6 +61,11 @@ class Route {
                     partner_contact: {
                         partner_create_contact: '/create-contact-address', //0 -> toCreateNewContactPerson
                         partner_detail_contact: '/detail-contact-address/:ptnrac_oid', //1 -> toGetDetailDataContactPerson
+                    },
+                    planning: {
+                        plans_index: '/get-plan', //0
+                        plans_create: '/create-unplan', //1
+                        plans_detail: '/planning/:plans_oid/detail' //2
                     }
                 }
             },
