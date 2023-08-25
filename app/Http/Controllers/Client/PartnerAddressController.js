@@ -2,9 +2,9 @@ const axios = require('axios')
 const microservice = require('../../../../config/microservice')
 const orderMicroservice = microservice.ordermicroservice
 
-const PartnerAddressController = {
-    create: (req, res) => {
-        axios.post(`${orderMicroservice}/partner-address/partner-address`, {
+class PartnerAddressController {
+    create = (req, res) => {
+        axios.post(`${orderMicroservice}/order-service/client/partner-address/`, {
             partnerDomainId: req.body.partnerDomain,
             partnerEntityId: req.body.partnerEntity,
             partnerLine1: req.body.partnerLine1,
@@ -38,9 +38,10 @@ const PartnerAddressController = {
                     error: err.message
                 })
         })
-    },
-    show: (req, res) => {
-        axios.get(`${orderMicroservice}/partner-address/partner-address/${req.params.ptnra_oid}/detail`, {
+    }
+
+    show = (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/client/partner-address/${req.params.ptnra_oid}/detail`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -59,28 +60,7 @@ const PartnerAddressController = {
                     error: err.message
                 })
         })
-    },
-    activate: (req, res) => {
-        axios.patch(`${orderMicroservice}/partner-address/${req.params.ptnra_oid}`, {}, {
-            headers: {
-                'authorization': req.get('authorization')
-            }
-        }).then(result => {
-            res.status(200)
-                .json({
-                    status: "success",
-                    message: "berhasil update data",
-                    data: result.data.data
-                })
-        }).catch(err => {
-            res.status(400)
-                .json({
-                    status: "failed",
-                    message: 'gagal update data',
-                    error: err.message
-                })
-        })
     }
 }
 
-module.exports = PartnerAddressController
+module.exports = new PartnerAddressController()

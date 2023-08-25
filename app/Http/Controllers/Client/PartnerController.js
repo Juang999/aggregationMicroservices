@@ -2,12 +2,12 @@ const axios = require('axios')
 const microservice = require('../../../../config/microservice')
 const orderMicroservice = microservice.ordermicroservice
 
-const PartnerController = {
-    getPartner: (req, res) => {
+class PartnerController {
+    getPartner = (req, res) => {
         let page = (req.query.page == null) ? 1 : req.query.page
-        let search = (req.query.name != null) ? `&name=${req.query.name}` : ''
+        let search = (req.query.search) ? req.query.search : ''
 
-        axios.get(`${orderMicroservice}/partner/partner?page=${page + search}`, {
+        axios.get(`${orderMicroservice}/order-service/client/partner/?page=${page}&name=${search}`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -26,32 +26,10 @@ const PartnerController = {
                     error: err.message
                 })
         })
-    },
-    getCustomer: (req, res) => {
-        let queryName = (req.query.query) ? req.query.query : ''
+    }
 
-        axios.get(`${orderMicroservice}/master/customer?query=${queryName}`, {
-            headers: {
-                "authorization": req.get("authorization")
-            }
-        }).then(result => {
-            res.status(200)
-                .json({
-                    status: "success",
-                    message: "berhasil mengambil data",
-                    data: result.data.data
-                })
-        }).catch(err => {
-            res.status(400)
-                .json({
-                    status: "failed",
-                    message: "gagal mengambil data",
-                    error: err.message
-                })
-        })
-    },
-    createNewCustomer: (req, res) => {
-        axios.post(`${orderMicroservice}/partner/partner`, {
+    createNewCustomer = (req, res) => {
+        axios.post(`${orderMicroservice}/order-service/client/partner/`, {
             entityId: req.body.partnerEntity,
             partnerName: req.body.partnerName,
             partnerGroupId: req.body.partnerGroup,
@@ -105,9 +83,10 @@ const PartnerController = {
                     error: err.message
                 })
         })
-    },
-    getDetailCustomer: (req, res) => {
-        axios.get(`${orderMicroservice}/partner/partner/${req.params.ptnr_oid}/detail`, {
+    }
+
+    getDetailCustomer = (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/client/partner/${req.params.ptnr_oid}/detail`, {
             headers: {
                 'authorization': req.get('authorization')
             }
@@ -126,35 +105,7 @@ const PartnerController = {
                     error: err.message
                 })
         })
-    },
-    createContactPerson: (req, res) => {
-        axios.post(`${orderMicroservice}/partner/create-contact-person`, {
-            pertnerAccountAddressOid: req.body.pertnerAccountAddressOid,
-            partnerAccountFunction: req.body.partnerAccountFunction,
-            partnerContactName: req.body.partnerContactName,
-            partnerPhone1: req.body.partnerPhone1,
-            partnerContact2: req.body.partnerContact2,
-            partnerContactEmail: req.body.partnerContactEmail
-        }, {
-            headers: {
-                "authorization": req.get('authorization')
-            }
-        }).then(result => {
-            res.status(200)
-                .json({
-                    status: "success",
-                    message: "berhasil membuat data",
-                    data: result.data.data
-                })
-        }).catch(err => {
-            res.status(400)
-                .json({
-                    status: "failed",
-                    message: "gagal membuat data",
-                    error: err.message
-                })
-        })
     }
 }
 
-module.exports = PartnerController
+module.exports = new PartnerController()

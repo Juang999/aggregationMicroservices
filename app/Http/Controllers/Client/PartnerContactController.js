@@ -1,11 +1,12 @@
 const axios = require('axios')
 const microservice = require('../../../../config/microservice')
-const orderMicroservice = 'http://192.168.8.128:3000'
+const orderMicroservice = microservice.ordermicroservice
 
-const PartnerContactController = {
-    create: (req, res) => {
-        axios.post(`${orderMicroservice}/partner-contact-address/partner-contact`, {
-            pertnerAccountAddressOid: req.body.pertnerAccountAddressOid,
+class PartnerContactController {
+    create = (req, res) => {
+
+        axios.post(`${orderMicroservice}/order-service/client/partner-contact-address/`, {
+            partnerAccountAddressOid: req.body.partnerAccountAddressOid,
             partnerAccountFunction: req.body.partnerAccountFunction,
             partnerContactName: req.body.partnerContactName,
             partnerPhone1: req.body.partnerPhone1,
@@ -30,9 +31,10 @@ const PartnerContactController = {
                     error: err.message
                 })
         })
-    },
-    show: (req, res) => {
-        axios.get(`${orderMicroservice}/partner-contact-address/partner-contact/${req.params.ptnrac_oid}/detail`, {
+    }
+
+    show = (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/client/partner-contact-address/${req.params.ptnrac_oid}/detail`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -54,4 +56,4 @@ const PartnerContactController = {
     }
 }
 
-module.exports = PartnerContactController
+module.exports = new PartnerContactController()

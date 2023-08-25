@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router()
 const controller = require('../../app/Http/Controllers/Controller')
 const middleware = require('../../app/Http/kernel')
+const {Client} = require('../route')
 
 const route = [
     '/get-customer', //0
@@ -9,8 +10,8 @@ const route = [
     '/get-detail-customer/:ptnr_oid', //2
 ]
 
-router.get(route[0], controller.Client.PartnerController.getPartner);
-router.post(route[1], [middleware.CreatePartnerRequest], controller.Client.PartnerController.createNewCustomer);
-router.get(route[2], controller.Client.PartnerController.getDetailCustomer);
+router.get(Client.feature.partner.partner_customer, controller.Client.PartnerController.getPartner);
+router.get(Client.feature.partner.partner_detail_customer, controller.Client.PartnerController.getDetailCustomer);
+router.post(Client.feature.partner.partner_create_customer, [middleware.CreatePartnerRequest], controller.Client.PartnerController.createNewCustomer);
 
 module.exports = router

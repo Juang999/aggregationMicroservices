@@ -48,10 +48,19 @@ class Route {
                         product_sub_category: '/category/sub_category/:cat_id', //9
                         product_detail_by_location: '/detail-product-by-location/:pt_id/entity/:entity', //done
                         product_detail_by_price_list: '/detail-product-by-price-category/:pt_id/pi_oid/:pi_oid', //done
-                        // '/product/:product/color/:color', //4
-                        // '/product/:product/color/:color/size/:size/price/:price_type/entity/:en_id/grade/:grade', //5
-                        // '/product/:product/color/:color_id/size/:size_id', //6
-                        // '/product/category/:category_id', //8
+                    },
+                    partner: {
+                        partner_customer: '/get-customer', //0
+                        partner_create_customer: '/create-new-customer', //1
+                        partner_detail_customer: '/get-detail-customer/:ptnr_oid',
+                    },
+                    partner_address: {
+                        partner_create_address: '/create-partner-address', //0 -> toCreateNewAddressCustomer
+                        partner_detail_address: '/detail-partner-address/:ptnra_oid', //1 ->toGetDetailAddressCustomer
+                    },
+                    partner_contact: {
+                        partner_create_contact: '/create-contact-address', //0 -> toCreateNewContactPerson
+                        partner_detail_contact: '/detail-contact-address/:ptnrac_oid', //1 -> toGetDetailDataContactPerson
                     }
                 }
             },
