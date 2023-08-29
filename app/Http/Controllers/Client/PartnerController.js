@@ -106,6 +106,30 @@ class PartnerController {
                 })
         })
     }
+
+    getSalesPartner = (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/client/partner/mitra`, {
+            headers: {
+                authorization: req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'success!',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'failed',
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
+    }
 }
 
 module.exports = new PartnerController()

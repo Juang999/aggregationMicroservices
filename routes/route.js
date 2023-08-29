@@ -53,6 +53,7 @@ class Route {
                         partner_customer: '/get-customer', //0
                         partner_create_customer: '/create-new-customer', //1
                         partner_detail_customer: '/get-detail-customer/:ptnr_oid',
+                        partner_mitra: '/mitra'
                     },
                     partner_address: {
                         partner_create_address: '/create-partner-address', //0 -> toCreateNewAddressCustomer
