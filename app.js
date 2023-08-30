@@ -16,6 +16,7 @@ var usersRouter = require('./routes/users');
 var masterRouter = require('./routes/master');
 var planRouter = require('./routes/Client/plans');
 var visitRouter = require('./routes/Client/visit');
+var reportRouter = require('./routes/Client/report');
 var partnerRouter = require('./routes/Client/partner');
 var PkRouter = require('./routes/Client/product-knowledge');
 var salesQuotationRoutes = require('./routes/Client/sales-quotation');
@@ -38,15 +39,16 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/api/users', usersRouter);
 app.use('/api/PK', PkRouter);
-app.use('/api/partner', partnerRouter);
 app.use('/api/plans', planRouter);
-app.use('/api/master', masterRouter);
-app.use('/api/address-partner', partnerAddressRouter);
-app.use('/api/contact-address-partner', partnerContactRouter);
 app.use('/api/visit', visitRouter);
-app.use('/api/sales-quotation', salesQuotationRoutes)
+app.use('/api/users', usersRouter);
+app.use('/api/master', masterRouter);
+app.use('/api/report', reportRouter);
+app.use('/api/partner', partnerRouter);
+app.use('/api/address-partner', partnerAddressRouter);
+app.use('/api/sales-quotation', salesQuotationRoutes);
+app.use('/api/contact-address-partner', partnerContactRouter);
 
 app.use(`${route.route_default}${route.Admin.route_admin}`, adminRoute.VisitRouter)
 

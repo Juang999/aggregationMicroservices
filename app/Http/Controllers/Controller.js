@@ -8,6 +8,7 @@ class Controller {
             Client: {
                 PlanController: require('./Client/PlansController'),
                 VisitController: require('./Client/VisitController'),
+                ReportController: require('./Client/ReportController'),
                 ProductController: require('./Client/ProductController'),
                 PartnerController: require('./Client/PartnerController'),
                 PartnerAddressController: require('./Client/PartnerAddressController'),

@@ -67,6 +67,9 @@ class Route {
                         plans_index: '/get-plan', //0
                         plans_create: '/create-unplan', //1
                         plans_detail: '/planning/:plans_oid/detail' //2
+                    },
+                    report: {
+                        report_so: '/so'
                     }
                 }
             },
