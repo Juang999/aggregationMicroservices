@@ -3,9 +3,9 @@ const ordermicroservice = microservice.ordermicroservice
 const productknowledgemicroservice = microservice.productknowledgemicroservice
 const axios = require('axios')
 
-const SalesQuotationController = {
-    getSite: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-site`, {
+class SalesQuotationController {
+    getSite = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/sales-quotation/site`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -26,9 +26,10 @@ const SalesQuotationController = {
                         error: err.response.data.err
                     })
             })
-    },
-    getLocation: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/location/${req.params.en_id}`, {
+    }
+
+    getLocation = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/sales-quotation/${req.params.en_id}/location`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -49,57 +50,12 @@ const SalesQuotationController = {
                     error: err.message
                 })
         })
-    },
-    getLocationTo: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-location-to`, {
-            headers: {
-                "authorization": req.get('authorization')
-            }
-        })
-        .then(result => {
-            res.status(200)
-                .json({
-                    status: 'berhasil',
-                    message: 'berhasil mengambil data',
-                    data: result.data.data
-                })
-        })
-        .catch(err => {
-            res.status(400)
-                .json({
-                    status: 'gagal',
-                    message: 'gagal mengambil data',
-                    error: err.message
-                })
-        })
-    },
-    getLocationGit: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-location-git`, {
-            headers: {
-                "authorization": req.get('authorization')
-            }
-        })
-        .then(result => {
-            res.status(200)
-                .json({
-                    status: 'berhasil',
-                    message: 'berhasil mengambil data',
-                    data: result.data.data
-                })
-        })
-        .catch(err => {
-            res.status(400)
-                .json({
-                    status: 'gagal',
-                    message: 'gagal mengambil data',
-                    error: err.message
-                })
-        })
-    },
-    getSalesQuotation: (req, res) => {
+    }
+
+    getSalesQuotation = (req, res) => {
         let pageGetSalesQuotation = (req.query.page) ? req.query.page : 1
 
-        axios.get(`${ordermicroservice}/sales-quotation/get-sales-quotation?page=${pageGetSalesQuotation}`, {
+        axios.get(`${ordermicroservice}/order-service/client/sales-quotation/?page=${pageGetSalesQuotation}`, {
             headers: {
                 'authorization': req.get('authorization')
             }
@@ -120,9 +76,10 @@ const SalesQuotationController = {
                     error: err.message
                 })
         })
-    },
-    getPriceList: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-price-list/partnergroupid/${req.params.partnerGroupId}`, {
+    }
+
+    getPriceList = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/sales-quotation/price-list/${req.params.partnerGroupId}/group`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -141,9 +98,10 @@ const SalesQuotationController = {
                     error: err.message
                 })
         })
-    },
-    createSalesQuotation: (req, res) => {
-        axios.post(`${ordermicroservice}/sales-quotation/create-sales-quotation`, {
+    }
+
+    createSalesQuotation = (req, res) => {
+        axios.post(`${ordermicroservice}/order-service/client/sales-quotation/`, {
             sq_ptnr_id_sold: req.body.ptnr_id_sold,
             sq_pay_type: req.body.pay_type,
             sq_pay_method: req.body.pay_method,
@@ -181,9 +139,10 @@ const SalesQuotationController = {
                     error: err.response.data.error
                 })
         })
-    },
-    sumDebtCustomer: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/sum-debt-from-customer/ptnrid/${req.params.partnerId}`, {
+    }
+
+    sumDebtCustomer = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/sales-quotation/partner/${req.params.partnerId}/debt`, {
             headers: {
                 'authorization': req.get('authorization')
             }
@@ -204,9 +163,10 @@ const SalesQuotationController = {
                     error: err.response.data.error
                 })
         })
-    },
-    getLimitCreditCustomer: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-credit-limit-customer/ptnrid/${req.params.partnerId}`, {
+    }
+
+    getLimitCreditCustomer = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/sales-quotation/partner/${req.params.partnerId}/limit-credit`, {
             headers: {
                 'authorization': req.get('authorization')
             }
@@ -227,37 +187,15 @@ const SalesQuotationController = {
                     error: err.response.data.error
                 })
         })
-    },
-    getAccountName: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-account`, {
-            headers: {
-                "authorization": req.get('authorization')
-            }
-        })
-        .then(result => {
-            res.status(200)
-                .json({
-                    status: 'berhasil',
-                    message: 'berhasil mengambil data nama akun',
-                    data: result.data.data
-                })
-        })
-        .catch(err => {
-            res.status(400)
-                .json({
-                    status: 'gagal',
-                    message: 'gagal mengambil data nama akun',
-                    error: err.response.data.error
-                })
-        })
-    },
-    getProductForSQ: async (req, res) => {
+    }
+
+    getProductForSQ = async (req, res) => {
         try {
             let pageProduct = (req.query.page) ? req.query.page : 1
 
             let searchQuery = req.query.query
     
-            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/sales-quotation/get-product/pricelist/${req.params.priceListOid}/area/${req.params.areaId}/locationid/${req.params.locId}?page=${pageProduct}&query=${searchQuery}`, {
+            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/order-service/client/sales-quotation/product/pricelist/${req.params.priceListOid}/area/${req.params.areaId}/locationid/${req.params.locId}?page=${pageProduct}&query=${searchQuery}`, {
                 headers: {
                     'authorization': req.get('authorization')
                 }
@@ -286,30 +224,7 @@ const SalesQuotationController = {
                     error: error.response.data.error
                     })
             }
-    },
-    getArea: (req, res) => {
-        axios.get(`${ordermicroservice}/sales-quotation/get-area`, {
-            headers: {
-                'authorization': req.get('authorization')
-            }
-        })
-        .then(result => {
-            res.status(200)
-                .json({
-                    status: 'berhasil',
-                    message: 'berhasil mengambil data area',
-                    data: result.data.data
-                })
-        })
-        .catch(err => {
-            res.status(400)
-                .json({
-                    status: 'gagal',
-                    message: 'gagal mengambil data area',
-                    error: err.response.data.error
-                })
-        })
     }
 }
 
-module.exports = SalesQuotationController
+module.exports = new SalesQuotationController()

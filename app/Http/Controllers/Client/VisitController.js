@@ -4,12 +4,12 @@ const axios = require('axios')
 const FormData = require('form-data')
 const fs = require('fs')
 
-const VisitController = {
-    getVisitSchedule: (req, res) => {
+class VisitController {
+    getVisitSchedule = (req, res) => {
         let paramPeriode = (req.query.periode) ? req.query.periode : ''
         let status = (req.query.status == 1) ? 'Y' : 'N'
 
-        axios.get(`${ordermicroservice}/visit/visitation?periode=${paramPeriode}&status=${status}`, {
+        axios.get(`${ordermicroservice}/order-service/client/visitation/?periode=${paramPeriode}&status=${status}`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -28,9 +28,10 @@ const VisitController = {
                     error: err.response.data.error
                 })
         })
-    },
-    getDetailVisitSchedule: (req, res) => {
-        axios.get(`${ordermicroservice}/visit/visitation/${req.params.visit_code}/visitation_schedule`, {
+    }
+
+    getDetailVisitSchedule = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/visitation/${req.params.visit_code}/schedule`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -49,9 +50,10 @@ const VisitController = {
                     data: err.response.data.error
                 })
         })
-    },
-    getDetailVisit: (req, res) => {
-        axios.get(`${ordermicroservice}/visit/visitation/${req.params.visited_oid}/visitation_detail`, {
+    }
+
+    getDetailVisit = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/visitation/${req.params.visited_oid}/detail`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -70,9 +72,10 @@ const VisitController = {
                     error: err.response.data.error
                 })
         })
-    },
-    createScheduleVisit: (req, res) => {
-        axios.post(`${ordermicroservice}/visit/visitation`, {
+    }
+
+    createScheduleVisit = (req, res) => {
+        axios.post(`${ordermicroservice}/order-service/client/visitation/`, {
             start_date: req.body.start_date,
             end_date: req.body.end_date
         }, {
@@ -94,9 +97,10 @@ const VisitController = {
                     error: err.message
                 })
         })
-    },
-    createPeopleToVisit: (req, res) => {        
-        axios.post(`${ordermicroservice}/visit/visitation/customer`, {
+    }
+
+    createPeopleToVisit = (req, res) => {        
+        axios.post(`${ordermicroservice}/order-service/client/visitation/customer`, {
             visit_code: req.body.visit_code,
             type: req.body.type,
             ptnr_id: req.body.ptnr_id,
@@ -122,11 +126,12 @@ const VisitController = {
                     error: err.response.data.error
                 })
         })
-    },
-    checkIn: (req, res) => {
+    } 
+
+    checkIn = (req, res) => {
         let formData = new FormData()
 
-        axios.patch(`${ordermicroservice}/visit/visitation/${req.params.visited_oid}/checkin`, {
+        axios.patch(`${ordermicroservice}/order-service/client/visitation/${req.params.visited_oid}/checkin`, {
             visit_code: req.body.visit_code,
             checkin_lat: req.body.lat_checkin,
             checkin_long: req.body.long_checkin,
@@ -152,9 +157,10 @@ const VisitController = {
                     visited_oid: err.response.data.visited_oid
                 })
         })
-    },
-    checkOut: (req, res) => {
-        axios.patch(`${ordermicroservice}/visit/visitation/${req.params.visited_oid}/checkout`, {
+    }
+
+    checkOut = (req, res) => {
+        axios.patch(`${ordermicroservice}/order-service/client/visitation/${req.params.visited_oid}/checkout`, {
             checkout_lat: req.body.lat_checkout,
             checkout_long: req.body.long_checkout,
             checkout_address: req.body.address_checkout,
@@ -179,9 +185,10 @@ const VisitController = {
                     error: err.response.data.error
                 })
         })
-    },
-    deleteFromListSchedule: (req, res) => {
-        axios.delete(`${ordermicroservice}/visit/visitation/customer/${req.params.visited_oid}/delete`, {
+    }
+
+    deleteFromListSchedule = (req, res) => {
+        axios.delete(`${ordermicroservice}/order-service/client/visitation/customer/${req.params.visited_oid}/delete`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -200,9 +207,10 @@ const VisitController = {
                     error: err.message
                 })
         })
-    },
-    deleteSchedule: (req, res) => {
-        axios.delete(`${ordermicroservice}/visit/visitation/${req.params.visit_code}/delete`, {
+    }
+
+    deleteSchedule = (req, res) => {
+        axios.delete(`${ordermicroservice}/order-service/client/visitation/${req.params.visit_code}/delete`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -221,30 +229,10 @@ const VisitController = {
                     error: err.message
                 })
         })
-    },
-    getCustomerPerPeriode: (req, res) => {
-        axios.get(`${ordermicroservice}/visit/visitation/customer/per-periode`, {
-            headers: {
-                'authorization': req.get('authorization')
-            }
-        }).then(result => {
-            res.status(200)
-                .json({
-                    status: 'berhasil',
-                    message: "berhasil mengambil data",
-                    data: result.data.data
-                })
-        }).catch(err => {
-            res.status(400)
-                .json({
-                    status: "gagal",
-                    message: "gagal mengambil data",
-                    error: err.response.data.message
-                })
-        })
-    },
-    getVisitType: (req, res) => {
-        axios.get(`${ordermicroservice}/visit/visitation/type`, {
+    }
+
+    getVisitType = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/visitation/type`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -263,9 +251,10 @@ const VisitController = {
                     error: err.response.data.error
                 })
         })
-    },
-    getOutputVisitType: (req, res) => {
-        axios.get(`${ordermicroservice}/visit/visitation/output`, {
+    }
+
+    getOutputVisitType = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/visitation/output`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -284,8 +273,9 @@ const VisitController = {
                     error: err.response.data
                 })
         })
-    },
-    getSalesPerPeriode: (req, res) => {
+    }
+
+    getSalesPerPeriode = (req, res) => {
         let search = (req.query.search) ? req.query.search : ''
 
         axios.get(`${ordermicroservice}/visit/visitation/${req.params.periode}/sales?search=${search}`, {
@@ -312,4 +302,4 @@ const VisitController = {
     }
 }
 
-module.exports = VisitController
+module.exports = new VisitController()
