@@ -49,6 +49,31 @@ class Route {
                         product_detail_by_location: '/detail-product-by-location/:pt_id/entity/:entity', //done
                         product_detail_by_price_list: '/detail-product-by-price-category/:pt_id/pi_oid/:pi_oid', //done
                     },
+                    sales_quotation: {
+                        sq_site: '/site', //done
+                        sq_location: '/location/:en_id', //done
+                        sq_sales_quotation: '/get-sales-quotation', //done
+                        sq_debt: '/sum-debt-customer/partnerid/:partnerId', //done
+                        sq_create_sales_quotation: '/post-sales-quotation', //
+                        sq_price_list: '/price-list/partnergroupid/:partnerGroupId', //done
+                        sq_limit_credit: '/get-limit-credit-customer/partnerid/:partnerId', //done
+                        sq_product: '/get-product/pricelist/:priceListOid/area/:areaId/location/:locId', //done
+                    },
+                    visitation: {
+                        visitation_type: '/get-visit-type', //done
+                        visitation_visit: '/people-to-visit', //done
+                        visitation_schedule: '/get-visit-schedule', //
+                        visitation_checkin: '/checkin/:visited_oid', //
+                        visitation_checkout: '/checkout/:visited_oid', //
+                        visitation_output_type: '/get-output-visit-type', //done
+                        visitation_customer: '/get-all-costomer-per-periode', //
+                        visitation_create_schedule: '/create-schedule-visiting', //
+                        visitation_delete_schedule: '/delete-schedule/:visit_code', //
+                        visitation_sales_periode: '/visitation/:periode/sales-periode', //done
+                        visitation_detail_visitation: '/get-detail-visit/:visited_oid', //
+                        visitation_detail_schedule: '/get-detail-visit-schedule/:visit_code', //
+                        visitation_delete_customer: '/delete-from-list-schedule/:visited_oid', //
+                    },
                     partner: {
                         partner_customer: '/get-customer', //0
                         partner_create_customer: '/create-new-customer', //1
