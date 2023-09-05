@@ -5,6 +5,7 @@ const rules = [
     check('partnerName').notEmpty().isString(),
     check('partnerNameAlternative').notEmpty().isString(),
     check('partnerGroupId').notEmpty().isNumeric(),
+    check('partnerParent').isEmpty().isNumeric(),
     check('partnerCurrencyId').notEmpty().isNumeric(),
     check('partnerTransactionCodeId').notEmpty().isNumeric(),
     check('partnerEmail').notEmpty().isEmail(),
@@ -23,7 +24,8 @@ const rules = [
     check('partnerDateBirthday').notEmpty().isDate(),
     check('partnerNation').notEmpty().isNumeric(),
     check('partnerBpDate').notEmpty().isDate(),
-    check('partnerBpType').notEmpty().isNumeric()
+    check('partnerBpType').notEmpty().isNumeric(),
+    check('customerIsDistributor').isEmpty().isNumeric(),
 ]
 
 const CreatePartnerRequest = [

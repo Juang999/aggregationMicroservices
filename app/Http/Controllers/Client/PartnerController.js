@@ -33,6 +33,7 @@ class PartnerController {
             entityId: req.body.partnerEntity,
             partnerName: req.body.partnerName,
             partnerGroupId: req.body.partnerGroup,
+            partnerParent: req.body.partnerParent,
             partnerIsCustomer: req.body.partnerIsCustomer,
             partnerIsVendor: req.body.partnerIsVendor,
             partnerActive: req.body.partnerActive,
@@ -64,6 +65,7 @@ class PartnerController {
             partnerAddressType: req.body.partnerAddressType,
             partnerComment: req.body.partnerComment,
             ptnra_active: req.body.ptnra_active,
+            customerIsDistributor: req.body.customerIsDistributor
         },{
             headers: {
                 "authorization": req.get('authorization')
@@ -125,6 +127,33 @@ class PartnerController {
             res.status(400)
                 .json({
                     status: 'failed',
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
+    }
+
+    getParentSales = (req, res) => {
+        let groupid = (req.query.groupid) ? req.query.groupid : ''
+        let search = (req.query.search) ? req.query.search : ''
+
+        axios.get(`${orderMicroservice}/order-service/client/partner/parent?groupid=${groupid}&search=${search}`, {
+            headers: {
+                authorization: req.get('authorization')
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'success!',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'failed!',
                     data: null,
                     error: err.response.data.error
                 })
