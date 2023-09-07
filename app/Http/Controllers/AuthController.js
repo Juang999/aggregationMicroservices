@@ -30,30 +30,41 @@ let AuthController = {
                 })
         })
     },
-    profile: (req, res) => {
-        axios.get(`${orderMicroservice}/users/profile`, {
-            headers: {
-                "authorization": req.get("authorization")
-            }
-        })
-        .then(result => {
-            result.data.data.image = (result.data.data.nik_id) ? `${empservice}/photo/${btoa(result.data.data.nik_id)}` : '-'
+    profile: async (req, res) => {
+        try {
+            /*get data user*/ 
+            let dataUser = await axios.get(`${orderMicroservice}/users/profile`, {
+                headers: {
+                    "authorization": req.get("authorization")
+                }
+            })
+            let user = dataUser.data.data
+
+            /*get data limit credit user*/
+            let dataLimitCredit = await axios.get(`${orderMicroservice}/order-service/client/sales-quotation/partner/${dataUser.data.data.user_ptnr_id}/limit-credit`, {
+                headers: {
+                    'authorization': req.get('authorization')
+                }
+            })
+            let limitCredit = dataLimitCredit.data.data
+
+            user.image = (user.nik_id) ? `${empservice}/photo/${btoa(user.nik_id)}` : '-'
+            user.limit_credit = limitCredit
 
             res.status(200)
                 .json({
                     status: "success",
                     message: "berhasil mengambil profile",
-                    data: result.data.data
+                    data: user
                 })
-        })
-        .catch(err => {
+        } catch (error) {
             res.status(400)
                 .json({
                     status: "failed",
                     message: "gagal mengambil data profile",
-                    err: err.message
+                    err: error.response.data.error
                 })
-        })
+        }
     },
     adminLogin: (req, res) => {
         axios.post(`${orderMicroservice}/users/admin-login`, {
