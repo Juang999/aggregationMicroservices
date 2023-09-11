@@ -159,6 +159,32 @@ class PartnerController {
                 })
         })
     }
+
+    getPartnerWithWarehouse = (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/client/partner/warehouse`, {
+            headers: {
+                authorization: req.headers['authorization']
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    code: 200,
+                    status: 'berhasil',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    code: 400,
+                    status: 'gagal!',
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
+    }
 }
 
 module.exports = new PartnerController()

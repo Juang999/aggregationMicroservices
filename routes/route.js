@@ -79,7 +79,8 @@ class Route {
                         partner_create_customer: '/create-new-customer', //1
                         partner_detail_customer: '/get-detail-customer/:ptnr_oid',
                         partner_mitra: '/mitra',
-                        partner_parent: '/parent'
+                        partner_parent: '/parent',
+                        partner_warehouse: '/warehouse'
                     },
                     partner_address: {
                         partner_create_address: '/create-partner-address', //0 -> toCreateNewAddressCustomer
