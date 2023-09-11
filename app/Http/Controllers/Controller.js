@@ -11,9 +11,10 @@ class Controller {
                 ReportController: require('./Client/ReportController'),
                 ProductController: require('./Client/ProductController'),
                 PartnerController: require('./Client/PartnerController'),
+                PointofSalesController: require('./Client/PointofSalesController'),
                 PartnerAddressController: require('./Client/PartnerAddressController'),
                 PartnerContactController: require('./Client/PartnerContactController'),
-                SalesQuotationController: require('./Client/SalesQuotationController')
+                SalesQuotationController: require('./Client/SalesQuotationController'),
             },
             AuthController: require('./AuthController'),
             MasterController: require('./MasterController'),

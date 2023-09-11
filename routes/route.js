@@ -97,6 +97,9 @@ class Route {
                     },
                     report: {
                         report_so: '/so'
+                    },
+                    pointofsales: {
+                        pos_product_consigment: '/:warehouse_id/consigment'
                     }
                 }
             },
