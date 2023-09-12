@@ -24,7 +24,7 @@ class PointofSalesController {
                 res.status(400)
                     .json({
                         code: 400,
-                        status: 'gagal!',
+                        status: err.response.data.status,
                         data: null,
                         error: err.response.data.error
                     })
