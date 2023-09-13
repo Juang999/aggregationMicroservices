@@ -80,7 +80,8 @@ class Route {
                         partner_detail_customer: '/get-detail-customer/:ptnr_oid',
                         partner_mitra: '/mitra',
                         partner_parent: '/parent',
-                        partner_warehouse: '/warehouse'
+                        partner_warehouse: '/warehouse',
+                        partner_location: '/:wh_id/location'
                     },
                     partner_address: {
                         partner_create_address: '/create-partner-address', //0 -> toCreateNewAddressCustomer
@@ -100,12 +101,16 @@ class Route {
                     },
                     pointofsales: {
                         pos_product_consigment: '/:warehouse_id/consigment'
-                    }
+                    },
                 }
             },
             Default: {
                 route_default: '/default',
                 feature: {
+                    product_knowledge: {
+                        pk_image: '/:pt_code/image',
+                        pk_desc: '/:pt_code/desc'
+                    },
                     Master: {
                         master_group: '/group', //done
                         master_gender: '/gender', //done 
