@@ -4,7 +4,7 @@ const moment = require('moment')
 
 class PointofSalesController {
     getLastItemShipped = (req, res) => {
-        let defaultEndTimestamp = (req.query.last_date) ? req.query.last_date : moment().format('YYYY-MM-DD 00:00:00')
+        let defaultEndTimestamp = (req.query.last_date) ? req.query.last_date : ''
 
         axios.get(`${ordermicroservice}/order-service/client/point-of-sales/${req.params.warehouse_id}/product-consigment?last_date=${defaultEndTimestamp}`, {
             headers: {
