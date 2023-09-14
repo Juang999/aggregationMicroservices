@@ -73,6 +73,33 @@ class InventoryController {
                 })
         })
     }
+
+    updateTransferReceipt = (req, res) => {
+        axios.patch(`${ordermicroservice}/order-service/client/inventory/${req.params.ptsfr_oid}/update-transfer-receipt`, {
+            body_transfer_receipt: req.body.detail_transfer_receipt
+        }, {
+            headers: {
+                authorization: req.headers['authorization']
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            console.log(err.response)
+            res.status(400)
+                .json({
+                    status: 'failed',
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
+    }
 }
 
 module.exports = new InventoryController()
