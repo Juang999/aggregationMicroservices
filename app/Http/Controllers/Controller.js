@@ -9,8 +9,9 @@ class Controller {
                 PlanController: require('./Client/PlansController'),
                 VisitController: require('./Client/VisitController'),
                 ReportController: require('./Client/ReportController'),
-                ProductController: require('./Client/ProductController'),
                 PartnerController: require('./Client/PartnerController'),
+                ProductController: require('./Client/ProductController'),
+                InventoryController: require('./Client/InventoryController'),
                 PointofSalesController: require('./Client/PointofSalesController'),
                 PartnerAddressController: require('./Client/PartnerAddressController'),
                 PartnerContactController: require('./Client/PartnerContactController'),
@@ -18,6 +19,7 @@ class Controller {
             },
             AuthController: require('./AuthController'),
             MasterController: require('./MasterController'),
+            ProductKnowledgeController: require('./ProductKnowledgeController'),
         }
     }
 }
