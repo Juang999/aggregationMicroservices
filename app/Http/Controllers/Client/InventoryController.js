@@ -6,7 +6,7 @@ const {links} = require('../../../../helper/helper')
 class InventoryController {
     getInventoryTransferReceipt = (req, res) => {
         let page = (req.query.page) ? req.query.page : 1
-        let isComplete = (req.query.is_complete) ? req.query.page : 'N'
+        let isComplete = (req.query.is_complete) ? req.query.is_complete : 'N'
         axios.get(`${ordermicroservice}/order-service/client/inventory/transfer-receipt?page=${page}&is_complete=${isComplete}`, {
             headers: {
                 authorization: req.headers['authorization']
