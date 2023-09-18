@@ -133,6 +133,7 @@ class Route {
                         master_payment_method: '/payment-method', //done
                         master_contact_person: '/contact_person', //done
                         master_default_periode: '/default-periode', //done
+                        master_sales_program: '/sales-program'
                     }
                 }
             }

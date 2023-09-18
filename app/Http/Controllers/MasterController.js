@@ -352,6 +352,32 @@ class MasterController {
                 })
         })
     }
+
+    getSalesProgram = (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/default/master/sales-program`, {
+            headers: {
+                authorization: req.headers['authorization']
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    code: 400,
+                    status: 'success',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    code: 400,
+                    status: 'failed',
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
+    }
 }
 
 module.exports = new MasterController()

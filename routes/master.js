@@ -15,6 +15,7 @@ router.get(Default.feature.Master.master_addr_type, controller.MasterController.
 router.get(Default.feature.Master.master_blood_group, controller.MasterController.getBloodGroup)
 router.get(Default.feature.Master.master_tax_invoice, controller.MasterController.getTaxInvoice)
 router.get(Default.feature.Master.master_payment_type, controller.MasterController.getPaymentType)
+router.get(Default.feature.Master.master_sales_program, controller.MasterController.getSalesProgram)
 router.get(Default.feature.Master.master_payment_method, controller.MasterController.getPaymentMethod)
 router.get(Default.feature.Master.master_contact_person, controller.MasterController.getContactPerson)
 router.get(Default.feature.Master.master_credit_terms, controller.MasterController.getCreditTermsMstr)
