@@ -2,12 +2,16 @@ const axios = require('axios')
 const {ordermicroservice} = require('../../../../config/microservice')
 const {Client} = require('../../../../routes/route')
 const {links} = require('../../../../helper/helper')
+const moment = require('moment')
 
 class InventoryController {
     getInventoryTransferReceipt = (req, res) => {
         let page = (req.query.page) ? req.query.page : 1
         let isComplete = (req.query.is_complete) ? req.query.is_complete : 'N'
-        axios.get(`${ordermicroservice}/order-service/client/inventory/transfer-receipt?page=${page}&is_complete=${isComplete}`, {
+        let startDate = (req.query.start_date) ? moment(req.query.start_date).format('YYYY-MM-DD') : moment().startOf('months').format('YYYY-MM-DD')
+        let endDate = (req.query.end_date) ? moment(req.query.end_date).format('YYYY-MM-DD') : moment().endOf('months').format('YYYY-MM-DD')
+
+        axios.get(`${ordermicroservice}/order-service/client/inventory/transfer-receipt?page=${page}&is_complete=${isComplete}&start_date=${startDate}&end_date=${endDate}`, {
             headers: {
                 authorization: req.headers['authorization']
             }
