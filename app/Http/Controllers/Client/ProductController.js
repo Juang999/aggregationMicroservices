@@ -20,12 +20,7 @@ class ProductController {
             })
 
             for (const dataFromExapro of dataExapro.data.data.data) {
-                if (dataFromExapro.pt_clothes_id == null) {
-                    dataFromExapro.image = '-'
-                } else if (dataFromExapro.pt_clothes_id != null) {
-                    let image = await axios.get(`${ProductKnowledgeMicroservice}/image/${dataFromExapro.pt_clothes_id}`)
-                    dataFromExapro.image = image.data.data
-                }
+                dataFromExapro.image = (!dataFromExapro.pt_code) ? '-' : await this.getImage(dataFromExapro.pt_code)
             }
 
             res.status(200)
@@ -52,35 +47,12 @@ class ProductController {
                 }
             })
 
-            let default_detail_product
-
-            if (master_data.data.data.pt_clothes_id == null) {
-                default_detail_product = {
-                                    id: "-",
-                                    entity_name: "-",
-                                    article_name: "-",
-                                    color: "-",
-                                    material: "-",
-                                    combo: "-",
-                                    special_feature: "-",
-                                    keyword: "-",
-                                    description: "Deskripsi belum tersedia",
-                                    slug: "-",
-                                    group_article: "-",
-                                    type_id: "-",
-                                    is_active: "-",
-                                    image: {
-                                        "photo": "-"
-                                    }
-                                }
-            } else {
-                var detail_product = await axios.get(ProductKnowledgeMicroservice+`/clothes/${master_data.data.data.pt_clothes_id}`)
-            }
+            let desc_data = await axios.get(`${ProductKnowledgeMicroservice}/exapro/${master_data.data.data.pt_code}/description`)
 
             let data_ready = {
-                name_data: (master_data.data.data.pt_desc2) ? master_data.data.data.pt_desc2 : '-',
-                desc_data: (master_data.data.data.pt_clothes_id == null) ? default_detail_product : detail_product.data.data,
-                detail_data: master_data.data
+                name_data: master_data.data.data.pt_desc1,
+                desc_data: desc_data.data.data,
+                detail_data: master_data.data.data
             }
 
             res.status(200)
@@ -90,8 +62,6 @@ class ProductController {
                     data: data_ready
                 })
         } catch (error) {
-            console.log(error.message)
-            return
             res.status(400)
                 .json({
                     status: "failed",
@@ -117,12 +87,7 @@ class ProductController {
             })
 
             for (const dataFromExapro of dataExapro.data.data.data) {
-                if (dataFromExapro.pt_clothes_id == null) {
-                    dataFromExapro.image = '-'
-                } else if (dataFromExapro.pt_clothes_id != null) {
-                    let image = await axios.get(`${ProductKnowledgeMicroservice}/image/${dataFromExapro.pt_clothes_id}`)
-                    dataFromExapro.image = image.data.data
-                }
+                dataFromExapro.image = (dataFromExapro.pt_code) ? await this.getImage(dataFromExapro.pt_code) : '-'
             }
 
             res.status(200)
@@ -149,35 +114,12 @@ class ProductController {
                 }
             })
 
-            let default_detail_product
-
-            if (master_data.data.data.pt_clothes_id == null) {
-                default_detail_product = {
-                                    id: "-",
-                                    entity_name: "-",
-                                    article_name: "-",
-                                    color: "-",
-                                    material: "-",
-                                    combo: "-",
-                                    special_feature: "-",
-                                    keyword: "-",
-                                    description: "Deskripsi belum tersedia",
-                                    slug: "-",
-                                    group_article: "-",
-                                    type_id: "-",
-                                    is_active: "-",
-                                    image: {
-                                        "photo": "-"
-                                    }
-                                }
-            } else {
-                var detail_product = await axios.get(ProductKnowledgeMicroservice+`/clothes/${master_data.data.data.pt_clothes_id}`)
-            }
+            let desc_data = await axios.get(`${ProductKnowledgeMicroservice}/exapro/${master_data.data.data.pt_code}/description`)
 
             let data_ready = {
-                name_data: (master_data.data.data.pt_desc2) ? master_data.data.data.pt_desc2 : '-',
-                desc_data: (master_data.data.data.pt_clothes_id == null) ? default_detail_product : detail_product.data.data,
-                detail_data: master_data.data
+                name_data: master_data.data.data.pt_desc1,
+                desc_data: desc_data.data.data,
+                detail_data: master_data.data.data
             }
 
             res.status(200)
@@ -310,6 +252,18 @@ class ProductController {
                     error: err.response.data
                 })
         })
+    }
+
+    getImage = async (pt_code) => {
+        let image = await axios.get(`${microservice.productknowledgemicroservice}/exapro/${pt_code}/image`)
+
+        return image.data.data
+    }
+
+    getDescription = async (pt_code) => {
+        let detail_product = await axios.get(`${ProductKnowledgeMicroservice}/exapro/${master_data.data.data.pt_code}/description`)
+
+        return detail_product.data.data
     }
 }
 
