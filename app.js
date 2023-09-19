@@ -24,7 +24,6 @@ var planRouter = require('./routes/Client/plans');
 var visitRouter = require('./routes/Client/visit');
 var reportRouter = require('./routes/Client/report');
 var partnerRouter = require('./routes/Client/partner');
-var productKnowlegeRouter = require('./routes/product');
 var InventoryRouter = require('./routes/Client/inventory');
 var PkRouter = require('./routes/Client/product-knowledge');
 var pointOfSalesRouter = require('./routes/Client/point-of-sales');
@@ -60,7 +59,6 @@ app.use('/api/inventory', InventoryRouter);
 app.use('/api/point-of-sales', pointOfSalesRouter);
 app.use('/api/address-partner', partnerAddressRouter);
 app.use('/api/sales-quotation', salesQuotationRoutes);
-app.use('/api/product-knowledge', productKnowlegeRouter);
 app.use('/api/contact-address-partner', partnerContactRouter);
 
 app.use(`${route.route_default}${route.Admin.route_admin}`, adminRoute.VisitRouter)

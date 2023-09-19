@@ -19,7 +19,6 @@ class Controller {
             },
             AuthController: require('./AuthController'),
             MasterController: require('./MasterController'),
-            ProductKnowledgeController: require('./ProductKnowledgeController'),
         }
     }
 }
