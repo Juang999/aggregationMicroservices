@@ -1,5 +1,5 @@
 const axios = require('axios')
-const {ordermicroservice} = require('../../../../config/microservice')
+const {ordermicroservice, productknowledgemicroservice} = require('../../../../config/microservice')
 const {Client} = require('../../../../routes/route')
 const {links} = require('../../../../helper/helper')
 const moment = require('moment')
@@ -103,6 +103,36 @@ class InventoryController {
                     error: err.response.data.error
                 })
         })
+    }
+
+    inventoryPerPartner = (req, res) => {
+        axios.get(`${ordermicroservice}/order-service/client/inventory/${req.params.ptnr_id}/exapro`, {
+            headers: {
+                authorization: req.headers['authorization']
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'failed',
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
+    }
+
+    getImage = async (pt_code) => {
+        let dataImage = await axios.get(`${productknowledgemicroservice}/exapro/${pt_code}/image`)
+
+        return dataImage.data.data
     }
 }
 
