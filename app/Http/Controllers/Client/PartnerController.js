@@ -1,6 +1,8 @@
 const axios = require('axios')
 const microservice = require('../../../../config/microservice')
 const orderMicroservice = microservice.ordermicroservice
+const {Client} = require('../../../../routes/route')
+const {links} = require('../../../../helper/helper')
 
 class PartnerController {
     getPartner = (req, res) => {
@@ -205,6 +207,47 @@ class PartnerController {
             res.status(400)
                 .json({
                     code: 400,
+                    status: 'failed',
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
+    }
+
+    getPartnerPerParent = (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/client/partner/partner`, {
+            headers: {
+                authorization: req.headers['authorization']
+            }
+        })
+        .then(result => {
+            let data = result.data.data
+
+            let finalResult = data.map((item, index) => {
+                return {
+                    ptnr_id: item['ptnr_id'],
+                    ptnr_name: item['ptnr_name'],
+                    group_name: item['group_name'],
+                    _links: {
+                        inventory: `/api/inventory${links(Client.feature.inventory.invc_product_from_exapro, [':ptnr_id', item['ptnr_id']])}`
+                    }
+                }
+            })
+
+            return finalResult
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: result,
+                    error: null
+                })
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(400)
+                .json({
                     status: 'failed',
                     data: null,
                     error: err.response.data.error
