@@ -106,7 +106,11 @@ class InventoryController {
     }
 
     inventoryPerPartner = (req, res) => {
-        axios.get(`${ordermicroservice}/order-service/client/inventory/${req.params.ptnr_id}/exapro`, {
+        let pageNumber = (req.query.page) ? req.query.page : 1
+        let entity = (req.query.entity) ? req.query.entity : ''
+        let search = (req.query.search) ? req.query.search : ''
+
+        axios.get(`${ordermicroservice}/order-service/client/inventory/${req.params.ptnr_id}/exapro?page=${pageNumber}&entity=${entity}&search=${search}`, {
             headers: {
                 authorization: req.headers['authorization']
             }
