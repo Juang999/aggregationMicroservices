@@ -80,7 +80,7 @@ class ProductController {
             let category = (req.query.category) ? req.query.category : ''
             let subcategory = (req.query.subquery) ? req.query.subcategory : ''
 
-            let dataExapro = await axios.get(`${orderMicroservice}/order-service/client/product/price-list?loc_id=${locationId}&page=${page}&query=${searchQuery}&entity=${entity}&category=${category}&subcategory=${subcategory}`, {
+            let dataExapro = await axios.get(`${orderMicroservice}/order-service/client/product/location?loc_id=${locationId}&page=${page}&query=${searchQuery}&entity=${entity}&category=${category}&subcategory=${subcategory}`, {
                 headers: {
                     "authorization": req.headers["authorization"]
                 }
