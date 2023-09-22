@@ -19,7 +19,7 @@ class ProductController {
                 }
             })
 
-            for (const dataFromExapro of dataExapro.data.data.data) {
+            for (const dataFromExapro of dataExapro.data.data) {
                 dataFromExapro.image = (!dataFromExapro.pt_code) ? '-' : await this.getImage(dataFromExapro.pt_code)
             }
 
@@ -86,7 +86,7 @@ class ProductController {
                 }
             })
 
-            for (const dataFromExapro of dataExapro.data.data.data) {
+            for (const dataFromExapro of dataExapro.data.data) {
                 dataFromExapro.image = (dataFromExapro.pt_code) ? await this.getImage(dataFromExapro.pt_code) : '-'
             }
 
