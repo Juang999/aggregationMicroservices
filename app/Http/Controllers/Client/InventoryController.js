@@ -80,6 +80,9 @@ class InventoryController {
 
     updateTransferReceipt = (req, res) => {
         axios.patch(`${ordermicroservice}/order-service/client/inventory/${req.params.ptsfr_oid}/update-transfer-receipt`, {
+            loc_git: req.body.loc_git,
+            loc_to_id: req.body.loc_to_id,
+            is_booked: req.body.is_booked,
             body_transfer_receipt: req.body.detail_transfer_receipt
         }, {
             headers: {
