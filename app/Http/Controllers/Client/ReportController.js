@@ -1,6 +1,8 @@
 const axios = require('axios')
 const {ordermicroservice} = require('../../../../config/microservice')
 const moment = require('moment')
+const {links} = require('../../../../helper/helper')
+const {Client} = require('../../../../routes/route')
 
 class ReportController {
     getTotalPercentageOfSales = (req, res) => {
@@ -41,6 +43,12 @@ class ReportController {
             }
         })
         .then(result => {
+            for (const detailData of result.data.data.history_debt) {
+                detailData._links = {
+                    detail: `/api/report${links(Client.feature.report.report_detail_history_debt, [':ar_oid', detailData.ar_oid])}`
+                }
+            }
+
             res.status(200)
                 .json({
                     status: 'success',
@@ -49,11 +57,12 @@ class ReportController {
                 })
         })
         .catch(err => {
+            console.log(err)
             res.status(400)
                 .json({
                     status: 'failed',
                     data: null,
-                    error: err.response.data.error
+                    error: (err.response.data.error) ? err.response.data.error : err.mesage
                 })
         })
     }

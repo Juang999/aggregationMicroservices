@@ -93,13 +93,14 @@ class Route {
                         partner_detail_contact: '/detail-contact-address/:ptnrac_oid', //1 -> toGetDetailDataContactPerson
                     },
                     planning: {
-                        plans_index: '/get-plan', //0
+                        plans_index: '/get-plan', //0/
                         plans_create: '/create-unplan', //1
                         plans_detail: '/planning/:plans_oid/detail' //2
                     },
                     report: {
                         report_so: '/so',
-                        report_history_debt: '/debt'
+                        report_history_debt: '/debt',
+                        report_detail_history_debt: '/debt/:ar_oid/detail'
                     },
                     pointofsales: {
                         pos_product_consigment: '/:warehouse_id/consigment'
