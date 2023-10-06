@@ -98,7 +98,8 @@ class Route {
                         plans_detail: '/planning/:plans_oid/detail' //2
                     },
                     report: {
-                        report_so: '/so'
+                        report_so: '/so',
+                        report_history_debt: '/debt'
                     },
                     pointofsales: {
                         pos_product_consigment: '/:warehouse_id/consigment'
