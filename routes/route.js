@@ -100,7 +100,8 @@ class Route {
                     report: {
                         report_so: '/so',
                         report_history_debt: '/debt',
-                        report_detail_history_debt: '/debt/:ar_oid/detail'
+                        report_detail_history_debt: '/debt/:ar_oid/detail',
+                        report_detail_shipment: '/so/:so_oid/shipment',
                     },
                     pointofsales: {
                         pos_product_consigment: '/:warehouse_id/consigment'

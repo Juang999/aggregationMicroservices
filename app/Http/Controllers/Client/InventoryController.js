@@ -98,7 +98,6 @@ class InventoryController {
                 })
         })
         .catch(err => {
-            console.log(err.response)
             res.status(400)
                 .json({
                     status: 'failed',
