@@ -192,29 +192,37 @@ class SalesQuotationController {
     getProductForSQ = async (req, res) => {
         try {
             let pageProduct = (req.query.page) ? req.query.page : 1
-
             let searchQuery = req.query.query
-    
-            let dataProductFromOrderMicroservice = await axios.get(`${ordermicroservice}/order-service/client/sales-quotation/product/pricelist/${req.params.priceListOid}/area/${req.params.areaId}/locationid/${req.params.locId}?page=${pageProduct}&query=${searchQuery}`, {
-                headers: {
-                    'authorization': req.get('authorization')
-                }
-            })
+            let package_oid = req.query.package_oid
+            let pricelistoid = req.params.priceListOid
+            let limitPage = (req.query.limit) ? req.query.limit : 10
 
-            for (const dataProduct of dataProductFromOrderMicroservice.data.data) {
-                if (dataProduct.pt_clothes_id == null) {
-                    dataProduct.image = '-'
-                } else {
-                    let photoProduct = await axios.get(`${productknowledgemicroservice}/image/${dataProduct.pt_clothes_id}}`)
-                    dataProduct.image = photoProduct.data.data
-                }
+            let dataProductSalesQuotation
+
+            if (req.query.is_package == 'Y') {
+                dataProductSalesQuotation = await axios.get(`${ordermicroservice}/order-service/client/sales-quotation/package/${package_oid}/detail?price_oid=${pricelistoid}&page=${pageProduct}&limit=${limitPage}`, {
+                    headers: {
+                        authorization: req.headers['authorization']
+                    }
+                })
+            } else {
+                dataProductSalesQuotation = await axios.get(`${ordermicroservice}/order-service/client/sales-quotation/product/pricelist/${pricelistoid}/area/${req.params.areaId}/locationid/${req.params.locId}?page=${pageProduct}&query=${searchQuery}`, {
+                    headers: {
+                        'authorization': req.get('authorization')
+                    }
+                })
             }
-            
+
+
+            for (const dataProduct of dataProductSalesQuotation.data.data) {
+                dataProduct.image = (dataProduct.pt_code) ? await this.getImage(dataProduct.pt_code) : '-'
+            }
+
             res.status(200)
                 .json({
                     status: 'berhasil',
                     message: 'berhasil mengambil data',
-                    data: dataProductFromOrderMicroservice.data.data
+                    data: dataProductSalesQuotation.data.data
                 })
         } catch (error) {
             res.status(400)
@@ -222,9 +230,42 @@ class SalesQuotationController {
                     status: 'gagal',
                     message: 'gagal mengambil data',
                     error: error.response.data.error
-                    })
+                })
             }
     }
+
+    getPackage = (req, res) => {
+        let entity = (req.query.entity) ? req.query.entity : ''
+        axios.get(`${ordermicroservice}/order-service/client/sales-quotation/package?entity=${entity}`,
+        {
+            headers: {
+                authorization: req.headers['authorization']
+            }
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            res.status(400)
+                .json({
+                    status: 'failed',
+                    data: null,
+                    error: err.response.data.error
+                })
+        })
+    }
+
+    getImage = async (pt_code) => {
+        let photo = await axios.get(`${productknowledgemicroservice}/exapro/${pt_code}/image`)
+
+        return photo.data.data
+    }
+
 }
 
 module.exports = new SalesQuotationController()

@@ -11,5 +11,6 @@ router.get(Client.feature.sales_quotation.sq_price_list, controller.Client.Sales
 router.get(Client.feature.sales_quotation.sq_sales_quotation, controller.Client.SalesQuotationController.getSalesQuotation)
 router.get(Client.feature.sales_quotation.sq_limit_credit, controller.Client.SalesQuotationController.getLimitCreditCustomer)
 router.post(Client.feature.sales_quotation.sq_create_sales_quotation, controller.Client.SalesQuotationController.createSalesQuotation)
+router.get(Client.feature.sales_quotation.sq_package, controller.Client.SalesQuotationController.getPackage)
 
 module.exports = router
