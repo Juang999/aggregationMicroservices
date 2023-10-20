@@ -9,7 +9,7 @@ const empservice = microservice.employeeservice
 
 let AuthController = {
     login: (req, res) => {
-        axios.post(orderMicroservice+'/users/login', {
+        axios.post(orderMicroservice+'/order-service/default/users/login', {
             username: req.body.username,
             password: req.body.password
         })
@@ -33,7 +33,7 @@ let AuthController = {
     profile: async (req, res) => {
         try {
             /*get data user*/ 
-            let dataUser = await axios.get(`${orderMicroservice}/users/profile`, {
+            let dataUser = await axios.get(`${orderMicroservice}/order-service/default/users/profile`, {
                 headers: {
                     "authorization": req.get("authorization")
                 }
@@ -67,7 +67,7 @@ let AuthController = {
         }
     },
     adminLogin: (req, res) => {
-        axios.post(`${orderMicroservice}/users/admin-login`, {
+        axios.post(`${orderMicroservice}/order-service/default/users/admin-login`, {
             username: req.body.username,
             password: req.body.password
         })
@@ -90,7 +90,7 @@ let AuthController = {
         })
     },
     AdminProfile: (req, res) => {
-        axios.get(`${orderMicroservice}/users/admin-profile`, {
+        axios.get(`${orderMicroservice}/order-service/default/users/admin-profile`, {
             headers: {
                 "authorization": req.get('authorization')
             }
@@ -115,7 +115,7 @@ let AuthController = {
         })
     },
     Logout: (req, res) => {
-        axios.post(`${orderMicroservice}/users/logout`, {}, {
+        axios.post(`${orderMicroservice}/order-service/default/users/logout`, {}, {
             headers: {
                 "authorization": req.get('authorization')
             }

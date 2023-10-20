@@ -362,7 +362,7 @@ class MasterController {
         .then(result => {
             res.status(200)
                 .json({
-                    code: 400,
+                    code: 200,
                     status: 'success',
                     data: result.data.data,
                     error: null
