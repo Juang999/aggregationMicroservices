@@ -51,7 +51,9 @@ class InventoryController {
     }
 
     detailInventoryTransferReceipt = (req, res) => {
-        axios.get(`${ordermicroservice}/order-service/client/inventory/${req.params.ptsfr_oid}/detail-transfer-receipt`, {
+        let productName = (req.query.product_name) ? req.query.product_name : ''
+
+        axios.get(`${ordermicroservice}/order-service/client/inventory/${req.params.ptsfr_oid}/detail-transfer-receipt?product_name=${productName}`, {
             headers: {
                 authorization: req.headers['authorization']
             }
