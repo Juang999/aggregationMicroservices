@@ -8,7 +8,8 @@ const kernel = {
     UnplanRequest: require('./Middleware/Requests/UnplanRequest'),
     CreatePartnerRequest: require('./Middleware/Requests/CreatePartnerRequest'),
     CreatePartnerAddressRequest: require('./Middleware/Requests/CreatePartnerAddressRequest'),
-    CreatePartnerContactRequest: require('./Middleware/Requests/CreatePartnerContactRequest')
+    CreatePartnerContactRequest: require('./Middleware/Requests/CreatePartnerContactRequest'),
+    createSalesQuotationRequest: require('./Middleware/Requests/CreateSalesQuotationRequest')
 }
 
 module.exports = kernel

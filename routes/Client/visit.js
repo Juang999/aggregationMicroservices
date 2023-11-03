@@ -1,0 +1,20 @@
+const express = require('express')
+const router = express.Router()
+const controller = require('../../app/Http/Controllers/Controller')
+const middleware = require('../../app/Http/kernel')
+const {Client} = require('../route')
+
+router.get(Client.feature.visitation.visitation_type, controller.Client.VisitController.getVisitType)
+router.get(Client.feature.visitation.visitation_schedule, controller.Client.VisitController.getVisitSchedule)
+router.get(Client.feature.visitation.visitation_output_type, controller.Client.VisitController.getOutputVisitType)
+router.get(Client.feature.visitation.visitation_sales_periode, controller.Client.VisitController.getSalesPerPeriode)
+router.get(Client.feature.visitation.visitation_detail_visitation, controller.Client.VisitController.getDetailVisit)
+router.delete(Client.feature.visitation.visitation_delete_schedule, controller.Client.VisitController.deleteSchedule)
+router.get(Client.feature.visitation.visitation_detail_schedule, controller.Client.VisitController.getDetailVisitSchedule)
+router.delete(Client.feature.visitation.visitation_delete_customer, controller.Client.VisitController.deleteFromListSchedule)
+router.patch(Client.feature.visitation.visitation_checkin, [middleware.CheckinRequest], controller.Client.VisitController.checkIn)
+router.patch(Client.feature.visitation.visitation_checkout, [middleware.CheckoutRequest], controller.Client.VisitController.checkOut)
+router.post(Client.feature.visitation.visitation_visit, [middleware.CreatePeopleToVisit], controller.Client.VisitController.createPeopleToVisit)
+router.post(Client.feature.visitation.visitation_create_schedule, [middleware.CreateScheduleToVisit], controller.Client.VisitController.createScheduleVisit)
+
+module.exports = router

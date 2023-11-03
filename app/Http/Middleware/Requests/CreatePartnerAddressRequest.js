@@ -14,7 +14,7 @@ const rules = [
     check('partnerOid').notEmpty().isString(),
     check('partnerAddressType').notEmpty().isNumeric(),
     check('partnerComment').isEmpty().isString(),
-    check('partner_active').notEmpty().isString()
+    check('partnerActive').notEmpty().isString()
 ]
 
 const CreatePartnerAddressRequest = [

@@ -2,7 +2,7 @@ const {check, validationResult} = require('express-validator')
 
 const rules = [
     check('partnerAccountAddressOid').notEmpty().isString(),
-    check('partnerAccoutFunction').notEmpty().isNumeric(),
+    check('partnerAccountFunction').notEmpty().isNumeric(),
     check('partnerContactName').notEmpty().isString(),
     check('partnerPhone1').notEmpty().isString(),
     check('partnerContact2').notEmpty().isString(),
