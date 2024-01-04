@@ -265,6 +265,30 @@ class ProductController {
 
         return detail_product.data.data
     }
+
+    getCatalog = async (req, res) => {
+        let page = (req.query.page) ? req.query.page : 1;
+        let query = (req.query.query) ? req.query.query : null;
+        let entityid = (req.query.entityid) ? req.query.entityid : 1;
+
+        axios.get(`${orderMicroservice}/order-service/client/product/catalog?page=${page}&entityid=${entityid}&query=${query}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
+    }
 }
 
 module.exports = new ProductController()
