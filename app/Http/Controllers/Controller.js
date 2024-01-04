@@ -12,6 +12,7 @@ class Controller {
                 PartnerController: require('./Client/PartnerController'),
                 ProductController: require('./Client/ProductController'),
                 InventoryController: require('./Client/InventoryController'),
+                LandingPageController: require('./Client/LandingPageController'),
                 PointofSalesController: require('./Client/PointofSalesController'),
                 PartnerAddressController: require('./Client/PartnerAddressController'),
                 PartnerContactController: require('./Client/PartnerContactController'),

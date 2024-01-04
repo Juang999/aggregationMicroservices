@@ -9,20 +9,20 @@ class Route {
                 feature: {
                     visit: {
                         index_and_create: '/visitation',
-                        visitation: '/visitation/:ptnr_id/sales',
-                        visitation_schedule: '/visitation/:visit_code/schedule',
-                        visitation_detail: '/visitation/:visited_oid/detail',
-                        visitation_create_periode: '/visitation/periode',
+                        visitation_type: '/visitation/type',
+                        visitation_visit: '/visitation/visit',
                         visitation_sales: '/visitation/sales',
-                        visitation_checkin: '/visitation/:user_ptnr_id/checkin',
-                        visitation_sales_quotation: '/visitation/:user_ptnr_id/sales-quotation',
-                        visitation_output: '/visitation/:user_ptnr_id/output',
+                        visitation: '/visitation/:ptnr_id/sales',
                         visitation_periode: '/visitation/periode',
+                        visitation_customer: '/visitation/customer',
                         visitation_goal: '/visitation/:userid/goal',
                         visitation_code: '/visitation/:userid/code',
-                        visitation_customer: '/visitation/customer',
-                        visitation_type: '/visitation/type',
-                        visitation_visit: '/visitation/visit'
+                        visitation_create_periode: '/visitation/periode',
+                        visitation_detail: '/visitation/:visited_oid/detail',
+                        visitation_output: '/visitation/:user_ptnr_id/output',
+                        visitation_schedule: '/visitation/:visit_code/schedule',
+                        visitation_checkin: '/visitation/:user_ptnr_id/checkin',
+                        visitation_sales_quotation: '/visitation/:user_ptnr_id/sales-quotation',
                     },
                     SalesQuotation: {
                         index: '/sales-quotation',
@@ -40,6 +40,7 @@ class Route {
                     product: {
                         product_size: '/size', //10
                         product_grade: '/grade', //
+                        product_catalog: '/catalog',
                         product_price_list: '/price', //3
                         product_category: '/category', //7
                         product_get_all: '/get-all-product', //11
@@ -113,6 +114,10 @@ class Route {
                         invc_detail_transfer_receipt: '/:ptsfr_oid/detail-transfer-receipt',
                         invc_update_transfer_receipt: '/:ptsfr_oid/update-transfer-receipt',
                         invc_product_from_exapro: '/:ptnr_id/exapro'
+                    },
+                    landing_page: {
+                        landing_page_category: '/category',
+                        landing_page_best_seller: '/best-seller',
                     }
                 }
             },
