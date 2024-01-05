@@ -46,6 +46,27 @@ class LandingPageController {
         }
     }
 
+    getCarousel = (req, res) => {
+        axiosGet(`${ordermicroservice}/order-service/client/landingpage/carousel`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                console.log(err.message)
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
+    }
+
     getImage = async (dataOrderMicroservice) => {
         let result = []
         

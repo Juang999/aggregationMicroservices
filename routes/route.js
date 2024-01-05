@@ -118,6 +118,7 @@ class Route {
                     landing_page: {
                         landing_page_category: '/category',
                         landing_page_best_seller: '/best-seller',
+                        landing_page_carousel: '/carousel'
                     }
                 }
             },
