@@ -269,9 +269,10 @@ class ProductController {
     getCatalog = async (req, res) => {
         let page = (req.query.page) ? req.query.page : 1;
         let query = (req.query.query) ? req.query.query : null;
+        let areaid = (req.query.areaid) ? req.query.areaid : 1;
         let entityid = (req.query.entityid) ? req.query.entityid : 1;
 
-        axios.get(`${orderMicroservice}/order-service/client/product/catalog?page=${page}&entityid=${entityid}&query=${query}`)
+        axios.get(`${orderMicroservice}/order-service/client/product/catalog?page=${page}&entityid=${entityid}&query=${query}&areaid=${areaid}`)
             .then(result => {
                 res.status(200)
                     .json({
