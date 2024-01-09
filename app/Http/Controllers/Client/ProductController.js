@@ -254,18 +254,6 @@ class ProductController {
         })
     }
 
-    getImage = async (pt_code) => {
-        let image = await axios.get(`${microservice.productknowledgemicroservice}/exapro/${pt_code}/image`)
-
-        return image.data.data
-    }
-
-    getDescription = async (pt_code) => {
-        let detail_product = await axios.get(`${ProductKnowledgeMicroservice}/exapro/${master_data.data.data.pt_code}/description`)
-
-        return detail_product.data.data
-    }
-
     getCatalog = async (req, res) => {
         let page = (req.query.page) ? req.query.page : 1;
         let query = (req.query.query) ? req.query.query : null;
@@ -289,6 +277,24 @@ class ProductController {
                         error: err.message
                     })
             })
+    }
+
+    getImage = async (pt_code) => {
+        let image = await axios.get(`${microservice.productknowledgemicroservice}/exapro/${pt_code}/image`)
+
+        return image.data.data
+    }
+
+    getDescription = async (pt_code) => {
+        let detail_product = await axios.get(`${ProductKnowledgeMicroservice}/exapro/${master_data.data.data.pt_code}/description`)
+
+        return detail_product.data.data
+    }
+
+    getImageCatalog = async (pt_code) => {
+        let getImage = await axios.get(`${microservice.productknowledgemicroservice}/exapro/${pt_code}/image`)
+
+        // let image = (getImage.data.data == '-') ? 
     }
 }
 
