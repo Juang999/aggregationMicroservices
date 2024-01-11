@@ -255,28 +255,34 @@ class ProductController {
     }
 
     getCatalog = async (req, res) => {
-        let page = (req.query.page) ? req.query.page : 1;
-        let query = (req.query.query) ? req.query.query : null;
-        let areaid = (req.query.areaid) ? req.query.areaid : 1;
-        let entityid = (req.query.entityid) ? req.query.entityid : 1;
+        try {
+            let page = (req.query.page) ? req.query.page : 1;
+            let query = (req.query.query) ? req.query.query : null;
+            let areaid = (req.query.areaid) ? req.query.areaid : 1;
+            let entityid = (req.query.entityid) ? req.query.entityid : 1;
 
-        axios.get(`${orderMicroservice}/order-service/client/product/catalog?page=${page}&entityid=${entityid}&query=${query}&areaid=${areaid}`)
-            .then(result => {
-                res.status(200)
+            let getImage = axios.get(`${microservice.productknowledgemicroservice}/exapro/image-catalog`)
+            let dataProduct = axios.get(`${orderMicroservice}/order-service/client/product/catalog?page=${page}&entityid=${entityid}&query=${query}&areaid=${areaid}`)            
+
+            let result = await Promise.all([dataProduct, getImage])
+
+            res.status(200)
                     .json({
                         status: 'success',
-                        data: result.data.data,
+                        data: {
+                            data_images: result[1]['data']['data'],
+                            data_product: result[0]['data']['data']
+                        },
                         error: null
                     })
-            })
-            .catch(err => {
-                res.status(400)
+        } catch (error) {
+            res.status(400)
                     .json({
                         status: 'failed',
                         data: null,
-                        error: err.message
+                        error: error.message
                     })
-            })
+        }
     }
 
     getImage = async (pt_code) => {
@@ -289,12 +295,6 @@ class ProductController {
         let detail_product = await axios.get(`${ProductKnowledgeMicroservice}/exapro/${master_data.data.data.pt_code}/description`)
 
         return detail_product.data.data
-    }
-
-    getImageCatalog = async (pt_code) => {
-        let getImage = await axios.get(`${microservice.productknowledgemicroservice}/exapro/${pt_code}/image`)
-
-        // let image = (getImage.data.data == '-') ? 
     }
 }
 
