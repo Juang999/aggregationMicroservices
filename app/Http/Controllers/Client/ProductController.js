@@ -285,6 +285,29 @@ class ProductController {
         }
     }
 
+    showDetailCatalog = async (req, res) => {
+        try {
+            let dataProduct = await axios.get(`${orderMicroservice}/order-service/client/product/catalog/${req.params.pt_id}/detail`)
+
+            dataProduct['data']['data']['image'] = await this.getImage(dataProduct['data']['data']['pt_code'])
+            
+
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: dataProduct['data']['data'],
+                    error: null
+                })
+        } catch (error) {
+            res.status(400)
+                .json({
+                    status: 'failed',
+                    data: null,
+                    error: error.message
+                })
+        }
+    }
+
     getImage = async (pt_code) => {
         let image = await axios.get(`${microservice.productknowledgemicroservice}/exapro/${pt_code}/image`)
 
@@ -296,6 +319,7 @@ class ProductController {
 
         return detail_product.data.data
     }
+
 }
 
 module.exports = new ProductController()

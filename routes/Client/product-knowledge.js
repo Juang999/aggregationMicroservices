@@ -13,4 +13,5 @@ router.get(Client.feature.product.product_by_location, Controller.Client.Product
 router.get(Client.feature.product.product_by_price_list, Controller.Client.ProductController.getProductByPriceList)
 router.get(Client.feature.product.product_detail_by_location, Controller.Client.ProductController.showProductByLocation)
 router.get(Client.feature.product.product_detail_by_price_list, Controller.Client.ProductController.showProductByPriceList)
+router.get(Client.feature.product.product_detail_catalog, Controller.Client.ProductController.showDetailCatalog)
 module.exports = router

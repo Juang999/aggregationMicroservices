@@ -45,6 +45,7 @@ class Route {
                         product_category: '/category', //7
                         product_get_all: '/get-all-product', //11
                         product_by_location: '/product-by-location/', //done
+                        product_detail_catalog: '/catalog/:pt_id/detail',
                         product_by_price_list: '/product-by-price-list', //done
                         product_sub_category: '/category/sub_category/:cat_id', //9
                         product_detail_by_location: '/detail-product-by-location/:pt_id/entity/:entity', //done
