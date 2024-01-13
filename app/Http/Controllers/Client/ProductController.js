@@ -262,7 +262,7 @@ class ProductController {
             let entityid = (req.query.entityid) ? req.query.entityid : 1;
 
             let getImage = axios.get(`${microservice.productknowledgemicroservice}/exapro/image-catalog`)
-            let dataProduct = axios.get(`${orderMicroservice}/order-service/client/product/catalog?page=${page}&entityid=${entityid}&query=${query}&areaid=${areaid}`)            
+            let dataProduct = axios.get(`${orderMicroservice}/order-service/client/product/catalog?page=${page}&entityid=${entityid}&query=${query}&areaid=${areaid}&pt_cat_id=${req.query.pt_cat_id}`)            
 
             let result = await Promise.all([dataProduct, getImage])
 
