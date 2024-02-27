@@ -285,6 +285,31 @@ class ProductController {
             })
     }
 
+    getCatalogForMutifersApp = async (req, res) => {
+        let query = req.query.query;
+        let areaid = req.query.areaid;
+        let ptCode = req.query.ptcode;
+        let entityid = req.query.entityid;            
+
+        axios.get(`${orderMicroservice}/order-service/client/product/catalog?entityid=${entityid}&query=${query}&areaid=${areaid}&pt_cat_id=${req.query.pt_cat_id}&ptcode=${ptCode}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
+    }
+
     showDetailCatalog = async (req, res) => {
         try {
             let dataProduct = await axios.get(`${orderMicroservice}/order-service/client/product/catalog/${req.params.pt_id}/detail`)

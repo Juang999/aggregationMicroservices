@@ -37,6 +37,12 @@ class Route {
             Client: {
                 route_client: '/client',
                 feature: {
+                    report: {
+                        report_so: '/so',
+                        report_history_debt: '/debt',
+                        report_detail_history_debt: '/debt/:ar_oid/detail',
+                        report_detail_shipment: '/so/:so_oid/shipment',
+                    },
                     product: {
                         product_size: '/size', //10
                         product_grade: '/grade', //
@@ -45,6 +51,7 @@ class Route {
                         product_category: '/category', //7
                         product_get_all: '/get-all-product', //11
                         product_by_location: '/product-by-location/', //done
+                        product_catalog_mutifers: '/catalog-mutifers',
                         product_detail_catalog: '/catalog/:pt_id/detail',
                         product_by_price_list: '/product-by-price-list', //done
                         product_sub_category: '/category/sub_category/:cat_id', //9
@@ -100,12 +107,6 @@ class Route {
                         plans_index: '/get-plan', //0/
                         plans_create: '/create-unplan', //1
                         plans_detail: '/planning/:plans_oid/detail' //2
-                    },
-                    report: {
-                        report_so: '/so',
-                        report_history_debt: '/debt',
-                        report_detail_history_debt: '/debt/:ar_oid/detail',
-                        report_detail_shipment: '/so/:so_oid/shipment',
                     },
                     pointofsales: {
                         pos_product_consigment: '/:warehouse_id/consigment'
