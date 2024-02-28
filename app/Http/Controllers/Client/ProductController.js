@@ -287,11 +287,12 @@ class ProductController {
 
     getCatalogForMutifersApp = async (req, res) => {
         let query = req.query.query;
-        let areaid = req.query.areaid;
         let ptCode = req.query.ptcode;
-        let entityid = req.query.entityid;            
+        let entityid = req.query.entityid;
+        let areaid = (req.query.areaid) ? req.query.areaid : '';
+        let catId = (req.query.pt_cat_id) ? req.query.pt_cat_id : '';
 
-        axios.get(`${orderMicroservice}/order-service/client/product/catalog?entityid=${entityid}&query=${query}&areaid=${areaid}&pt_cat_id=${req.query.pt_cat_id}&ptcode=${ptCode}`)
+        axios.get(`${orderMicroservice}/order-service/client/product/catalog?entityid=${entityid}&query=${query}&areaid=${areaid}&pt_cat_id=${catId}&ptcode=${ptCode}`)
             .then(result => {
                 res.status(200)
                     .json({
