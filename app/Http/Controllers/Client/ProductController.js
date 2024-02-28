@@ -255,13 +255,14 @@ class ProductController {
     }
 
     getCatalog = async (req, res) => {
-        let query = req.query.query;
-        let areaid = req.query.areaid;
-        let ptCode = req.query.ptcode;
-        let entityid = req.query.entityid;
+        let query = (req.query.query) ? req.query.query : undefined;
+        let ptCode = (req.query.ptcode) ? req.query.ptcode : undefined;
+        let areaid = (req.query.areaid != '') ? req.query.areaid : undefined;
+        let entityid = (req.query.entityid) ? req.query.entityid : undefined;
+        let catId = (req.query.pt_cat_id != '') ? req.query.pt_cat_id : undefined;
 
         let getImage = axios.get(`${microservice.productknowledgemicroservice}/exapro/image-catalog`)
-        let dataProduct = axios.get(`${orderMicroservice}/order-service/client/product/catalog?entityid=${entityid}&query=${query}&areaid=${areaid}&pt_cat_id=${req.query.pt_cat_id}&ptcode=${ptCode}`)            
+        let dataProduct = axios.get(`${orderMicroservice}/order-service/client/product/catalog?entityid=${entityid}&query=${query}&areaid=${areaid}&pt_cat_id=${catId}&ptcode=${ptCode}`)            
 
         Promise.all([dataProduct, getImage])
             .then(result => {
@@ -286,11 +287,11 @@ class ProductController {
     }
 
     getCatalogForMutifersApp = async (req, res) => {
-        let query = req.query.query;
-        let ptCode = req.query.ptcode;
-        let entityid = req.query.entityid;
-        let areaid = (req.query.areaid) ? req.query.areaid : '';
-        let catId = (req.query.pt_cat_id) ? req.query.pt_cat_id : '';
+        let query = (req.query.query) ? req.query.query : undefined;
+        let ptCode = (req.query.ptcode) ? req.query.ptcode : undefined;
+        let areaid = (req.query.areaid) ? req.query.areaid : undefined;
+        let catId = (req.query.pt_cat_id) ? req.query.pt_cat_id : undefined;
+        let entityid = (req.query.entityid) ? req.query.entityid : undefined;
 
         axios.get(`${orderMicroservice}/order-service/client/product/catalog?entityid=${entityid}&query=${query}&areaid=${areaid}&pt_cat_id=${catId}&ptcode=${ptCode}`)
             .then(result => {
