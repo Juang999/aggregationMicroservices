@@ -68,7 +68,8 @@ class Route {
                         sq_limit_credit: '/get-limit-credit-customer/partnerid/:partnerId', //done
                         sq_product: '/get-product/pricelist/:priceListOid/area/:areaId/location/:locId', //done
                         sq_package: '/package',
-                        sq_detail_package: 'package/:package_oid/detail'
+                        sq_detail_package: 'package/:package_oid/detail',
+                        sq_transfer_issue: '/transfer-issue'
                     },
                     visitation: {
                         visitation_type: '/get-visit-type', //done
