@@ -255,11 +255,11 @@ class ProductController {
     }
 
     getCatalog = async (req, res) => {
-        let query = (req.query.query) ? req.query.query : undefined;
-        let ptCode = (req.query.ptcode) ? req.query.ptcode : undefined;
-        let areaid = (req.query.areaid != '') ? req.query.areaid : undefined;
-        let entityid = (req.query.entityid) ? req.query.entityid : undefined;
-        let catId = (req.query.pt_cat_id != '') ? req.query.pt_cat_id : undefined;
+        let query = req.query.query;
+        let ptCode = req.query.ptcode;
+        let areaid = req.query.areaid;
+        let catId = req.query.pt_cat_id;
+        let entityid = req.query.entityid;
 
         let getImage = axios.get(`${microservice.productknowledgemicroservice}/exapro/image-catalog`)
         let dataProduct = axios.get(`${orderMicroservice}/order-service/client/product/catalog?entityid=${entityid}&query=${query}&areaid=${areaid}&pt_cat_id=${catId}&ptcode=${ptCode}`)            
@@ -335,6 +335,33 @@ class ProductController {
         }
     }
 
+    inputProduct = (req, res) => {
+        axios.post(`${orderMicroservice}/order-service/client/product/input-product`, {
+            size: req.body.size,
+            entity: req.body.entity,
+            pt_code: req.body.pt_code,
+            pt_desc1: req.body.pt_desc1,
+            pt_class: req.body.pt_class,
+        })
+        .then(result => {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    data: result.data.data,
+                    error: null
+                })
+        })
+        .catch(err => {
+            console.info(err)
+            res.status(400)
+                .json({
+                    status: 'failed',
+                    data: null,
+                    error: err.message
+                })
+        })
+    }
+
     getImage = async (pt_code) => {
         let image = await axios.get(`${microservice.productknowledgemicroservice}/exapro/${pt_code}/image`)
 
@@ -346,7 +373,6 @@ class ProductController {
 
         return detail_product.data.data
     }
-
 }
 
 module.exports = new ProductController()

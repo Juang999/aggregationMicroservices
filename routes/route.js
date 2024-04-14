@@ -49,6 +49,7 @@ class Route {
                         product_catalog: '/catalog',
                         product_price_list: '/price', //3
                         product_category: '/category', //7
+                        product_input: '/input-product',
                         product_get_all: '/get-all-product', //11
                         product_by_location: '/product-by-location/', //done
                         product_catalog_mutifers: '/catalog-mutifers',
