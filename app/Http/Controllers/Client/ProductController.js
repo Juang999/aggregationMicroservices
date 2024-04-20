@@ -342,6 +342,7 @@ class ProductController {
             pt_code: req.body.pt_code,
             pt_desc1: req.body.pt_desc1,
             pt_class: req.body.pt_class,
+            pt_cost: req.body.pt_cost
         })
         .then(result => {
             res.status(200)
@@ -352,7 +353,6 @@ class ProductController {
                 })
         })
         .catch(err => {
-            console.info(err)
             res.status(400)
                 .json({
                     status: 'failed',
