@@ -378,6 +378,50 @@ class MasterController {
                 })
         })
     }
+
+    getMaterial = (req, res) => {
+        let searchName = (req.query.searchname) ? req.query.searchname : ''
+
+        axios.get(`${orderMicroservice}/order-service/default/master/get-material?searchname=${searchName}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
+    }
+
+    getAccessories = (req, res) => {
+        let searchName = (req.query.searchname) ? req.query.searchname : ''
+
+        axios.get(`${orderMicroservice}/order-service/default/master/get-accessories?searchname=${searchName}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
+    }
 }
 
 module.exports = new MasterController()

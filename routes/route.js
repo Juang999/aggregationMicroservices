@@ -151,6 +151,8 @@ class Route {
                         master_contact_person: '/contact_person', //done
                         master_default_periode: '/default-periode', //done
                         master_sales_program: '/sales-program', //done
+                        master_get_material: '/get-material', //done
+                        master_get_accessories: '/get-accessories' //done
                     }
                 }
             }
