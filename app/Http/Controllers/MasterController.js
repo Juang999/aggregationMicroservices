@@ -401,10 +401,54 @@ class MasterController {
             })
     }
 
+    getDetailMaterial = (req, res) => {
+        let ptId = req.params.ptId
+
+        axios.get(`${orderMicroservice}/order-service/default/master/${ptId}/get-detail-material`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
+    }
+
     getAccessories = (req, res) => {
         let searchName = (req.query.searchname) ? req.query.searchname : ''
 
         axios.get(`${orderMicroservice}/order-service/default/master/get-accessories?searchname=${searchName}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
+    }
+
+    getDetailAccessories = (req, res) => {
+        let ptId = req.params.ptId
+
+        axios.get(`${orderMicroservice}/order-service/default/master/${ptId}/get-detail-accessories`)
             .then(result => {
                 res.status(200)
                     .json({

@@ -152,7 +152,9 @@ class Route {
                         master_default_periode: '/default-periode', //done
                         master_sales_program: '/sales-program', //done
                         master_get_material: '/get-material', //done
-                        master_get_accessories: '/get-accessories' //done
+                        master_detail_material: '/:ptId/detail-material', //done
+                        master_get_accessories: '/get-accessories', //done
+                        master_detail_accessories: '/:ptId/detail-accessories', //done
                     }
                 }
             }
