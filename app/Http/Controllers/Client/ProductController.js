@@ -342,7 +342,8 @@ class ProductController {
             pt_code: req.body.pt_code,
             pt_desc1: req.body.pt_desc1,
             pt_class: req.body.pt_class,
-            pt_cost: req.body.pt_cost
+            pt_cost: req.body.pt_cost,
+            material: req.body.material
         })
         .then(result => {
             res.status(200)
@@ -372,6 +373,26 @@ class ProductController {
         let detail_product = await axios.get(`${ProductKnowledgeMicroservice}/exapro/${master_data.data.data.pt_code}/description`)
 
         return detail_product.data.data
+    }
+
+    getReferenceSample = (req, res) => {
+        axios.get(`${orderMicroservice}/order-service/client/product/${req.params.ptId}/reference-sample`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
     }
 }
 
