@@ -162,26 +162,27 @@ class ProductController {
             })
     }
 
-    getCategory = (req, res) => {
-        axios.get(`${orderMicroservice}/order-service/client/product/category`, {
-            headers: {
-                "authorization": req.get("authorization")
-            }
-        }).then(result => {
+    getCategory = async (req, res) => {
+        try {
+            let categoryData = await this.getDataCategory(req.get('authorization'));
+
+            let result = await this.getDataImage(categoryData);
+
             res.status(200)
                 .json({
                     status: "success",
-                    message: "berhasil mengambil data",
-                    data: result.data.data
+                    data: result,
+                    error: null,
                 })
-        }).catch(err => {
+        } catch (error) {
+            console.info(error)
             res.status(400)
                 .json({
-                    status: "failed",
-                    message: "gagal mengambil data",
-                    error: err.message
+                    status: 'failed',
+                    data: null,
+                    error: error.error
                 })
-        })
+        }
     }
 
     getSubCategory = (req, res) => {
@@ -367,6 +368,31 @@ class ProductController {
         let image = await axios.get(`${microservice.productknowledgemicroservice}/exapro/${pt_code}/image`)
 
         return image.data.data
+    }
+
+    getDataCategory = async (tokenKey) => {
+        let {data: result} = await axios.get(`${orderMicroservice}/order-service/client/product/category`, {
+            headers: {
+                "authorization": tokenKey
+            }
+        })
+
+        return result.data
+    }
+
+    getDataImage = async (dataCategory) => {
+        let resultDataCategory = []
+
+        for (const {ptcat_id, ptcat_desc, pt_code} of dataCategory) {
+            resultDataCategory.push({
+                ptcat_id,
+                ptcat_desc,
+                pt_code,
+                pt_image: (pt_code != null) ? await this.getImage(pt_code) : '-'
+            })
+        }
+
+        return resultDataCategory
     }
 
     getDescription = async (pt_code) => {
