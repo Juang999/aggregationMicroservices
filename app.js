@@ -26,6 +26,7 @@ var reportRouter = require('./routes/Client/report');
 var partnerRouter = require('./routes/Client/partner');
 var InventoryRouter = require('./routes/Client/inventory');
 var PkRouter = require('./routes/Client/product-knowledge');
+var landingPageRouter = require('./routes/Client/landing_page')
 var pointOfSalesRouter = require('./routes/Client/point-of-sales');
 var salesQuotationRoutes = require('./routes/Client/sales-quotation');
 var partnerAddressRouter = require('./routes/Client/partner-address');
@@ -56,6 +57,7 @@ app.use('/api/master', masterRouter);
 app.use('/api/report', reportRouter);
 app.use('/api/partner', partnerRouter);
 app.use('/api/inventory', InventoryRouter);
+app.use('/api/landing-page', landingPageRouter);
 app.use('/api/point-of-sales', pointOfSalesRouter);
 app.use('/api/address-partner', partnerAddressRouter);
 app.use('/api/sales-quotation', salesQuotationRoutes);

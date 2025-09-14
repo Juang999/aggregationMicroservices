@@ -10,6 +10,7 @@ router.get(Client.feature.sales_quotation.sq_location, controller.Client.SalesQu
 router.get(Client.feature.sales_quotation.sq_debt, controller.Client.SalesQuotationController.sumDebtCustomer)
 router.get(Client.feature.sales_quotation.sq_product, controller.Client.SalesQuotationController.getProductForSQ)
 router.get(Client.feature.sales_quotation.sq_price_list, controller.Client.SalesQuotationController.getPriceList)
+router.get(Client.feature.sales_quotation.sq_transfer_issue, controller.Client.SalesQuotationController.getTransferIssue)
 router.get(Client.feature.sales_quotation.sq_sales_quotation, controller.Client.SalesQuotationController.getSalesQuotation)
 router.get(Client.feature.sales_quotation.sq_limit_credit, controller.Client.SalesQuotationController.getLimitCreditCustomer)
 router.post(Client.feature.sales_quotation.sq_create_sales_quotation, [middleware.createSalesQuotationRequest], controller.Client.SalesQuotationController.createSalesQuotation)

@@ -9,20 +9,20 @@ class Route {
                 feature: {
                     visit: {
                         index_and_create: '/visitation',
-                        visitation: '/visitation/:ptnr_id/sales',
-                        visitation_schedule: '/visitation/:visit_code/schedule',
-                        visitation_detail: '/visitation/:visited_oid/detail',
-                        visitation_create_periode: '/visitation/periode',
+                        visitation_type: '/visitation/type',
+                        visitation_visit: '/visitation/visit',
                         visitation_sales: '/visitation/sales',
-                        visitation_checkin: '/visitation/:user_ptnr_id/checkin',
-                        visitation_sales_quotation: '/visitation/:user_ptnr_id/sales-quotation',
-                        visitation_output: '/visitation/:user_ptnr_id/output',
+                        visitation: '/visitation/:ptnr_id/sales',
                         visitation_periode: '/visitation/periode',
+                        visitation_customer: '/visitation/customer',
                         visitation_goal: '/visitation/:userid/goal',
                         visitation_code: '/visitation/:userid/code',
-                        visitation_customer: '/visitation/customer',
-                        visitation_type: '/visitation/type',
-                        visitation_visit: '/visitation/visit'
+                        visitation_create_periode: '/visitation/periode',
+                        visitation_detail: '/visitation/:visited_oid/detail',
+                        visitation_output: '/visitation/:user_ptnr_id/output',
+                        visitation_schedule: '/visitation/:visit_code/schedule',
+                        visitation_checkin: '/visitation/:user_ptnr_id/checkin',
+                        visitation_sales_quotation: '/visitation/:user_ptnr_id/sales-quotation',
                     },
                     SalesQuotation: {
                         index: '/sales-quotation',
@@ -37,13 +37,23 @@ class Route {
             Client: {
                 route_client: '/client',
                 feature: {
+                    report: {
+                        report_so: '/so',
+                        report_history_debt: '/debt',
+                        report_detail_history_debt: '/debt/:ar_oid/detail',
+                        report_detail_shipment: '/so/:so_oid/shipment',
+                    },
                     product: {
                         product_size: '/size', //10
                         product_grade: '/grade', //
+                        product_catalog: '/catalog',
                         product_price_list: '/price', //3
                         product_category: '/category', //7
+                        product_input: '/input-product',
                         product_get_all: '/get-all-product', //11
                         product_by_location: '/product-by-location/', //done
+                        product_catalog_mutifers: '/catalog-mutifers',
+                        product_detail_catalog: '/catalog/:pt_id/detail',
                         product_by_price_list: '/product-by-price-list', //done
                         product_sub_category: '/category/sub_category/:cat_id', //9
                         product_detail_by_location: '/detail-product-by-location/:pt_id/entity/:entity', //done
@@ -59,7 +69,8 @@ class Route {
                         sq_limit_credit: '/get-limit-credit-customer/partnerid/:partnerId', //done
                         sq_product: '/get-product/pricelist/:priceListOid/area/:areaId/location/:locId', //done
                         sq_package: '/package',
-                        sq_detail_package: 'package/:package_oid/detail'
+                        sq_detail_package: 'package/:package_oid/detail',
+                        sq_transfer_issue: '/transfer-issue'
                     },
                     visitation: {
                         visitation_type: '/get-visit-type', //done
@@ -99,12 +110,6 @@ class Route {
                         plans_create: '/create-unplan', //1
                         plans_detail: '/planning/:plans_oid/detail' //2
                     },
-                    report: {
-                        report_so: '/so',
-                        report_history_debt: '/debt',
-                        report_detail_history_debt: '/debt/:ar_oid/detail',
-                        report_detail_shipment: '/so/:so_oid/shipment',
-                    },
                     pointofsales: {
                         pos_product_consigment: '/:warehouse_id/consigment'
                     },
@@ -113,6 +118,11 @@ class Route {
                         invc_detail_transfer_receipt: '/:ptsfr_oid/detail-transfer-receipt',
                         invc_update_transfer_receipt: '/:ptsfr_oid/update-transfer-receipt',
                         invc_product_from_exapro: '/:ptnr_id/exapro'
+                    },
+                    landing_page: {
+                        landing_page_category: '/category',
+                        landing_page_best_seller: '/best-seller',
+                        landing_page_carousel: '/carousel'
                     }
                 }
             },
@@ -141,6 +151,10 @@ class Route {
                         master_contact_person: '/contact_person', //done
                         master_default_periode: '/default-periode', //done
                         master_sales_program: '/sales-program', //done
+                        master_get_material: '/get-material', //done
+                        master_detail_material: '/:ptId/detail-material', //done
+                        master_get_accessories: '/get-accessories', //done
+                        master_detail_accessories: '/:ptId/detail-accessories', //done
                     }
                 }
             }
