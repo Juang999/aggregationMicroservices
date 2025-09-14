@@ -260,6 +260,28 @@ class SalesQuotationController {
         })
     }
 
+    getTransferIssue = (req, res) => {
+        let sqCode = (req.query.sqcode) ? req.query.sqcode : ''
+
+        axios.get(`${ordermicroservice}/order-service/client/sales-quotation/transfer-issue?sqcode=${sqCode}`)
+            .then(result => {
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        data: result.data.data,
+                        error: null
+                    })
+            })
+            .catch(err => {
+                res.status(400)
+                    .json({
+                        status: 'failed',
+                        data: null,
+                        error: err.message
+                    })
+            })
+    }
+
     getImage = async (pt_code) => {
         let photo = await axios.get(`${productknowledgemicroservice}/exapro/${pt_code}/image`)
 
